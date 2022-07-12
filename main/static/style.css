@@ -1,0 +1,51 @@
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+a.navbar-brand{
+  color: rgb(126, 68, 68)!important;
+  font-size: 35px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-style: italic;
+}
+.navbar .nav-item .nav-link,
+.dropdown-menu .dropdown-item {
+  font-size: 28px;
+  font-family: fantasy;
+  color: rgba(255, 255, 255, 0.366);
+}
+.navbar .nav-item .nav-link:hover,
+.dropdown-menu .dropdown-item:hover,
+.navbar .nav-item .nav-link.active,
+.dropdown .dropdown-menu .dropdown-item.active {
+  color: #ffffff;
+}
+.navbar button {
+    background-color: #cacacc5f;
+  }
+ 
+  .navbar {		
+    background: black;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-bottom: 2px solid #fefefe;
+    
+  }
+  .nav-link img {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -8px 0;
+    float: left;
+    margin-right: 10px;
+  }
+.top{
+  margin-top: 260px; 
+}
+.droite{
+  margin-right: 300px!important;  
+}
