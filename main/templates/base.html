@@ -3,6 +3,7 @@
 {% url 'index' as index %}
 {% url 'recherche' as recherche %}
 {% url 'signup' as signup %}
+{% url 'login' as login %}
 
 
 
@@ -30,7 +31,7 @@
                     <li class="nav-item"><a class="nav-link {% if request.path == index %} active {% endif %} me-lg-5" href="{% url 'index' %}">Accueil</a></li>   
                     <li class="nav-item"><a class="nav-link {% if request.path == recherche %} active {% endif %} me-0 me-lg-5" href="#">Partenaire</a></li> 
                     <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">Salle</a></li>                                                         
-                    <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">connection</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.path == connection %} active {% endif %} me-0 me-lg-5" href="login">connection</a></li>
                      
                 </ul>            
             </div>

@@ -1,0 +1,34 @@
+ 
+body{
+    
+    color: beige;
+    background-color: #1d1b1e;
+    background-image: url(couverture.jpg) ; 
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;   
+}
+
+h1{
+    padding-top: 50px;
+}
+.bloc{
+    text-align: center;
+    width: 350px;
+    height: 500px;
+    background: black;
+    border: 1px solid black;                
+}
+.btn{
+    margin-top: 30px;
+    background-color: blue;
+    color: white;
+    border: 1px solid black;
+}    
+.style1{
+    background-color: #cacacc5f;
+    color: white;               
+}  
+.brand{
+    margin-top: 20px;
+}
