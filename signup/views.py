@@ -1,14 +1,15 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from signup.forms import SignupForm
 
 
 def signup(request):
     if request.method == "POST":
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST, request.FILE)         
         if form.is_valid():
-            print(form.cleaned_data)
-            return HttpResponse("Merci de vous êtes inscrit au site.")
+            image = request.FILES['image']
+            form = SignupForm()
+            context = {'form': form, 'image': image}
+            return render(request, 'web_ui/home.html', context)
     else:
         form = SignupForm()
 

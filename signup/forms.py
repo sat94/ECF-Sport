@@ -7,7 +7,7 @@ class SignupForm(forms.Form):
     nom = forms.CharField(max_length=10)
     prenom = forms.CharField(max_length=10)
     adresse = forms.CharField(max_length=200)
-    email = forms.EmailField()
+    email = forms.EmailField(max_length=20)
     photo = forms.ImageField()
     cgu_accept = forms.BooleanField()
 
