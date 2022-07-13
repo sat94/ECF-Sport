@@ -24,6 +24,7 @@ h1{
     background-color: blue;
     color: white;
     border: 1px solid black;
+    
 }    
 .style1{
     background-color: #cacacc5f;
@@ -32,3 +33,6 @@ h1{
 .brand{
     margin-top: 20px;
 }
+.top{
+    margin-top: 260px; 
+  }

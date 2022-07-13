@@ -6,3 +6,38 @@ body{
     background-repeat: no-repeat;
     background-size: cover;   
 }
+h1{
+    padding-top: 20px;
+}
+.bloc{
+    text-align: center;
+    width: 470px;
+    height: auto;
+    background: black;
+    border: 1px solid black;  
+  
+}       
+.btn{
+    margin-top: 18px;
+    background-color: blue;
+    color: white;
+    border: 1px solid black;
+    margin-bottom: 20px;
+} 
+.form{
+     margin-top: 30px;
+}
+.top{
+    margin-top: 120px; 
+  }
+p{
+    font-family: cursive;
+    font-weight: lighter;
+    font-size: 19px;
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+

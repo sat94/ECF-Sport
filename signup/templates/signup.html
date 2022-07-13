@@ -8,5 +8,14 @@
 {% block title %}signup{% endblock title %}
 
 {% block content %}
- <h1>API-SPORT</h1>
+<div class="bloc">
+    <h1>Créer un compte</h1>
+        <form method ="POST">
+            <div class="form"></div>
+                {% csrf_token %}
+                    {{ form.as_p }}
+                <button class="btn" type="submit" value="submit">Valider</button>
+            </div>
+        </form>
+   </div>
 {% endblock %}
