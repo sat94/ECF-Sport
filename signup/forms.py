@@ -1,38 +1,37 @@
 from django import forms
+from accounts.models import MyUser
+from django.contrib.auth.forms import UserCreationForm
 
-
-class SignupForm(forms.Form):
-    pseudo = forms.CharField(max_length=10)
-    password = forms.CharField(min_length=6, widget=forms.PasswordInput())
-    nom = forms.CharField(max_length=10)
-    prenom = forms.CharField(max_length=10)
-    adresse = forms.CharField(max_length=200)
-    email = forms.EmailField(max_length=20)
-    photo = forms.ImageField()
-    cgu_accept = forms.BooleanField()
-
-    def clean_pseudo(self):
-        pseudo = self.cleaned_data.get("pseudo")
-        if "$" in pseudo:
-            raise forms.ValidationError("Le pseudo ne peut pas contenir de lèttres spéciaux")
-        return pseudo
-    
+class SignupForm(UserCreationForm):
+    class Meta:
+        model = MyUser
+        fields = ["username", "abonnement", "nom","prenom", "email", 'adresse', "photo"]
+        labels = {
+            "username": "Nom d'utilisateur",
+            "nom": " Votre nom",
+            "prenom": "Votre prénom",
+            "email" : "Votre mail",            
+        }    
+       
+      
+     
+  
     def clean_nom(self):
         nom = self.cleaned_data.get("nom")
         if "$" in nom:
-            raise forms.ValidationError("Le pseudo ne peut pas contenir de lèttres spéciaux")
+            raise forms.ValidationError("Le Nom est incorrecte")
         return nom
     
     def clean_prenom(self):
         prenom = self.cleaned_data.get("prenom")
         if "$" in prenom:
-            raise forms.ValidationError("Le pseudo ne peut pas contenir de lèttres spéciaux")
+            raise forms.ValidationError("Le prénom est incorrecte")
         return prenom
     
     def clean_adresse(self):
         adresse = self.cleaned_data.get("adresse")
         if "$" in adresse:
-            raise forms.ValidationError("Le pseudo ne peut pas contenir de lèttres spéciaux")
+            raise forms.ValidationError("L'Adresse est incorrecte")
         return adresse
    
 

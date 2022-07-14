@@ -14,30 +14,36 @@ h1{
     width: 470px;
     height: auto;
     background: black;
-    border: 1px solid black;  
-  
+    border: 1px solid black;    
 }       
 .btn{
+    font-family: cursive;
     margin-top: 18px;
-    background-color: blue;
+    padding: 10px;
+    font-size: 20px;
     color: white;
-    border: 1px solid black;
-    margin-bottom: 20px;
+    border: 1px solid rgb(75, 31, 31);
+    margin-bottom: 30px;
 } 
 .form{
      margin-top: 30px;
 }
 .top{
-    margin-top: 120px; 
+    margin-top: 110px; 
   }
 p{
     font-family: cursive;
     font-weight: lighter;
-    font-size: 19px;
+    font-size: 18px;
     position: relative;
     display: flex;
     flex-flow: column wrap;
     align-items: center;
+}
+ul li{
+    color : rgb(237, 94, 101);
+    font-size: 14px;
+    list-style-type: none;
 }
 
 

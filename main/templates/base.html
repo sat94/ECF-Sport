@@ -31,7 +31,19 @@
                     <li class="nav-item"><a class="nav-link {% if request.path == index %} active {% endif %} me-lg-5" href="{% url 'index' %}">Accueil</a></li>   
                     <li class="nav-item"><a class="nav-link {% if request.path == recherche %} active {% endif %} me-0 me-lg-5" href="#">Partenaire</a></li> 
                     <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">Salle</a></li>                                                         
-                    <li class="nav-item"><a class="nav-link {% if request.path == login %} active {% endif %} me-0 me-lg-5" href="{% url 'login' %}">connection</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown me-0 me-lg-5">
+                        <a class="nav-link dropdown-toggle " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ user.username }}</a>                        
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item " href="#">Permission</a></li>
+                          <li><a class="dropdown-item " href="#">Profils</a></li>                                            
+                          <li><a class="dropdown-item " href="{% url 'logout' %}">Déconnection</a></li>
+                        </ul>    
+                        <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">Salle</a></li>                   
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link {% if request.path == signup %} active {% endif %} me-0 me-lg-5" href="{% url 'login' %}">connection</a></li>
+                    {% endif %}
                      
                 </ul>            
             </div>

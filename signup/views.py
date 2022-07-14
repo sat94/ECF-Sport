@@ -1,16 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from signup.forms import SignupForm
 
 
-def signup(request):
-    if request.method == "POST":
-        form = SignupForm(request.POST, request.FILE)         
-        if form.is_valid():
-            image = request.FILES['image']
-            form = SignupForm()
-            context = {'form': form, 'image': image}
-            return render(request, 'web_ui/home.html', context)
-    else:
-        form = SignupForm()
 
-    return render(request, "signup.html", {"form": form})
+
+def signup(request):
+    context = {}
+    if request.method == "POST":
+        form = SignupForm(request.POST, request.FILES)         
+        if form.is_valid():
+            form.save()
+          
+            return redirect('index')
+        else:
+            context["errors"] = form.errors
+    form = SignupForm()
+    context["form"]= form
+
+    return render(request, "signup.html", context= context)

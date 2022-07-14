@@ -19,20 +19,34 @@ h1{
     background: black;
     border: 1px solid black;                
 }
+p{  
+    margin-top: 40px;
+    font-family: cursive;
+    font-weight: lighter;
+    font-size: 18px;
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
 .btn{
-    margin-top: 30px;
+    margin-top: 20px;
     background-color: blue;
     color: white;
     border: 1px solid black;
     
 }    
 .style1{
+    font-family: cursive;
     background-color: #cacacc5f;
     color: white;               
 }  
 .brand{
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .top{
     margin-top: 260px; 
-  }
+}
+input{
+    margin-top: 15px;
+}
