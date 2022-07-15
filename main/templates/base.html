@@ -5,8 +5,6 @@
 {% url 'signup' as signup %}
 {% url 'login' as login %}
 
-
-
 <html lang=fr>
 <head>         
     <meta charset="UTF-8">
@@ -37,21 +35,21 @@
                           {{ user.username }}</a>                        
                         <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                           <li><a class="dropdown-item " href="#">Permission</a></li>
-                          <li><a class="dropdown-item " href="#">Profils</a></li>                                            
+                          <li><a class="dropdown-item " href="{% url 'profils' %}">Profils</a></li>                                            
                           <li><a class="dropdown-item " href="{% url 'logout' %}">Déconnection</a></li>
                         </ul>    
                         <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4" height="175" font-size="56" alt="logo_api"></a></li>                   
                     {% else %}
                         <li class="nav-item"><a class="nav-link {% if request.path == signup %} active {% endif %} me-0 me-lg-5" href="{% url 'login' %}">connection</a></li>
-                    {% endif %}
-                     
+                    {% endif %}                     
                 </ul>            
             </div>
         </div>
-    </nav>   
+    </nav>       
 <div class="container mt-6">
     <div class="top">   
 {% block content %}{% endblock content %}
     </div>
+</div>
 {% block footer%}{% endblock footer %}
 </body>
