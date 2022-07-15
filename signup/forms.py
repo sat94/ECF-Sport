@@ -1,3 +1,6 @@
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_text
+from django.template.loader import render_to_string
 from django import forms
 from accounts.models import MyUser
 from django.contrib.auth.forms import UserCreationForm

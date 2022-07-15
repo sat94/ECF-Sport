@@ -12,12 +12,12 @@
     <h1>Créer un compte</h1>
         <form method ="POST" enctype="multipart/form-data">
             <div class="form"></div>
-                {% csrf_token %}              
-                {{ form.as_p }}
+                {% csrf_token %}   
                 {% for error, message in errors.items %}
                 <h5 style="color: red;"
                 {{ message }}
-                {% endfor %}
+                {% endfor %}           
+                {{ form.as_p }}
                 <button class="btn bg-primary" type="submit" value="submit" >Valider</button>
             </div>
         </form>

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 
+
 def login(request):    
     return render(request, "login.html")
 
@@ -11,8 +12,7 @@ def login_user(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return redirect('index')
-        
+            return redirect('index')        
     
 
 def logout_user(request):

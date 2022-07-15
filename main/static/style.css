@@ -27,20 +27,17 @@ a.navbar-brand{
 .navbar button {
     background-color: #cacacc5f;
   }
- 
-  .navbar {		
+.navbar {		
     background: black;
     padding-left: 16px;
     padding-right: 16px;
-    border-bottom: 2px solid #fefefe;
-    
+    border-bottom: 2px solid #fefefe;    
   }
-  .nav-link img {
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
+.nav-link img {
+    width: 66px;
+    height: 66px;
     margin: -8px 0;
-    float: left;
+    
     margin-right: 10px;
   }
 .droite{

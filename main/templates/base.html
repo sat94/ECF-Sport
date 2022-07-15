@@ -40,7 +40,7 @@
                           <li><a class="dropdown-item " href="#">Profils</a></li>                                            
                           <li><a class="dropdown-item " href="{% url 'logout' %}">Déconnection</a></li>
                         </ul>    
-                        <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">Salle</a></li>                   
+                        <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4" height="175" font-size="56" alt="logo_api"></a></li>                   
                     {% else %}
                         <li class="nav-item"><a class="nav-link {% if request.path == signup %} active {% endif %} me-0 me-lg-5" href="{% url 'login' %}">connection</a></li>
                     {% endif %}
