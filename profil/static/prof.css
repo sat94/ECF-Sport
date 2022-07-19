@@ -1,19 +1,69 @@
-h1{
-    font-family: Playfair Display;       
-    display: inline-flex;
-    margin-top: 100px;
-    letter-spacing: 10px;
-    font-size: 120px;
-    font-style: italic
-} 
 body{
     color: beige;
     background-color: #1d1b1e;
-    background-image: url(homme.jpg) ; 
-    background-attachment: fixed;
+    background-image: url(homme.jpg) ;    
     background-repeat: no-repeat;
     background-size: cover;   
 }
 .top{
-    margin-top: 260px; 
+    margin-top: 260px;     
   }
+.bloc{
+    background-color: black;
+    padding: 20px;
+    font-family: cursive;
+    font-size: 18PX;
+}
+.float {
+    height: 270px;
+    width: 220px;
+    object-fit: cover;    
+  }
+.tech {
+    align-items: center;
+    overflow: hidden;
+    border-radius: 0.6rem;
+  }
+.container{
+    font-family: cursive;
+    width: 1000px;
+    margin-left: 100px;
+}
+#button{
+    margin-top: 160px;
+}
+.suffit{
+    color: rgb(204, 209, 51)!important;
+}
+input[type="checkbox"]{
+    position: relative;
+    width: 40px;
+    height: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(74, 76, 75, 0.525);
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(240, 234, 234, 0.951);
+    transition: .5s; 
+}
+input:checked[type="checkbox"]{
+    background: green
+}
+input[type="checkbox"]:after{
+    content:'';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 20px;
+    top: 0;
+    left: 0;
+    background: beige;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0,.2);
+    transition: .5s;
+}
+input:checked[type="checkbox"]::after
+{
+    left: 20px
+} 

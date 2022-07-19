@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'partner.css' %}"> 
+{% endblock head %}
+
+{% block title %}partenaire{% endblock title %}
+
+
+{% block content %}
+ <p> nom : {{partenaire.nom}}</p>
+
+
+
+{% endblock content %}

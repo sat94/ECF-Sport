@@ -11,9 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-import django
-from django.utils.encoding import force_str
-django.utils.encoding.force_text = force_str
+
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -47,8 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'profil'
+    'partner.apps.PartnerConfig', 
+    'accounts.apps.AccountsConfig',
+    'profil.apps.ProfilConfig',
+       
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 {% load static%}
 {% url 'index' as index %}
-{% url 'recherche' as recherche %}
-{% url 'signup' as signup %}
-{% url 'login' as login %}
+{% url 'partenaire' as partenaire %}
+{% url 'profils' as profils %}
+
+
 
 <html lang=fr>
 <head>         
@@ -27,18 +28,18 @@
           <div class="collapse navbar-collapse" id="navbarNav">         
                 <ul class="navbar-nav text-center ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link {% if request.path == index %} active {% endif %} me-lg-5" href="{% url 'index' %}">Accueil</a></li>   
-                    <li class="nav-item"><a class="nav-link {% if request.path == recherche %} active {% endif %} me-0 me-lg-5" href="#">Partenaire</a></li> 
+                    <li class="nav-item"><a class="nav-link {% if request.path == partenaire %} active {% endif %} me-0 me-lg-5" href="{% url 'partenaire' %}">Partenaire</a></li> 
                     <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">Salle</a></li>                                                         
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown me-0 me-lg-5">
                         <a class="nav-link dropdown-toggle " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          {{ user.username }}</a>                        
+                          {{ user.nom }}</a>                        
                         <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                           <li><a class="dropdown-item " href="#">Permission</a></li>
                           <li><a class="dropdown-item " href="{% url 'profils' %}">Profils</a></li>                                            
                           <li><a class="dropdown-item " href="{% url 'logout' %}">Déconnection</a></li>
                         </ul>    
-                        <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4" height="175" font-size="56" alt="logo_api"></a></li>                   
+                        <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li>                   
                     {% else %}
                         <li class="nav-item"><a class="nav-link {% if request.path == signup %} active {% endif %} me-0 me-lg-5" href="{% url 'login' %}">connection</a></li>
                     {% endif %}                     
