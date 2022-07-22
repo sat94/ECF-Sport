@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'partner.css' %}"> 
+{% endblock head %}
+
+{% block title %}creation partenaire{% endblock title %}
+
+
+{% block content %}
+<form method ="POST" enctype="multipart/form-data">
+<div class="form">
+    {% csrf_token %}   
+    {% for error, message in errors.items %}
+    <h5 style="color: red;"
+    {{ message }}
+    {% endfor %}           
+    {{ form.as_p }}
+    <button class="btn bg-primary" type="submit" value="submit" >Valider</button>            
+</div>
+</form>
+
+
+{% endblock content %}

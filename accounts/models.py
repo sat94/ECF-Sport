@@ -1,20 +1,23 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
+from django.core.validators import RegexValidator
 
 
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None):
         if not username:
-            raise ValueError("Vous devez entrer un mail valide") 
-        email = self.normalize_email(email)      
+            raise ValueError("Vous devez entrer un nom d'utilisateur") 
+        email = self.normalize_email(email) 
+        username = self.model.normalize_username(username)     
         user = self.model(username=username, email=email, password=password)
         user.set_password(password)
         user.save()
         return user
             
-    def create_superuser(self, username,  email=None, password=None):
+    def create_superuser(self, username, email=None, password=None):
         email = self.normalize_email(email)
+        username = self.model.normalize_username(username)  
         user = self.create_user(username=username, email=email,  password=password)
         user.is_admin = True
         user.is_staff = True
@@ -22,16 +25,17 @@ class MyUserManager(BaseUserManager):
         return user
 
 class MyUser(AbstractBaseUser):
-    username = models.CharField(max_length=20, unique=True)
-    entreprise = models.OneToOneField('accounts.structure', max_length=20, on_delete=models.SET_NULL,null=True)
+    username = models.CharField(unique=True, max_length=50)
+    slug = models.SlugField(max_length=100)
+    entreprise = models.OneToOneField('accounts.structure', max_length=20, on_delete=models.SET_NULL,null=True, blank=True)
     nom = models.CharField(max_length=20)      
     prenom = models.CharField(max_length=20)
     email = models.EmailField(max_length=30, blank=False)
     photo = models.ImageField(upload_to='photo', null=True, blank=True)
     adresse = models.CharField(max_length=200)
-    CodePostal = models.IntegerField(default=0)
-    partenaire = models.OneToOneField('accounts.partenaire', max_length=20, on_delete=models.SET_NULL,null=True)
-    ville = models.CharField(max_length=20, default=0)
+    CodePostal = models.IntegerField(null=True, blank=True)
+    partenaire = models.OneToOneField('accounts.partenaire', max_length=20, on_delete=models.SET_NULL,null=True, blank=True)
+    ville = models.CharField(max_length=20)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -60,21 +64,30 @@ ville =  [('Paris', 'Paris'),
           ('Bordeaux', 'Bordeaux'),
           ('Nice', 'Nice'),
           ('Lille', 'Lille'),
-          ('Marsielle', 'Marseille'),
+          ('Marseille', 'Marseille'),
           ('Montpellier', 'Montpellier'),
           ('Brest', 'Brest'),
           ('Lyon', 'Lyon'),
           ('Strabourg', 'Strabourg'),
-          ('Nantes', 'Nantes'),          
+          ('Nantes', 'Nantes'),  
+          ('Toulouse', 'Toulouse'),
+          ('Nîmes', 'Nîmes'),    
+          ('Rennes', 'Renne'),
+          ('Angers', 'Angers'), 
+          ('Limoges', 'Limoges'), 
+          ('Tours', 'Tours'), 
           ]
 
 class structure(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.SET_NULL,null=True)
+    slug = models.SlugField(max_length=100)
+    part = models.OneToOneField('accounts.partenaire', on_delete=models.SET_NULL, null=True, blank=True)
     nom = models.CharField(max_length=20)
-    adresse = models.CharField(max_length=200)
+    adresse = models.CharField(max_length=200, default=0)
     photo = models.ImageField(upload_to='salle', null=True, blank=True)
     option = models.CharField ( choices = option, max_length=10, default='option 1')
-    numberPhone = models.IntegerField()
+    phone = RegexValidator(regex = r"^\+?1?\d{8,15}$")
+    numberPhone = models.CharField(validators = [phone], max_length = 16, unique = True)
     piscine = models.BooleanField(default=False)
     haman = models.BooleanField(default=False)
     sauna = models.BooleanField(default=False)
@@ -84,11 +97,15 @@ class structure(models.Model):
     
 
 class partenaire(models.Model):
-    salle = models.OneToOneField(structure, on_delete = models.CASCADE)
+    salle = models.ForeignKey(structure, on_delete = models.SET_NULL, null=True, blank=True)
     ville = models.CharField(choices = ville, max_length=15, default="Paris")
-    email = models.EmailField ( max_length=25)
-    numberPhone = models.IntegerField()
-    numberThec  = models.IntegerField()
+    email = models.EmailField ( max_length=25, null=False)
+    description = models.CharField(max_length=200)
+    phone = RegexValidator(regex = r"^\+?1?\d{8,15}$")
+    numberPhone = models.CharField(validators = [phone], max_length = 16)
+    photo = models.ImageField(upload_to='ville', null=True, blank=True)
+    slug = models.SlugField(max_length=100)
+   
 
     def __str__(self):
         return self.ville

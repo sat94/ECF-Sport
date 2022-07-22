@@ -8,8 +8,10 @@
 {% block title %}profils{% endblock title %}
 
 {% block content %}
-    <div class ="row">
-        <div class="suffit col-2 col-md-3 col-lg-3 px-3 mt-3">
+<div class="container md-6">
+    <div class="top"> 
+        <div class ="row">
+            <div class="suffit col-2 col-md-3 col-lg-3 px-3 mt-3">
             <p> Nom :</P>
             <p> Prénom:</P>
             <p> Adresse:</P>
@@ -17,8 +19,8 @@
             <p> Code Postal: </P>
             <p> Structure: </P>
             <p> Partenaire: <p>
-        </div>
-        <div class="col-2 col-md-3 col-lg-3 px-3 mt-2">
+            </div>
+            <div class="col-2 col-md-3 col-lg-3 px-3 mt-2">
             <p>{{user.nom}}</P>
             <p>{{user.prenom}} </P>
             <p>{{user.adresse}}</P>
@@ -26,14 +28,18 @@
             <p>{{user.CodePostal}}</P>                         
             <p>{{user.entreprise}}</P>
             <P>{{user.partenaire}}</p>
-        </div>
-        <div class="col-12 col-md-12 col-lg-3 px-3 mt-3">
-            <div class="tech">
-            <img src={{ user.photo.url }} class="rounded-3 img-fluid float"  alt={{ user.photo.url }}>
             </div>
-        </div>
-    </div> 
-</div>
+            <div class="col-12 col-md-12 col-lg-3 px-3 mt-3">
+            <div class="tech">
+            {% if user.is_authenticated and user.photo.url %} 
+            <img src={{ user.photo.url }} class="rounded-3 img-fluid float"  alt={{ user.photo.url }}>
+            {% else %}
+            <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+            {% endif %}
+            </div>
+            </div>
+        </div> 
+    </div>
     <div class ="row-3">
         <div class="col-3">
         <a href="#" class="btn btn-dark btn-lg disabled" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le profils</a>

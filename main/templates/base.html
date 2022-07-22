@@ -19,6 +19,7 @@
     <title>Api Sport - {% block title%}{% endblock %} </title>
 </head>
 <body>
+<div class="row">
     <nav class="navbar navbar-light navbar-expand-lg fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'logo.png' %}" class="navbar-brand ms-1 ms-md-4" height="75" font-size="56" alt="logo_api">API SPORT</a>
@@ -28,8 +29,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">         
                 <ul class="navbar-nav text-center ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link {% if request.path == index %} active {% endif %} me-lg-5" href="{% url 'index' %}">Accueil</a></li>   
-                    <li class="nav-item"><a class="nav-link {% if request.path == partenaire %} active {% endif %} me-0 me-lg-5" href="{% url 'partenaire' %}">Partenaire</a></li> 
-                    <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">Salle</a></li>                                                         
+                    <li class="nav-item"><a class="nav-link {% if request.path == partenaire %} active {% endif %} me-0 me-lg-5" href="{% url 'Partenaire' %}">Partenaire</a></li>                                                                        
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown me-0 me-lg-5">
                         <a class="nav-link dropdown-toggle " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,17 +38,25 @@
                           <li><a class="dropdown-item " href="#">Permission</a></li>
                           <li><a class="dropdown-item " href="{% url 'profils' %}">Profils</a></li>                                            
                           <li><a class="dropdown-item " href="{% url 'logout' %}">Déconnection</a></li>
-                        </ul>    
-                        <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li>                   
+                        </ul>                                                      
                     {% else %}
                         <li class="nav-item"><a class="nav-link {% if request.path == signup %} active {% endif %} me-0 me-lg-5" href="{% url 'login' %}">connection</a></li>
-                    {% endif %}                     
-                </ul>            
+                    {% endif %}   
+                    {% if user.is_authenticated and user.photo.url %}  
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li> 
+                    {% else %}  
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{% static 'inconnu.jpg' %}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li>  
+                    {% endif %} 
+                    </ul>
+                    <form method="get" class="d-flex ml-3" action="{% url 'recherche' %}">
+                        <input placeholder="Rechercher" class="form-control me-2" type="searh" name="searh"></input>
+                        <button class="btn btn-outline-success " type="submit">Rechercher</button>
+                    </form>         
+                 
             </div>
         </div>
     </nav>       
-<div class="container mt-6">
-    <div class="top">   
+</div>
 {% block content %}{% endblock content %}
     </div>
 </div>
