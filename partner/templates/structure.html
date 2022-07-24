@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'partner.css' %}"> 
+{% endblock head %}
+
+{% block title %}structure{% endblock title %}
+
+
+{% block content %}
+<div class="top">
+<div class="row">
+{% for structure in structures %}
+        <div class ="col-md-3 carte">
+            <div class="card card-sm" style="width: 20rem;">
+                <div class="style-dance">
+                <img src="{{ structure.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ structure.photo.url }}">               
+                </div>               
+                <div class="card-body text-center">
+                    <h3 class="card-title">{{ structure.nom }}</h3><br>
+                    <p class="card-text">{{ structure.adresse }}</p>
+                    <p class="card-text">Partenaire : {{ structure.part }}</p>
+                    <p class="card-text">Nom : {{ structure.user.nom }}</p>
+                    <p> Telephone : {{ structure.numberPhone }} </P>
+                    <a href="#" class="btn btn-dark">Staff</a>
+                    <a href="#" class="btn btn-dark">Option</a>
+                </div>
+            </div>            
+        </div>    
+{% endfor %}
+    </div>
+</div>
+<nav class="pagi">
+    <ul class="pagination justify-content-center">        
+        {% if structure.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ structure.previous_page_number }}">
+                   <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        <li class='page-item'><p class="page-link">Page {{ structure.number }} sur {{ structure.paginator.num_pages }}</p></li>
+        {% if structure.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ structure.next_page_number }}">
+               <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+    {% endif %}
+{% endblock content %}

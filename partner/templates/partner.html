@@ -11,7 +11,7 @@
 {% block content %}
 <div class="top">
 <div class="row">
-{% for partenaire in partenaires%}
+{% for partenaire in partenaires %}
         <div class ="col-md-3 carte">
             <div class="card card-sm" style="width: 20rem;">
                 <div class="style-dance">
@@ -22,7 +22,9 @@
                     <p class="card-text">{{ partenaire.description }}</p>
                     <p class="card-text">{{ partenaire.email }}</p>
                     <p> Telephone : {{ partenaire.numberPhone }} </P>
-                    <a href="#" class="btn btn-dark">Ses structures</a>
+                    <a href="{% url 'structure' slug=partenaire.ville %}" class="btn btn-dark">Ses structures</a>
+                    
+                    
                 </div>
             </div>            
         </div>    

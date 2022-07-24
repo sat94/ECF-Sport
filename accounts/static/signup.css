@@ -14,7 +14,8 @@ h1{
     width: 470px;
     height: auto;
     background: black;
-    border: 1px solid black;    
+    margin-top: 150px;  
+    margin-left: 100px;
 }       
 .btn{
     font-family: cursive;
@@ -28,9 +29,6 @@ h1{
 .form{
      margin-top: 30px;
 }
-.top{
-    margin-top: 110px; 
-  }
 p{
     font-family: cursive;
     font-weight: lighter;

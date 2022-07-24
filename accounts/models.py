@@ -79,9 +79,9 @@ ville =  [('Paris', 'Paris'),
           ]
 
 class structure(models.Model):
-    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL,null=True)
+    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL,null=True, blank=True)
     slug = models.SlugField(max_length=100)
-    part = models.OneToOneField('accounts.partenaire', on_delete=models.SET_NULL, null=True, blank=True)
+    part = models.ForeignKey('accounts.partenaire', on_delete=models.SET_NULL, null=True, blank=True)
     nom = models.CharField(max_length=20)
     adresse = models.CharField(max_length=200, default=0)
     photo = models.ImageField(upload_to='salle', null=True, blank=True)

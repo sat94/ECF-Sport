@@ -1,5 +1,6 @@
-from django.shortcuts import redirect, render
-from accounts.models import partenaire
+from django.shortcuts import get_object_or_404, redirect, render
+from pytest import param
+from accounts.models import partenaire, structure, MyUser
 from partner.forms import starter
 from django.core.paginator import Paginator
 
@@ -10,8 +11,29 @@ def Partenaire(request, *arg, **kwargs):
     pagebjet = paginator.get_page(page)
     context= {
         "partenaires" : pagebjet,
+        
     }
     return render(request, "partner.html",context)
+
+def slug():
+    model = partenaire
+    slug = model.slug
+    return slug
+
+
+def Structure(request, slug):
+    structures = structure.objects.filter(slug__iexact= slug)
+    post = structures
+    paginator = Paginator(structures, 3)
+    page = request.GET.get('page')
+    pagebjets = paginator.get_page(page)   
+    context= {
+        "structures" : pagebjets,
+        "post" : post,
+    }
+    return render(request, "structure.html",context)
+
+
 
 
 def start(request):
@@ -28,6 +50,5 @@ def start(request):
 
     return render(request, "start.html", context= context)
 
-def recherche(request):
-     return render(request, 'recherche.html')
+
     

@@ -10,17 +10,15 @@
 {% block content %}
 <div class="bloc">
     <h1>Créer un compte</h1>
-        <form method ="POST" enctype="multipart/form-data">
-            <div class="form">
+    <form method ="POST" enctype="multipart/form-data">
+        <div class="form">
                 {% csrf_token %}   
                 {% for error, message in errors.items %}
-                <h5 style="color: red;"
-                {{ message }}
+                <h5 style="color: red;">{{ message }}</h5>
                 {% endfor %}           
                 {{ form.as_p }}
                 <button class="btn bg-primary" type="submit" value="submit" >Valider</button>            
-            </div>
-        </form>
-
-       </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

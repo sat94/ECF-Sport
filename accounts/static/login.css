@@ -1,6 +1,5 @@
  
 body{
-    
     color: beige;
     background-color: #1d1b1e;
     background-image: url(couverture.jpg) ; 
@@ -17,7 +16,9 @@ h1{
     width: 380px;
     height: auto;
     background: black;
-    border: 1px solid black;                
+    border: 1px solid black; 
+    margin-top: 260px; 
+    margin-left: 150px;               
 }
 p{  
     margin-top: 40px;
@@ -36,21 +37,8 @@ p{
     border: 1px solid black;
     margin-bottom: 60px;    
 }    
-.style1{
-    font-family: cursive;
-    background-color: #cacacc5f;
-    color: white;  
-}
-.brand{
-    margin-top: 10px;
-    margin-bottom: 30px;
-}
-.top{
-    margin-top: 260px; 
-}
-input{
-    margin-top: 15px;
-}
+
+
 ul li{
     color : rgb(237, 94, 101);
     font-size: 14px;
