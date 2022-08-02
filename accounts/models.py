@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Group
 from django.db import models
 from django.core.validators import RegexValidator
 
@@ -26,7 +26,6 @@ class MyUserManager(BaseUserManager):
 
 class MyUser(AbstractBaseUser):
     username = models.CharField(unique=True, max_length=50)
-    slug = models.SlugField(max_length=100)
     entreprise = models.OneToOneField('accounts.structure', max_length=20, on_delete=models.SET_NULL,null=True, blank=True)
     nom = models.CharField(max_length=20)      
     prenom = models.CharField(max_length=20)
@@ -39,7 +38,7 @@ class MyUser(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
- 
+    Groupe = models.ManyToManyField(Group)
 
     
     USERNAME_FIELD = "username"
@@ -55,11 +54,6 @@ class MyUser(AbstractBaseUser):
         # Simplest possible answer: Yes, always
         return True
 
-option = [('1', 'Option 1'),
-          ('2', 'Option 2'),
-          ('3', 'Option 3'),
-          ]
-
 ville =  [('Paris', 'Paris'),
           ('Bordeaux', 'Bordeaux'),
           ('Nice', 'Nice'),
@@ -68,7 +62,7 @@ ville =  [('Paris', 'Paris'),
           ('Montpellier', 'Montpellier'),
           ('Brest', 'Brest'),
           ('Lyon', 'Lyon'),
-          ('Strabourg', 'Strabourg'),
+          ('Strasbourg', 'Strasbourg'),
           ('Nantes', 'Nantes'),  
           ('Toulouse', 'Toulouse'),
           ('Nîmes', 'Nîmes'),    
@@ -78,58 +72,55 @@ ville =  [('Paris', 'Paris'),
           ('Tours', 'Tours'), 
           ]
 
+
 class structure(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.SET_NULL,null=True, blank=True)
-    slug = models.SlugField(max_length=100)
+    actif = models.BooleanField(default=True)
+    slug = models.SlugField(max_length=50)
     part = models.ForeignKey('accounts.partenaire', on_delete=models.SET_NULL, null=True, blank=True)
     nom = models.CharField(max_length=20)
-    adresse = models.CharField(max_length=200, default=0)
+    adresse = models.CharField(max_length=200)
     photo = models.ImageField(upload_to='salle', null=True, blank=True)
-    option = models.CharField ( choices = option, max_length=10, default='option 1')
     phone = RegexValidator(regex = r"^\+?1?\d{8,15}$")
     numberPhone = models.CharField(validators = [phone], max_length = 16, unique = True)
     piscine = models.BooleanField(default=False)
     haman = models.BooleanField(default=False)
-    sauna = models.BooleanField(default=False)
+    sauna = models.BooleanField(default=False)  
+    membre=models.IntegerField(default=0)
+    bails = models.BooleanField(default=False)
+    fourni = models.BooleanField(default=False) 
+    banque = models.BooleanField(default=False) 
+    compta = models.BooleanField(default=False)
+    assistance = models.BooleanField(default=False) 
+    kine = models.BooleanField(default=False) 
+    Accompagne = models.BooleanField(default=False) 
+    coach = models.BooleanField(default=False) 
+    promotion = models.BooleanField(default=False) 
+    bar = models.BooleanField(default=False) 
+    planing = models.BooleanField(default=False) 
+    mailing = models.BooleanField(default=False) 
+    member = models.BooleanField(default=False) 
+    entretiens = models.BooleanField(default=False) 
 
+ 
     def __str__(self):
         return self.nom
-    
+
+
+   
 
 class partenaire(models.Model):
     salle = models.ForeignKey(structure, on_delete = models.SET_NULL, null=True, blank=True)
+    actif = models.BooleanField(default=True)
     ville = models.CharField(choices = ville, max_length=15, default="Paris")
     email = models.EmailField ( max_length=25, null=False)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=70)
     phone = RegexValidator(regex = r"^\+?1?\d{8,15}$")
     numberPhone = models.CharField(validators = [phone], max_length = 16)
-    photo = models.ImageField(upload_to='ville', null=True, blank=True)
-    slug = models.SlugField(max_length=100)
-   
+    photo = models.ImageField(upload_to='ville', null=True, blank=True) 
 
     def __str__(self):
         return self.ville
 
-class option1(models.Model):
-    bail = models.BooleanField()
-    fournisseur = models.BooleanField()
-    banque = models.BooleanField()
-    chiffre = models.BooleanField()
-    assistance = models.BooleanField()
-   
 
-class option2(models.Model):
-    kine = models.BooleanField(default=False)
-    Accompagne = models.BooleanField(default=False)
-    coach = models.BooleanField(default=False)
-    promotion = models.BooleanField(default=False)
-    planing = models.BooleanField(default=False)
-
-
-class option3(models.Model):
-    bar = models.BooleanField(default=False)
-    mailing = models.BooleanField(default=False)
-    piscine = models.BooleanField(default=False)
-    member = models.BooleanField(default=False)
-    entretiens = models.BooleanField(default=False)
    

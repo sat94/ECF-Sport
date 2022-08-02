@@ -18,32 +18,33 @@
                 <img src="{{ partenaire.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ partenaire.photo.url }}">
                 </div>
                 <div class="card-body text-center">
-                    <h3 class="card-title">API-Sport-{{ partenaire.ville }}</h3><br>
+                    <h3 class="card-title">API-{{ partenaire.ville }}</h3><br>
                     <p class="card-text">{{ partenaire.description }}</p>
                     <p class="card-text">{{ partenaire.email }}</p>
                     <p> Telephone : {{ partenaire.numberPhone }} </P>
-                    <a href="{% url 'structure' slug=partenaire.ville %}" class="btn btn-dark">Ses structures</a>
-                    
-                    
+                    <a  hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'structure' slug=partenaire.ville %}" class="btn btn-dark">Ses structures</a>
+                                  
                 </div>
             </div>            
         </div>    
 {% endfor %}
     </div>
 </div>
-<nav class="pagi">
+<nav id="boucle">
     <ul class="pagination justify-content-center">        
         {% if partenaires.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ partenaires.previous_page_number }}">
+                <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#page" hx-get="{% url 'partenaire' %}?page={{ partenaires.previous_page_number }}">
                    <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
         {% endif %}
-        <li class='page-item'><p class="page-link">Page {{ partenaires.number }} sur {{ partenaires.paginator.num_pages }}</p></li>
+        {% if partenaires.paginator.num_pages > 1 %}
+        <li class='page-item'><p class="page-link" >Page {{ partenaires.number }} sur {{ partenaires.paginator.num_pages }}</p></li>
+        {% endif %}
         {% if partenaires.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ partenaires.next_page_number }}">
+            <a class="page-link" hx-swap="outerHTML" hx-push-url="true" hx-target="#page" hx-get="{% url 'partenaire' %}?page={{ partenaires.next_page_number }}">
                <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

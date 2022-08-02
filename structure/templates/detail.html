@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'structure.css' %}"> 
+{% endblock head %}
+
+{% block title %}detail{% endblock title %}
+
+{% block content %}
+<div class="top">   
+    <div class="row">
+        <div class="suffit col-2">   
+            <p> Nom :</P>
+            <p> Responsable : </p>
+            <p> Adresse :</P></br>
+            <p> Partenaire :</P>
+            <p> Membres :</P>
+            <P> Haman : </p>
+            <p> Sauna : </p>
+            <p> Piscine : </p>
+            <p> Numeros : </P>
+            <p> Actif :</p>
+        </div>
+        <div class="col-2">
+            <p>{{structure.nom}}</P>
+            <p><a  hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'responsable' structure.pk %}" class="nom">{{structure.user.nom}}</a></p>
+            <p>{{structure.adresse}} </P></br>
+            <p>{{structure.part}}</P>
+            <p>{{structure.membre}}</p>
+
+            {% if structure.haman %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.sauna %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.piscine %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}  
+
+            <p>{{structure.numberPhone}}</P>
+
+            {% if structure.actif %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}      
+
+        </div>
+        <div class="col-4">
+            <div class="tech">
+            {% if structure.photo.url %} 
+            <img src={{ structure.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.photo.url }}>
+            {% else %}
+            <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+            {% endif %}
+            </div>
+        </div>
+        <div class="col-3">   
+            <p class="point"> Location du partenaire :</P>
+            <p class="point"> Service fournisseur:</P>
+            <p class="point"> Tarif banquaire :</P>
+            <P class="point"> Comptable partenaire : </p>
+            <p class="point"> Assistance cormercial: </p>
+            <p class="point"> Location d'un kiné partenaire: </P>
+            <p class="point"> Service Commercial partenaire:</p>  
+            <p class="point"> Location de coach partenaire : </p>
+            <p class="point"> Gestion de service de promotion:</p>
+            <p class="point"> Gestion du bar :</p>   
+            <p class="point"> Gestion de planing :</p>   
+            <p class="point"> Service de mailing automatisé :</p>   
+            <p class="point"> Service Informatique Membre :</p>   
+            <p class="point"> Service Entretiens :</p>   
+                
+        </div>
+        <div class="col-1">
+            {% if structure.bails %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.fourni %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.banque %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.compta %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+            
+            {% if structure.assistance %}                       
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.kine %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+            
+            {% if structure.Accompagne %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+            
+            {% if structure.coach %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.promotion %}</label>
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+            
+            {% if structure.bar %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.planing %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.mailing %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.member %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+            {% if structure.entretiens %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+
+        </div> 
+    </div>  
+    <div class ="row">
+        <div class="col-12">            
+        <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Appliquez les changements</a>
+        <a  hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</a>
+    </div>    
+ </div>
+{% endblock content %}

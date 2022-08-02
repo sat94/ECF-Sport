@@ -8,12 +8,13 @@
 {% block title %}profils{% endblock title %}
 
 {% block content %}
-<div class="container md-6">
+<div class="container md-6" >
     <div class="top"> 
         <div class ="row">
             <div class="suffit col-2 col-md-3 col-lg-3 px-3 mt-3">
             <p> Nom :</P>
             <p> Prénom:</P>
+            <p> Email : </p>
             <p> Adresse:</P>
             <p> Ville: </P>
             <p> Code Postal: </P>
@@ -23,6 +24,7 @@
             <div class="col-2 col-md-3 col-lg-3 px-3 mt-2">
             <p>{{user.nom}}</P>
             <p>{{user.prenom}} </P>
+            <P>{{user.email}}
             <p>{{user.adresse}}</P>
             <p>{{user.ville}}</P>
             <p>{{user.CodePostal}}</P>                         
@@ -45,4 +47,5 @@
         <a href="#" class="btn btn-dark btn-lg disabled" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le profils</a>
     </div> 
 </div>
+
 {% endblock %}
