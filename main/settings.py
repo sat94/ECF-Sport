@@ -9,13 +9,23 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
 import os
 from pathlib import Path
 
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'amontura39@gmail.com'
+EMAIL_HOST_PASSWORD = 'kdtxtxzergiilcyc'
+EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_mail'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -32,14 +42,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'partner', 
     'accounts',
-    'signup',
+    'profil',   
+    'structure', 
+    'ajouter',   
 ]
 
 MIDDLEWARE = [
@@ -124,6 +140,11 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = "accounts.MyUser"
+
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

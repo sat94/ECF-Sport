@@ -1,0 +1,37 @@
+body{
+    color: beige;   
+    background-color: #1d1b1e;
+    background-image: url(homme.jpg);   
+    background-repeat: no-repeat;
+    background-size: cover;   
+}
+.top{
+    margin-top: 260px;     
+  }
+.bloc{
+    background-color: black;
+    padding: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18PX;
+}
+.float {
+    height: 270px;
+    width: 220px;
+    object-fit: cover;    
+  }
+.tech {
+    align-items: center;
+    overflow: hidden;
+    border-radius: 0.6rem;
+  }
+.container{
+    font-family: 'Times New Roman', Times, serif;
+    width: 1000px;
+    margin-left: 100px;
+}
+#button{
+    margin-top: 160px;
+}
+.suffit{
+    color: #00ff1A!important;
+}

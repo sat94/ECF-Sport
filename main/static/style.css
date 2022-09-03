@@ -3,46 +3,58 @@
 ::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  
+  box-sizing: border-box;  
 }
+
 a.navbar-brand{
-  color: rgb(126, 68, 68)!important;
+  color: #00ff1A!important;
   font-size: 35px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-style: italic;
 }
+
 .navbar .nav-item .nav-link,
 .dropdown-menu .dropdown-item {
   font-size: 28px;
   font-family: fantasy;
-  color: rgba(255, 255, 255, 0.366);
+  color: rgba(255, 255, 255, 0.644);
 }
+
 .navbar .nav-item .nav-link:hover,
 .dropdown-menu .dropdown-item:hover,
 .navbar .nav-item .nav-link.active,
 .dropdown .dropdown-menu .dropdown-item.active {
-  color: #ffffff;
+  color: #00ff1A;
+  background-color: black;
 }
+
 .navbar button {
-    background-color: #cacacc5f;
-  }
- 
-  .navbar {		
+    background-color: #ffffff5f;
+}
+
+.navbar {		
     background: black;
     padding-left: 16px;
     padding-right: 16px;
-    border-bottom: 2px solid #fefefe;
-    
-  }
-  .nav-link img {
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    margin: -8px 0;
-    float: left;
+    border-bottom: 2px solid #ffffffff;    
+}
+
+.nav-link img {
+    width: 66px;
+    height: 66px;
+    margin: -8px 0;    
     margin-right: 10px;
-  }
+}
+
 .droite{
   margin-right: 300px!important;  
+}
+.btnl{
+  color: white;
+  border: 1px solid #00ff1A;
+  transition: .3s ease-in-out;
+}
+.btnl:hover{
+  color: #00ff1A;
+  background-color: black;
 }

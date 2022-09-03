@@ -1,13 +1,13 @@
 h1{
-    font-family: Playfair Display;       
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;       
     display: inline-flex;
     margin-top: 100px;
     letter-spacing: 10px;
     font-size: 120px;
-    font-style: italic
+    font-style: italic;    
 } 
 body{
-    color: beige;
+    color: white;
     background-color: #1d1b1e;
     background-image: url(couverture.jpg) ; 
     background-attachment: fixed;
@@ -16,4 +16,5 @@ body{
 }
 .top{
     margin-top: 260px; 
+    margin-left: 120px;
   }

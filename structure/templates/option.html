@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'option.css' %}"> 
+{% endblock head %}
+
+{% block title %}responsable{% endblock title %}
+
+
+{% block content %}
+<div class="container md-6">
+    <div class="top"> 
+        <div class ="row">
+            <div class="suffit col-2">
+            <br>
+            <p> Nom :</P>
+            <p> Prénom:</P>
+            <p> Email :</P>
+            <p> Adresse:</P>
+            <p> Ville: </P>
+            <p> Code Postal: </P>         
+            <p> Actif </p>
+            <br><br>
+            </div>
+            <div class="col-3 ">
+            <br>
+            <p>{{structure.user.nom}}</P>
+            <p>{{structure.user.prenom}} </P>
+            <p>{{structure.user.email}} </P>
+            <p>{{structure.user.adresse}}</P>
+            <p>{{structure.user.ville}}</P>
+            <p>{{structure.user.CodePostal}}</P>                         
+            <p><a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'detail' structure.pk %}" class="nom">{{structure.user.entreprise}}</a></p>
+            <p><a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="nom">{{structure.user.partenaire}}</a></p>
+            {% if structure.actif %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}
+            </div>
+            <div class="col-5 col-md-12 col-lg-3 px-3 mt-3">
+                <div class="tech">
+                    {% if structure.user.photo.url %} 
+                        <img src={{ structure.user.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.user.photo.url }}>
+                    {% else %}
+                        <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+                    {% endif %}
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<div class ="row-3">
+    <div class="col-3 button">
+        <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le profils</a>
+        <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</a>    
+    </div> 
+</div>
+{% endblock content%}

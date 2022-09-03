@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 {% load static%}
 {% url 'index' as index %}
-{% url 'recherche' as recherche %}
-{% url 'signup' as signup %}
-{% url 'login' as login %}
+{% url 'partenaire' as partenaire %}
+{% url 'profils' as profils %}
+{% url 'login' as connection %}
+{% url 'rajoutpartenaire' as ajouter %}
+{% url 'rajoutprofils' as jouter %}
+{% url 'rajoutstructure' as outer %}
+{% url 'rajoutoption' as rajouter %}
+{% url 'structure' as artenaire %}
+{% url 'détail' as tenaire %}
+{% url 'responsable' as naire %}
 
 
 
@@ -14,32 +21,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="{% static 'favicon.jpg' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'style.css' %}"> 
-{% block head %}   {% endblock head %}
+    
+    <div id="page">
+{% block head %} {% endblock head %}
     <title>Api Sport - {% block title%}{% endblock %} </title>
 </head>
 <body>
+<div class="row">
     <nav class="navbar navbar-light navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'logo.png' %}" class="navbar-brand ms-1 ms-md-4" height="75" font-size="56" alt="logo_api">API SPORT</a>
+        <div class="container-fluid" hx-boost="true">
+          <a class="navbar-brand" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'index' %}">API<spam style="color: #fff">-SPORT</spam></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">         
-                <ul class="navbar-nav text-center ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link {% if request.path == index %} active {% endif %} me-lg-5" href="{% url 'index' %}">Accueil</a></li>   
-                    <li class="nav-item"><a class="nav-link {% if request.path == recherche %} active {% endif %} me-0 me-lg-5" href="#">Partenaire</a></li> 
-                    <li class="nav-item"><a class="nav-link {% if request.path == salle %} active {% endif %} me-0 me-lg-5" href="#">Salle</a></li>                                                         
-                    <li class="nav-item"><a class="nav-link {% if request.path == login %} active {% endif %} me-0 me-lg-5" href="{% url 'login' %}">connection</a></li>
-                     
-                </ul>            
+        <div class="collapse navbar-collapse" id="navbarNav">         
+            <ul class="navbar-nav text-center ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link {% if request.path == index %} active {% endif %} me-lg-5"  hx-swap="outerHTML" hx-push-url="true" hx-target="#page" hx-get="{% url 'index' %}">Accueil</a></li>                 
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link {% if request.path == partenaire %} active {% endif %}{% if request.path == aire %} active {% endif %}{% if request.path == tenaire %} active {% endif %} me-0 me-lg-5"  hx-swap="outerHTML" hx-push-url="true" hx-target="#page" hx-get="{% url 'partenaire' %}">Partenaire</a></li> 
+                {% endif %} 
+                {% if user.is_authenticated and user.is_admin %}
+                <li class="nav-item dropdown me-0 me-lg-5">
+                    <a class="nav-link dropdown-toggle {% if request.path == rajouter %} active {% endif %}{% if request.path == jouter %} active {% endif %}{% if request.path == ajouter %} active {% endif %}{% if request.path == outer %} active {% endif %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ajouter</a>                        
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"  hx-push-url="true" hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'rajoutstructure' %}">Struture</a></li>                                            
+                        <li><a class="dropdown-item"  hx-push-url="true" hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'rajoutpartenaire' %}">Partenaire</a></li>
+                        <li><a class="dropdown-item"  hx-push-url="true" hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'rajoutprofils' %}">Personnel</a></li>
+                        <li><a class="dropdown-item"  hx-push-url="true" hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'rajoutoption' %}">Option</a></li>
+                    </ul> 
+                {% endif %} 
+                {% if user.is_authenticated %}                                                                      
+                <li class="nav-item dropdown me-0 me-lg-5">
+                    <a class="nav-link dropdown-toggle {% if request.path == profils %} active {% endif %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.nom }}</a>                        
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"  hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'profils' %}">Profils</a></li>                                            
+                        <li><a class="dropdown-item"  hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'logout' %}">Déconnection</a></li>
+                        </ul>                                                      
+                {% else %}
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5 {% if request.path == connection %} active {% endif %}" hx-push-url="true" hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'login' %}">connection</a></li>
+                {% endif %} 
+                  
+                {% if user.is_authenticated and user.photo.url %}  
+                <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li> 
+                {% else %} 
+                <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{% static 'inconnu.jpg' %}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li>  
+                {% endif %} 
+                </ul>
+                {% if user.is_authenticated %}
+                    <form method="get" class="d-flex ml-3" action="{% url 'recherche' %}">
+                    <input placeholder="Rechercher" class="form-control me-2" type="searh" name="searh"></input>
+                    <button class="btn btnl" type="submit">Rechercher</button>
+                    </form>         
+                {% endif %} 
             </div>
         </div>
-    </nav>   
-<div class="container mt-6">
-    <div class="top">   
+    </nav>       
+</div>
+
 {% block content %}{% endblock content %}
     </div>
+</div>
 {% block footer%}{% endblock footer %}
 </body>
+{% block script %}
+
+{% endblock %}

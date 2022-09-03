@@ -1,6 +1,4 @@
- 
 body{
-    
     color: beige;
     background-color: #1d1b1e;
     background-image: url(couverture.jpg) ; 
@@ -8,31 +6,56 @@ body{
     background-repeat: no-repeat;
     background-size: cover;   
 }
-
 h1{
     padding-top: 50px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+    color: #00ff1A;
+    padding-bottom: 50px;
 }
 .bloc{
     text-align: center;
-    width: 350px;
-    height: 500px;
+    width: 380px;
+    height: auto;
     background: black;
-    border: 1px solid black;                
-}
-.btn{
-    margin-top: 30px;
-    background-color: blue;
-    color: white;
-    border: 1px solid black;
-    
-}    
-.style1{
-    background-color: #cacacc5f;
-    color: white;               
-}  
-.brand{
-    margin-top: 20px;
-}
-.top{
+    border: 1px solid rgb(87, 245, 3); 
     margin-top: 260px; 
-  }
+    margin-left: 150px;               
+}
+.text{     
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    font-size: 22px;
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;    
+}
+.btnr{
+    margin-top: 50px;
+    background-color: rgb(58, 58, 64);
+    color: white;   
+    margin-bottom: 60px;    
+}    
+.btnr:hover{
+    border: 1px solid ;
+    color: #00ff1A;
+    background-color: black;
+}
+ul li{
+    color : rgb(237, 94, 101);
+    font-size: 14px;
+    list-style-type: none;   
+    padding-right: 30px;
+}
+label{
+    margin-bottom: 0.8rem;
+}
+.petit{
+    font-size: 14px;
+    width: 100%;
+    font-weight: none;
+}
+span{
+    color:rgb(98, 98, 236);
+}
