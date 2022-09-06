@@ -61,9 +61,6 @@ input:checked[type="checkbox"]::after
 {
     left: 20px
 } 
-.suffit{
-    color: #00ff1abb!important;
-}
 #button{
    border: 1px solid rgb(97, 95, 95);
    transition: .3s ease-in-out;

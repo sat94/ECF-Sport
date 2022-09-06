@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% url 'structure' as artenaire %}
 {% load static %}
+{% load custom_tags %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'partner.css' %}"> 
@@ -22,10 +23,10 @@
                     <h3 class="card-title"><span style="color: #00ff1A">API</span>-{{ partenaire.ville }}</h3><br>
                     <p class="card-text">{{ partenaire.description }}</p>
                     <p class="card-text">Nom : {{ partenaire.resp.nom }}</p>
-                    <p class="card-text">Telephone : {{ partenaire.numberPhone|join:"." }} </P>
+                    <p class="card-text">Telephone :  {{ partenaire.numberPhone|phoneNumber }} </P>
                     <p class="card-text">{{ partenaire.email }}</p>
-                    <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'optionbase' %}" class="btn btn-dark">Ses options</a>  
-                    <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structure' slug=partenaire.ville %}" class="btn btn-dark">Ses structures</a>                                 
+                    <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'optionbase' pk=partenaire.id %}" class="btn btn-dark">Ses options</a>  
+                    <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structure' slug=partenaire.slug %}" class="btn btn-dark">Ses structures</a>                                 
                 </div>
             </div>            
         </div>    
@@ -52,5 +53,5 @@
         </li>
     </ul>
 </nav>
-    {% endif %}
+        {% endif %}
 {% endblock content %}

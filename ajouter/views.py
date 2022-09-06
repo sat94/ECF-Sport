@@ -118,6 +118,8 @@ def rajoutOption(request):
             form = AjoutoptionForm()   
     return render(request, "rajoutoption.html",{"form": form})
 
+# HTMX
+
 def check_username(request):
     username = request.POST.get('username')
     if get_user_model().objects.filter(username=username).exists():
@@ -157,6 +159,8 @@ def check_password(request):
         return HttpResponse("<div style='color: red; font-size: 20px;'>les mots passes sont pas pareil")
     return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>les mots passes sont pareil")    
 
+# Liste Option
+
 def listeOption(request):
     context={}
     options = option.objects.all()
@@ -164,6 +168,8 @@ def listeOption(request):
         "options" : options,
     }
     return render(request, 'listeOption.html', context)
+
+# HMTX
 
 def check_villePartenaire(request):
     ville = request.POST.get('ville')
@@ -181,3 +187,4 @@ def check_slug(request):
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>Le titre est utilisable.") 
 
+# modifier !!

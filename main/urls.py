@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),     
     path('profils/', profils, name="profils" ) , 
     path('partenaire/', Partenaire, name="partenaire"),
-    path('partenaire/option/', PartenaireOption, name="optionbase"),
+    path('partenaire/option/<int:pk>', PartenaireOption, name="optionbase"),
     path('partenaire/<str:slug>', Structure, name='structure'),
     path('recherche/', recherche, name="recherche"),
     path('detail/<int:pk>', detail, name="detail"),

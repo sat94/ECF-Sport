@@ -1,8 +1,5 @@
 from django.shortcuts import render
 
-from accounts.models import MyUser
-
-
 def index(request):
     return render(request,'index.html')
 

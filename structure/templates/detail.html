@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'structure.css' %}"> 
@@ -23,8 +24,13 @@
             <p> Actif :</p>
         </div>
         <div class="col-2">
-            <p>{{structure.nom}}</P>
+            <p>{{structure}}</P>
+            {% if structure.user.nom %}
             <p><a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true"  hx-get="{% url 'responsable' structure.pk %}" class="nom">{{structure.user.nom}}</a></p>
+            {% else %}
+            <p>inconnu</p>
+            {% endif %}
+
             <p>{{structure.adresse}} </P></br>
             <p>{{structure.part}}</P>
             <p>{{structure.membre}}</p>
@@ -47,7 +53,7 @@
             <p><input type="checkbox" name="option"></p>
             {% endif %}  
 
-            <p>{{structure.numberPhone}}</P>
+            <p>{{structure.numberPhone|phoneNumber}}</P>
 
             {% if structure.actif %}
             <p><input checked type="checkbox" name="option"></p>
@@ -57,6 +63,7 @@
 
         </div>
         <div class="col-4">
+            {{ structure.option.slug.Bar }}
             <div class="tech">
             {% if structure.photo.url %} 
             <img src={{ structure.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.photo.url }}>
@@ -65,21 +72,23 @@
             {% endif %}
             </div>
         </div>
-        <div class="col-3">   
-            <p class="point"> Location du partenaire :</P>
-             
-                
-        </div>
-        <div class="col-1">
-            {% if structure.bails %}
-            <p><input checked type="checkbox" name="option"></p>
-            {% else %}
-            <p><input type="checkbox" name="option"></p>
-            {% endif %}
-
-           
-                
-
+        <div class="col-4 align-center"> 
+            <h2 class> Options du partenaire</h2>             
+            {% for option in options %}               
+                {% if option.id in listoptionpartenaire %}                    
+                  <p><input checked type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</P>               
+                {% endif %}
+            {% endfor %}            
+            <h2> Options de la structure</h2>   
+            {% for option in options %}                
+                {% if option.id not in listoptionpartenaire %}
+                    {% if option.id in listoptionstructure %}
+                    <p><input checked type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</p>
+                    {% else %}                                      
+                    <p><input type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</p>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}               
         </div> 
     </div>  
     <div class ="row">

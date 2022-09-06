@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load custom_tags %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'partner.css' %}"> 
 {% endblock head %}
@@ -22,7 +22,7 @@
                     <p class="card-text">{{ structure.adresse }}</p>
                     <p class="card-text">Partenaire : {{ structure.part }}</p>
                     <p class="card-text">Nom : {{ structure.user.nom }}</p>
-                    <p class="card-text">Telephone : {{ structure.numberPhone }} </P>
+                    <p class="card-text">Telephone : {{ structure.numberPhone|phoneNumber }} </P>
                     <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'detail' structure.pk %}" class="btn btn-dark">Ses options</a>
                     <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'responsable' structure.pk %}" class="btn btn-dark">Le responsable</a>
                 </div>

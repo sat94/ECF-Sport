@@ -1,8 +1,66 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'partner.css' %}"> 
+<link rel="stylesheet" href="{% static 'optionPartenaire.css' %}"> 
 {% endblock head %}
 
-{% block title %}option{% endblock title %}
+{% block title %}option partenaire{% endblock title %}
+
+{% block content %}
+<div class="top">
+    <div class="row"> 
+        <div class="suffit col-2">   
+            <p> Nom :</P>
+            <p> Responsable : </p>            
+            <p> Description</p><br><br>      
+            <p> Numeros : </P>
+            <p> Actif :</p>
+        </div>
+        <div class="col-2">     
+            <p>{{ partenaires.ville }}</P>
+            {% if  partenaires.resp.nom %} 
+            <p>{{ partenaires.resp.nom }}</p>  
+            {% else %} 
+            <p>inconnu</p>
+            {% endif %} 
+            <p>{{ partenaires.adresse }}</P>
+            <p>{{ partenaires.description }}</P>                     
+            <p>{{ partenaires.numberPhone|phoneNumber }}</P>
+            {% if partenaires.actif %}
+            <p><input checked type="checkbox" name="option"></p>
+            {% else %}
+            <p><input type="checkbox" name="option"></p>
+            {% endif %}  
+            {% for structure in structures %}    
+              <p>{{ structure.nom }}</p>
+            {% endfor %}
+            </div>    
+                     
+        <div class="col-4">
+            <div class="tech">
+            {% if partenaires.photo.url %} 
+              <img src={{ partenaires.photo.url }} class="rounded-3 img-fluid float"  alt={{ partenaires.photo.url }}>
+            {% else %}
+              <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+            {% endif %}
+            </div>
+        </div>
+        
+        <div class="col-2">
+            {% for option in options %}
+                <p> {{ option.slug }}</p>
+            {% endfor %}
+        </div> 
+        <div class="col-2">
+            {% for option in options %}                
+                {% if option.id in listoptionid %}
+                    <p><input checked type="checkbox" name="option" value="{{option.id}}"></p>
+                {% else %}                                      
+                    <p><input type="checkbox" name="option"></p>
+                {% endif %}
+            {% endfor %}
+        </div>
+</div>  
+{% endblock %}

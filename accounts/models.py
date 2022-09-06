@@ -68,6 +68,10 @@ class MyUser(AbstractBaseUser):
 class option(models.Model):
     slug = models.SlugField(max_length=20)
     description = models.CharField(max_length=200)
+    
+
+    class Meta:
+        ordering = ['slug']
 
     def __str__(self):
         return self.slug
@@ -87,9 +91,10 @@ class structure(models.Model):
     haman = models.BooleanField(default=False)
     sauna = models.BooleanField(default=False)  
     membre = models.IntegerField(default=0)
-    option= models.ManyToManyField(option, blank=True)
+    option = models.ManyToManyField(option, blank=True)
  
     def __str__(self):
+       
         return self.nom
 
     def save(self, *args, **kwargs):
@@ -115,6 +120,7 @@ class partenaire(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.ville)
         super().save(*args, **kwargs)
-
+    
+  
 
    

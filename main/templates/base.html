@@ -64,11 +64,13 @@
                     <li class="nav-item"><a class="nav-link me-0 me-lg-5 {% if request.path == connection %} active {% endif %}" hx-push-url="true" hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'login' %}">connection</a></li>
                 {% endif %} 
                   
-                {% if user.is_authenticated and user.photo.url %}  
-                <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li> 
-                {% else %} 
-                <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{% static 'inconnu.jpg' %}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li>  
-                {% endif %} 
+                {% if user.is_authenticated %} 
+                    {% if user.photo %}
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{{ user.photo.url }}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li> 
+                    {% else %} 
+                    <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{% static 'inconnu.jpg' %}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li>  
+                    {% endif %} 
+                {% endif %}
                 </ul>
                 {% if user.is_authenticated %}
                     <form method="get" class="d-flex ml-3" action="{% url 'recherche' %}">
