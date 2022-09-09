@@ -7,7 +7,3 @@ register = template.Library()
 def phoneNumber(tel):
     phone = ' '.join([tel[i:i+2] for i in range(0, len(tel), 2)])
     return phone
-
-def optionPrint(option):
-    print(option)
-    return(option)

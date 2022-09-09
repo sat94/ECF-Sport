@@ -5,10 +5,11 @@ from django.utils.encoding import force_bytes, force_str
 from .token import account_activation_token
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from accounts.models import option, partenaire, structure
 from ajouter.forms import AjoutoptionForm, AjoutStrutureForm,SignupForm, AjoutPartenaireForm
 from django.core.mail import EmailMessage
+
 
 
 def rajoutstructure(request):
@@ -60,7 +61,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True      
         user.save() 
-        # user = authenticate(username=[user],password=[password]) 
+       #
         # login(request, user)      
         messages.success(request, "Votre compte est activé. Maintenant vous pouvez vous connecté a votre compte.")
         return redirect('index')
@@ -93,7 +94,6 @@ def rajoutprofils(request):
             password = request.POST.get('password1')
             nom = request.POST.get('prenom')
             permission = request.POST.get('permission') 
-            print(permission) 
             user = form.save(commit=False)  
             if permission == f"Commercial": 
                 user.is_admin = True

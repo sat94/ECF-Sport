@@ -47,6 +47,9 @@ class MyUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
+    def __str__(self):       
+        return self.nom
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nom)            
         super().save(*args, **kwargs)   
@@ -93,8 +96,7 @@ class structure(models.Model):
     membre = models.IntegerField(default=0)
     option = models.ManyToManyField(option, blank=True)
  
-    def __str__(self):
-       
+    def __str__(self):       
         return self.nom
 
     def save(self, *args, **kwargs):

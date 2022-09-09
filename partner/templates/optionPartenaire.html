@@ -56,7 +56,7 @@
         <div class="col-2">
             {% for option in options %}                
                 {% if option.id in listoptionid %}
-                    <p><input checked type="checkbox" name="option" value="{{option.id}}"></p>
+                    <p><input checked type="checkbox" name="option" value="{{option.id}} "></p>
                 {% else %}                                      
                     <p><input type="checkbox" name="option"></p>
                 {% endif %}

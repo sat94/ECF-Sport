@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load custom_tags %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'partner.css' %}"> 
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 {% endblock head %}
 
 {% block title %}structure{% endblock title %}
@@ -18,7 +20,7 @@
                 <img src="{{ structure.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ structure.photo.url }}">               
                 </div>               
                 <div class="card-body text-center">
-                    <h3 class="card-title"><span style="color: #00ff1A">API</span>-{{ structure.nom }}</h3><br>
+                    <h3 class="card-title" class="anime"><spam style="color: #00ff1A">API</spam> -{{ structure.nom }}</h3><br>
                     <p class="card-text">{{ structure.adresse }}</p>
                     <p class="card-text">Partenaire : {{ structure.part }}</p>
                     <p class="card-text">Nom : {{ structure.user.nom }}</p>
@@ -36,7 +38,7 @@
     <ul class="pagination justify-content-center">        
         {% if structures.has_previous %}
             <li class="page-item">
-                <a class="page-link" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structure' slug=slug %}?page={{ structures.previous_page_number }}">
+                <a class="page-link" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structures' slug=slug %}?page={{ structures.previous_page_number }}">
                    <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>

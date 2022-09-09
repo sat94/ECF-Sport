@@ -22,6 +22,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>   
     <link rel="shortcut icon" href="{% static 'favicon.jpg' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'style.css' %}"> 
     
@@ -33,7 +34,7 @@
 <div class="row">
     <nav class="navbar navbar-light navbar-expand-lg fixed-top">
         <div class="container-fluid" hx-boost="true">
-          <a class="navbar-brand" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'index' %}">API<spam style="color: #fff">-SPORT</spam></a>
+          <a contenteditable spellcheck="false" class="navbar-brand" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'index' %}"><span class="anime">API</span><span style="color: white" class="ml3">-SPORT</spam></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -80,14 +81,23 @@
                 {% endif %} 
             </div>
         </div>
-    </nav>       
+    </nav>      
 </div>
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %} 
 {% block content %}{% endblock content %}
     </div>
 </div>
 {% block footer%}{% endblock footer %}
+<script src={% static 'app.js' %}></script>
+{% block javascript %}{% endblock javascript %}
 </body>
-{% block script %}
 
-{% endblock %}
+
+
+

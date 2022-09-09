@@ -5,11 +5,11 @@ from django.core.paginator import Paginator
 
 def Partenaire(request):
     partenaires = partenaire.objects.all()  
-    paginator = Paginator(partenaires, 3)
-    page = request.GET.get('page')
-    pagebjet = paginator.get_page(page)
+    # paginator = Paginator(partenaires, 25)
+    # page = request.GET.get('page')
+    # pagebjet = paginator.get_page(page)
     context= {
-        "partenaires" : pagebjet,
+        "partenaires" : partenaires,
               
         }  
     return render(request, "partner.html",context)
