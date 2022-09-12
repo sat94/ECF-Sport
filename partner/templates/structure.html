@@ -11,10 +11,12 @@
 
 
 {% block content %}
-<div class="top">
-<div class="row">
+<div class="swiper mt-5">
+  
+    <div class="swiper-wrapper">
+  
 {% for structure in structures %}
-        <div class ="col-md-3 carte" id="ici">
+        <div class ="swiper-slide col-md-3 carte">
             <div class="card card-sm" style="width: 20rem;">
                 <div class="style-dance">
                 <img src="{{ structure.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ structure.photo.url }}">               
@@ -30,30 +32,38 @@
                 </div>
             </div>            
         </div>    
-{% endfor %}
+        {% endfor %}
     </div>
+                <div class="swiper-pagination">pagination</div>      
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
 </div>
-<div class= row>
-<nav class="pagi">
-    <ul class="pagination justify-content-center">        
-        {% if structures.has_previous %}
-            <li class="page-item">
-                <a class="page-link" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structures' slug=slug %}?page={{ structures.previous_page_number }}">
-                   <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-        {% endif %}
-        {% if structures.paginator.num_pages > 1 %}
-        <li class='page-item'><p class="page-link">Page {{ structures.number }} sur {{ structures.paginator.num_pages }}</p></li>
-        {% endif %}
-        {% if structures.has_next %}
-        <li class="page-item">
-            <a class="page-link" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structure' slug=slug %}?page={{ structures.next_page_number }}">
-               <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>   
-</nav>
+<div class ="row-3">
+    <div class="col-3 buttom">
+        <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="but" aria-disabled="true">Retour</a>  
+    </div> 
 </div>
-    {% endif %}
+    
 {% endblock content %}
+{% block javascript %}
+<script type="module">
+
+     const swiper = new Swiper('.swiper', {
+      slidesPerView: 3,
+      centeredSlides: true,
+      spaceBetween: 30,
+      loop:true,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'fraction',
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },        
+    });
+</script>
+{% endblock javascript %}

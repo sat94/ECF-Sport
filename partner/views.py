@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from accounts.models import option, partenaire, structure
-from django.core.paginator import Paginator
 
 
 def Partenaire(request):
@@ -15,12 +14,9 @@ def Partenaire(request):
     return render(request, "partner.html",context)
 
 def Structure(request, slug):
-    structures = structure.objects.filter(slug__iexact= slug)
-    paginator = Paginator(structures, 3)
-    page = request.GET.get('page')
-    pagebjets = paginator.get_page(page)   
+    structures = structure.objects.filter(slug__iexact= slug)      
     context= {
-        "structures" : pagebjets,                   
+        "structures" : structures,                   
     }
     return render(request, "structure.html",context)
 

@@ -68,17 +68,7 @@ input:checked[type="checkbox"]::after
 .suffit{
     color: #00ff1A!important;
 }
-#button{
-   margin-top: 200px;
-   margin-left: 30px;
-   border: 1px solid rgb(97, 95, 95);
-   transition: .3s ease-in-out;
-}
-#button:hover{
-    background-color: black;
-    border: 1px solid black;
-    color: #00ff1A;
-}
+
 .nom{
     text-decoration: none;
     color:whitesmoke;

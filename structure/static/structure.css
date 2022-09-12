@@ -13,9 +13,9 @@ body{
   }
 
 .tech {
+    margin-top: 50px;
     align-items: center;
-    border-radius: 0.6rem;
-   
+    border-radius: 0.6rem;   
 }
 .float {
     height: 560px;

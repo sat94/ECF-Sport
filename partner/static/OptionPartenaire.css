@@ -14,8 +14,7 @@ body{
 
 .tech {
     align-items: center;
-    border-radius: 0.6rem;
-   
+    border-radius: 0.6rem;   
 }
 .float {
     height: 560px;
@@ -27,7 +26,19 @@ body{
     width: 1600px;
     margin-left: 100px;   
 }
-
+.suffit{
+    color: #00ff1abb!important;
+}
+#button{
+   margin-top: 120px;
+   border: 1px solid rgb(97, 95, 95);
+   transition: .3s ease-in-out;
+}
+#button:hover{
+    background-color: black;
+    border: 1px solid black;
+    color: #00ff1A;
+}
 
 input[type="checkbox"]{
     position: relative;
@@ -61,15 +72,6 @@ input:checked[type="checkbox"]::after
 {
     left: 20px
 } 
-#button{
-   border: 1px solid rgb(97, 95, 95);
-   transition: .3s ease-in-out;
-}
-#button:hover{
-    background-color: black;
-    border: 1px solid black;
-    color: #00ff1A;
-}
 .nom{
     text-decoration: none;
     color:rgba(240, 234, 234, 0.951)
