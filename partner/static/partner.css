@@ -22,12 +22,9 @@ body{
     box-shadow: 0px 0px 25px  #d1d1d1;
     border-color: #f7f1f1;   
 } 
-.top{
-    margin-top: 150px;
-    margin-left: 50px;
-} 
+ 
 .carte{
-    /* margin-left: 100px; */    
+   
     margin-bottom: 100px;
 }
 .page-link{
@@ -61,8 +58,35 @@ h3{
     color: #00ff1A;
     text-shadow: 0px 0px 20px #2aff3f!important;
     padding: 0.1rem 0.5rem 0.1rem;
-    animation: flicker 20s infinite forwards;
+    animation: flicker 2.5s infinite forwards;
 }
+@keyframes flicker {
+
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        
+    text-shadow:
+        -0.2rem -0.2rem 1rem #fff,
+        0.2rem 0.2rem 1rem #fff,
+        0 0 2rem var(--neon-text-color),
+        0 0 4rem var(--neon-text-color),
+        0 0 6rem var(--neon-text-color),
+        0 0 8rem var(--neon-text-color),
+        0 0 10rem var(--neon-text-color);
+    
+    box-shadow:
+        0 0 .5rem #fff,
+        inset 0 0 .5rem #fff,
+        0 0 2rem var(--neon-border-color),
+        inset 0 0 2rem var(--neon-border-color),
+        0 0 4rem var(--neon-border-color),
+        inset 0 0 4rem var(--neon-border-color);        
+  }
+  
+  20%, 24%, 55% {        
+    text-shadow: none;
+    box-shadow: none;
+  }   
+   }
   
 .swiper {  
     margin-top: 15rem; 
@@ -97,6 +121,7 @@ h3{
   height: 300px;
   margin: 20px auto;
 }
-
-
-
+.image_responsive {
+width: 100%;
+height: auto;
+}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'recherche.css' %}">
+{% endblock head %}
+
+{% block title %}Ma Structure{% endblock title %}
+
+{% block content %}
+<div class="top">
+    <h3 class="tex-center" style="color: black">Resultas de la recherche :</h3>
+</div>
+{% endblock content %}

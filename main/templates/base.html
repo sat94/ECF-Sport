@@ -34,7 +34,7 @@
 <div class="row">
     <nav class="navbar navbar-light navbar-expand-lg fixed-top">
         <div class="container-fluid" hx-boost="true">
-          <a class="navbar-brand" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'index' %}"><span class="anime">API</span><span style="color: white" class="ml3">-SPORT</spam></a>
+          <a class="navbar-brand" contenteditable spellcheck="false" hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'index' %}"><span class="anime">API</span><span style="color: white" class="ml3">-SPORT</spam></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -58,6 +58,13 @@
                 <li class="nav-item dropdown me-0 me-lg-5">
                     <a class="nav-link dropdown-toggle {% if request.path == profils %} active {% endif %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.nom }}</a>                        
                         <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            {% if user.is_authenticated and user.permission == "Responsable" %} 
+                            <li><a class="dropdown-item"  hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'maStructure' %}">Ma structure</a></li>
+                            {% elif user.is_authenticated and user.permission == "Partenaire" %}  
+                            <li><a class="dropdown-item"  hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'monPartenaire' %}">Partenaire</a></li>
+                            {% else %}    
+                            <li><a class="dropdown-item"  hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard' %}">Dashboard</a></li> 
+                            {% endif %}  
                         <li><a class="dropdown-item"  hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'profils' %}">Profils</a></li>                                            
                         <li><a class="dropdown-item"  hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'logout' %}">Déconnection</a></li>
                         </ul>                                                      
@@ -86,13 +93,15 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %} 
+
 {% block content %}{% endblock content %}
     </div>
 </div>
+
 {% block footer%}{% endblock footer %}
 <script src={% static 'app.js' %}></script>
 {% block javascript %}{% endblock javascript %}

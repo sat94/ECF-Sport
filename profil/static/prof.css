@@ -8,12 +8,6 @@ body{
 .top{
     margin-top: 260px;     
   }
-.bloc{
-    background-color: black;
-    padding: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18PX;
-}
 .float {
     height: 270px;
     width: 220px;
@@ -21,17 +15,46 @@ body{
   }
 .tech {
     align-items: center;
-    overflow: hidden;
-    border-radius: 0.6rem;
-  }
+    overflow: hidden;    
+}
 .container{
     font-family: 'Times New Roman', Times, serif;
     width: 1000px;
     margin-left: 100px;
+    font-size: 22px;
 }
 #button{
     margin-top: 160px;
 }
 .suffit{
     color: #00ff1A!important;
+}
+.form{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.bloc{
+    text-align: center;
+    width: 600px;
+    height: auto;
+    background: black;
+    margin-top: 150px;  
+    margin-left: 100px;
+}  
+.btnr{
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    border: 1px solid white;
+    margin-bottom: 60px;
+} 
+.btnr:hover{
+    border: 1px solid #00ff1A;
+    background-color: black!important;
+    color: #00ff1A;    
 }

@@ -31,7 +31,7 @@ h1{
 } 
 .btnr:hover{
     border: 1px solid #00ff1A;
-    background-color: black;
+    background-color: black!important;
     color: #00ff1A;    
 }
 .button.btnr:hover{

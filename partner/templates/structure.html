@@ -22,7 +22,7 @@
                 <img src="{{ structure.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ structure.photo.url }}">               
                 </div>               
                 <div class="card-body text-center">
-                    <h3 class="card-title" class="anime"><spam style="color: #00ff1A">API</spam> -{{ structure.nom }}</h3><br>
+                    <h3 class="card-title"><spam spam class="anime" style="color: #00ff1A">API</spam> -{{ structure.nom }}</h3><br>
                     <p class="card-text">{{ structure.adresse }}</p>
                     <p class="card-text">Partenaire : {{ structure.part }}</p>
                     <p class="card-text">Nom : {{ structure.user.nom }}</p>
@@ -41,12 +41,13 @@
                 <!-- If we need scrollbar -->
                 <div class="swiper-scrollbar"></div>
 </div>
+
 <div class ="row-3">
     <div class="col-3 buttom">
-        <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="but" aria-disabled="true">Retour</a>  
+        <a  hx-swap="interHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn" style="color:white;"  tabindex="-1" role="button" id="but" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>  
     </div> 
 </div>
-    
+
 {% endblock content %}
 {% block javascript %}
 <script type="module">

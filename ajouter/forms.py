@@ -1,6 +1,5 @@
 from accounts.models import MyUser, option, partenaire, structure
 from django.contrib.auth.forms import UserCreationForm
-
 from django import forms
 
 class AjoutoptionForm(forms.ModelForm):
@@ -21,7 +20,6 @@ class AjoutoptionForm(forms.ModelForm):
         }     
 
 class SignupForm(UserCreationForm):
-    username = forms.CharField(label="nom d'utilisateur") 
     class Meta:
         model = MyUser
         fields = [

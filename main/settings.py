@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'accounts',
     'profil',   
     'structure', 
-    'ajouter',   
+    'ajouter',
+    'dashboard',  
 ]
 
 MIDDLEWARE = [

@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 {% url 'structure' as artenaire %}
-    {% load static %}
-    {% load custom_tags %}
+{% load static %}
+{% load custom_tags %}
     
-    {% block head %}
-    <link rel="stylesheet" href="{% static 'partner.css' %}">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" defer></script>
+{% block head %}
+<link rel="stylesheet" href="{% static 'partner.css' %}">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" defer></script>
 {% endblock head %}
 
 {% block title %}partenaire{% endblock title %}
@@ -29,17 +26,17 @@
                     <img src="{{ partenaire.photo.url }}" class="ville card-img-top" style ="height: 15rem;" alt="{{ partenaire.photo.url }}">
                 </div>
                 <div class="card-body text-center">
-                    <h3 class="card-title" class="anime"><spam style="color: #00ff1A">API</spam>-{{ partenaire.ville }}</h3><br>
+                    <h3 class="card-title"><spam class="anime" style="color: #00ff1A">API</spam>-{{ partenaire.ville }}</h3><br>
                     <p class="card-text">{{ partenaire.description }}</p>
-                    <p class="card-text">Nom : {{ partenaire.resp.nom }}</p>
-                    <p class="card-text">Telephone :  {{ partenaire.numberPhone|phoneNumber }} </p>
+                    <p class="card-text d-flex justify-content-center"><img src="{% static "user.png" %}" style="width:10%;margin-left:1rem;">- {{ partenaire.resp.nom }}</p>
+                    <p class="card-text d-flex justify-content-center"><img src="{% static "tel.png" %}" style="width:10%;margin-left:1rem;">- {{ partenaire.numberPhone|phoneNumber }} </p>
                     <p class="card-text">{{ partenaire.email }}</p>
                     <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'optionbase' pk=partenaire.id %}" class="btn btn-dark">Ses options</a>  
                     <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structure' slug=partenaire.slug %}" class="btn btn-dark">Ses structures</a>
                 </div>
             </div>
         </div>
-        {% endfor %}
+{% endfor %}
 </div>
     <div class="swiper-pagination">pagination</div>      
     <!-- If we need navigation buttons -->
@@ -49,10 +46,9 @@
     <div class="swiper-scrollbar"></div>
 </div>
 {% endblock content %}
-        
+
 {% block javascript %}
 <script type="module">
-
      const swiper = new Swiper('.swiper', {
       slidesPerView: 3,
       centeredSlides: true,

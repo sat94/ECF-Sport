@@ -1,13 +1,16 @@
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
+from django.views.generic import *
 from django.contrib import admin
 from django.urls import include, path
-from ajouter.views import check_villePartenaire, check_slug, rajoutpartenaire, rajoutstructure, rajoutprofils, rajoutOption, rajoutstructureValider, check_username, check_email,check_tel, check_nameStruture, check_password, activate, listeOption
+from ajouter.views import *
+from dashboard.views import dashboard, maStructure, monPartenaire
 from .views import index, recherche, false
-from profil.views import profils
+from profil.views import UserEditView, profils
 from partner.views import Partenaire, Structure, PartenaireOption
 from structure.views import detail, Options
 from main import settings
+
 
 
 
@@ -19,9 +22,15 @@ urlpatterns = [
     path("rajouter/profils",rajoutprofils , name='rajoutprofils'),
     path("rajouter/option",rajoutOption, name ='rajoutoption'),
     path("", index, name='index'), 
+    path("dash/", dashboard, name='dashboard'),
+    path("dash/structure/", maStructure, name='maStructure'),
+    path("dash/partenaire/", monPartenaire, name='monPartenaire'),
+
+
     path("false/", false, name="false"),
     path('accounts/', include('django.contrib.auth.urls')),     
     path('profils/', profils, name="profils" ) , 
+    path('profils/modifier', UserEditView.as_view(), name='modifprofils' ) ,
     path('partenaire/', Partenaire, name="partenaire"),
     path('partenaire/option/<int:pk>', PartenaireOption, name="optionbase"),
     path('partenaire/<str:slug>', Structure, name='structure'),

@@ -4,9 +4,6 @@ from accounts.models import option, partenaire, structure
 
 def Partenaire(request):
     partenaires = partenaire.objects.all()  
-    # paginator = Paginator(partenaires, 25)
-    # page = request.GET.get('page')
-    # pagebjet = paginator.get_page(page)
     context= {
         "partenaires" : partenaires,
               

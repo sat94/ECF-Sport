@@ -94,7 +94,7 @@
     <div class ="row">
         <div class="col-12">            
         <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Appliquez les changements</a>
-        <a hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</a>
+        <a hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>
     </div>    
  </div>
 {% endblock content %}

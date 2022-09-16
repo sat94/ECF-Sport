@@ -2,8 +2,6 @@
 
 :root {
    
-  
-  /* Set neon color */
   --neon-text-color: #5aff08;
   --neon-border-color: rgb(21, 255, 0);
 }
@@ -11,7 +9,6 @@
 body {
   font-family: 'Exo 2', sans-serif;
   display: flex;
-
 }
 
 h1 {
@@ -47,8 +44,7 @@ h1:focus {
 }
 
 @keyframes flicker {
-    
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
       
         text-shadow:
             -0.2rem -0.2rem 1rem #fff,

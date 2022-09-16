@@ -1,8 +1,8 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Group
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
+from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
-
 
 
 class MyUserManager(BaseUserManager):
@@ -19,7 +19,7 @@ class MyUserManager(BaseUserManager):
     def create_superuser(self, username, email=None, password=None):
         email = self.normalize_email(email)
         username = self.model.normalize_username(username)  
-        user = self.create_user(username=username, email=email,  password=password)
+        user = self.create_user(username=username, email=email, password=password)
         user.is_admin = True
         user.is_staff = True
         user.save()
@@ -40,8 +40,9 @@ class MyUser(AbstractBaseUser):
     photo = models.ImageField(upload_to='photo', null=True, blank=True)
     adresse = models.CharField(max_length=200)
     CodePostal = models.IntegerField(null=True, blank=True)    
+    part = models.OneToOneField("accounts.partenaire", on_delete=models.CASCADE, null=True, blank=True)
+    entreprise = models.OneToOneField("accounts.structure", on_delete=models.CASCADE, null=True, blank=True)
     ville = models.CharField(max_length=20)
-    Groupe = models.ForeignKey(Group,on_delete=models.SET_NULL,null=True, blank=True)
     permission = models.CharField(choices= permi, max_length=15)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
@@ -52,7 +53,10 @@ class MyUser(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nom)            
-        super().save(*args, **kwargs)   
+        super().save(*args, **kwargs) 
+        
+    def get_absolute_url(self):
+        return reverse("profils")  
 
     
     USERNAME_FIELD = "username"
@@ -79,9 +83,8 @@ class option(models.Model):
     def __str__(self):
         return self.slug
 
-
 class structure(models.Model):
-    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL,null=True, blank=True)
+    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL, null=True, blank=True)
     actif = models.BooleanField(default=True)
     part = models.ForeignKey('accounts.partenaire', on_delete=models.SET_NULL, null=True, blank=True)
     slug = models.SlugField(max_length=20)
@@ -102,7 +105,9 @@ class structure(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.part)
         super().save(*args, **kwargs)
-   
+
+  
+       
 
 class partenaire(models.Model):
     salle = models.ForeignKey(structure, on_delete = models.SET_NULL, null=True, blank=True)
@@ -113,7 +118,7 @@ class partenaire(models.Model):
     phone = RegexValidator(regex = r"^\+?1?\d{8,15}$")
     numberPhone = models.CharField(validators = [phone], max_length = 10)
     photo = models.ImageField(upload_to='ville', null=True, blank=True) 
-    resp = models.OneToOneField(MyUser, on_delete = models.SET_NULL,null=True, blank=True)
+    resp = models.OneToOneField(MyUser, on_delete = models.SET_NULL, null=True, blank=True)
     option = models.ManyToManyField(option, blank=True)
 
     def __str__(self):
