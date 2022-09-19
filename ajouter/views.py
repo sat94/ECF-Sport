@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model, authenticate
 from accounts.models import option, partenaire, structure
 from ajouter.forms import AjoutoptionForm, AjoutStrutureForm,SignupForm, AjoutPartenaireForm
 from django.core.mail import EmailMessage
+from django.contrib import messages
+
 
 
 
@@ -113,6 +115,7 @@ def rajoutOption(request):
         form = AjoutoptionForm(request.POST, request.FILES)         
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.INFO, 'Hello world.')
             return redirect('index')
         else:
             form = AjoutoptionForm()   

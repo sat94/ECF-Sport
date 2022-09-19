@@ -3,13 +3,75 @@
 {% load custom_tags %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'recherche.css' %}">
+<link rel="stylesheet" href="{% static 'dash.css' %}">
 {% endblock head %}
 
-{% block title %}Ma Structure{% endblock title %}
+{% block title %}Mon partenaire{% endblock title %}
 
 {% block content %}
-<div class="top">
-    <h3 class="tex-center" style="color: black">Resultas de la recherche :</h3>
+<div class="container md-6" >
+    <div class="top_structure">   
+        <div class="row">
+            <div class="suffit col-2">   
+                <p> Nom :</P>
+                <p> Responsable : </p>
+                <p> Adresse :</P></br>
+                <p> Partenaire :</P>
+                <p> Membres :</P>
+                <P> Haman : </p>
+                <p> Sauna : </p>
+                <p> Piscine : </p>
+                <p> Numeros : </P>                
+            </div>
+            <div class="col-2">
+                <p>{{user.structure}}</P>
+                {% if user.structure.nom %}
+                <p><a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true"  hx-get="{% url 'profils' %}" class="nom">{{user.nom}}</a></p>
+                {% else %}
+                <p>inconnu</p>
+                {% endif %}
+                    
+                <p>{{user.structure.adresse}} </P>
+                <p>{{user.structure.part}}</P>
+                <p>{{user.structure.membre}}</p>
+    
+                {% if user.structure.haman %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+    
+                {% if user.structure.sauna %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+    
+                {% if user.structure.piscine %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+    
+                <p>{{user.structure.numberPhone|phoneNumber}}</P>   
+               
+            </div>
+            <div class="col-4">
+                {{ user.structure.option.slug.Bar }}
+                <div class="tech">
+                {% if user.structure.photo.url %} 
+                <img src={{ user.structure.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.photo.url }}>
+                {% else %}
+                <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+                {% endif %}
+                </div>
+            </div>
+      
+        </div>  
+    <div class ="row-3">
+        <div class="col-3">
+        <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'modifstructure' pk=user.structure.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</a>
+    </div> 
 </div>
+
 {% endblock content %}

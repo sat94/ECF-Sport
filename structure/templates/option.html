@@ -30,11 +30,19 @@
             <p>{{structure.user.email}} </P>
             <p>{{structure.user.adresse}}</P>
             <p>{{structure.user.ville}}</P>
-            <p>{{structure.user.CodePostal}}</P>                         
-            {% if structure.actif %}
-            <p><input checked type="checkbox" name="option"></p>
+            <p>{{structure.user.CodePostal}}</P>
+            {% if user.admin %}                         
+                {% if structure.actif %}
+                <p><input checked type="checkbox" name="option"></p>
+                {% else %}
+                <p><input type="checkbox" name="option"></p>
+                {% endif %}
             {% else %}
-            <p><input type="checkbox" name="option"></p>
+                {% if structure.actif %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
             {% endif %}
             </div>
             <div class="col-5 col-md-12 col-lg-3 px-3 mt-3">

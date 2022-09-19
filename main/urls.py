@@ -4,7 +4,7 @@ from django.views.generic import *
 from django.contrib import admin
 from django.urls import include, path
 from ajouter.views import *
-from dashboard.views import dashboard, maStructure, monPartenaire
+from dashboard.views import dashboard, maStructure, monPartenaire, user_partenaire, user_structure
 from .views import index, recherche, false
 from profil.views import UserEditView, profils
 from partner.views import Partenaire, Structure, PartenaireOption
@@ -25,10 +25,10 @@ urlpatterns = [
     path("dash/", dashboard, name='dashboard'),
     path("dash/structure/", maStructure, name='maStructure'),
     path("dash/partenaire/", monPartenaire, name='monPartenaire'),
-
-
+    path("dash/modifstructure/<int:pk>", user_structure, name='modifstructure'),
+    path("dash/modifpartenaire/<str:slug>", user_partenaire, name='modifpartenaire'),
     path("false/", false, name="false"),
-    path('accounts/', include('django.contrib.auth.urls')),     
+    path('accounts/', include('django.contrib.auth.urls')), 
     path('profils/', profils, name="profils" ) , 
     path('profils/modifier', UserEditView.as_view(), name='modifprofils' ) ,
     path('partenaire/', Partenaire, name="partenaire"),

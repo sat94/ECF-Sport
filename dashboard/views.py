@@ -1,9 +1,7 @@
-from django.contrib.messages.views import SuccessMessageMixin
-from django.views import generic
+import os
+from accounts.models import structure
 from .forms import *
-from django.urls import reverse_lazy
-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def dashboard(request):
@@ -15,10 +13,33 @@ def maStructure(request):
 def monPartenaire(request):
     return render(request, 'monpartenaire.html')
 
-class UserEditView(SuccessMessageMixin,generic.UpdateView):
-    form_class = ModifPartenaire
-    template_name = 'modifpartenaire.html'
-    sucess_message = 'Votre profils a bien été modifier'
-    
-    def get_object(self):
-        return self.request.user
+def user_partenaire(request, slug):
+    part = partenaire.objects.get(slug=slug)
+    default_image_path = part.photo.path
+    form = ModifPartenaire(request.POST or None, request.FILES or None, instance=part)
+    if form.is_valid():
+        if len(request.FILES)!= 0:
+           delete_previous_picture(default_image_path, part.photo.path)
+        form.save()
+        return redirect('monPartenaire')
+    return render(request,'modifpartenaire.html',{'partenaire':part,
+                                                  'form': form})
+
+
+def user_structure(request, pk):
+    part = structure.objects.get(id=pk)
+    default_image_path = part.photo.path
+    form = ModifStructureForm(request.POST or None, request.FILES or None, instance=part)
+    if form.is_valid():
+        if len(request.FILES)!= 0:
+           delete_previous_picture(default_image_path, part.photo.path)
+        form.save()
+        return redirect('maStructure')
+    return render(request,'modifstructure.html',{'structure':part,
+                                                  'form': form})
+
+def delete_previous_picture(previous,new):
+    if previous != new:
+        os.remove(previous)
+        return True
+    return False     

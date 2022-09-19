@@ -30,9 +30,6 @@ def PartenaireOption(request, pk):
     }
     return render(request,"optionPartenaire.html",context)
 
-def OptionTrue(request,pk):
-    pass
-
 
 
 

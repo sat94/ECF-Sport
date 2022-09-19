@@ -10,10 +10,8 @@
 
 {% block content %}
 <div class="top">
-    <div class="row"> 
-        
+    <div class="row">         
         <div class="suffit col-2">  
-            <h2 >Le partenaire</h2><br>
             <p> Nom :</P>
             <p> Responsable : </p>            
             <p> Description</p><br><br>      
@@ -22,21 +20,28 @@
             <p> Ses structures :</p>
         </div>
         <div class="col-2">  
-            <br><br><br>   
             <p>{{ partenaires.ville }}</P>
             {% if  partenaires.resp.nom %} 
-            <p>{{ partenaires.resp.nom }}</p>  
+                <p>{{ partenaires.resp.nom }}</p>  
             {% else %} 
-            <p>inconnu</p>
+                <p>inconnu</p>
             {% endif %} 
             <p>{{ partenaires.adresse }}</P>
             <p>{{ partenaires.description }}</P>                     
             <p>{{ partenaires.numberPhone|phoneNumber }}</P>
-            {% if partenaires.actif %}
-            <p><input checked type="checkbox" name="option"></p>
+            {% if user.admin %}
+                {% if partenaires.actif %}
+                <p><input checked type="checkbox" name="option"></p>
+                {% else %}
+                <p><input type="checkbox" name="option"></p>
+                {% endif %}  
             {% else %}
-            <p><input type="checkbox" name="option"></p>
-            {% endif %}  
+                {% if partenaires.actif %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+            {% endif %}                
             {% for structure in structures %}    
               <p>{{ structure.nom }}</p>
             {% endfor %}
@@ -45,19 +50,19 @@
         <div class="col-4">
             <div class="tech">
             {% if partenaires.photo.url %} 
-              <img src={{ partenaires.photo.url }} class="rounded-3 img-fluid float"  alt={{ partenaires.photo.url }}>
+              <img src={{ partenaires.photo.url }} class="rounded-3 img-fluid float" alt={{ partenaires.photo.url }}>
             {% else %}
-              <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+              <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float" alt="inconnu.jpg">
             {% endif %}
             </div>
-        </div>
-        
+        </div>        
         <div class="col-2">
             {% for option in options %}
                 <p> {{ option.slug }}</p>
             {% endfor %}
         </div> 
         <div class="col-2">
+        {% if user.admin %}
             {% for option in options %}                
                 {% if option.id in listoptionid %}
                     <p><input checked type="checkbox" name="option" value="{{option.id}} "></p>
@@ -65,11 +70,22 @@
                     <p><input type="checkbox" name="option"></p>
                 {% endif %}
             {% endfor %}
+        {% else %}
+            {% for option in options %}                
+                {% if option.id in listoptionid %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
         </div>
 </div>  
 <div class ="row-3">
     <div class="col-3 button">
+        {% if user.admin %}
         <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Accepter les modifications</a>
+        {% endif %}
         <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</a>    
     </div> 
 </div>

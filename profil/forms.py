@@ -1,6 +1,7 @@
 from accounts.models import MyUser
 from django.contrib.auth.forms import UserChangeForm
 from django import forms
+import os
 
 
 class Profils(UserChangeForm):
@@ -31,3 +32,8 @@ class Profils(UserChangeForm):
         if ".txt" in photo:
             raise forms.ValidationError
         return photo       
+    
+    def save(self, commit=True):
+        if self.instance.photo.path != self.initial['photo'].path:
+            os.remove(self.initial['photo'].path)
+        return super().save(commit)

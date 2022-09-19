@@ -34,66 +34,110 @@
             <p>{{structure.adresse}} </P></br>
             <p>{{structure.part}}</P>
             <p>{{structure.membre}}</p>
-
-            {% if structure.haman %}
-            <p><input checked type="checkbox" name="option"></p>
-            {% else %}
-            <p><input type="checkbox" name="option"></p>
-            {% endif %}
-
-            {% if structure.sauna %}
-            <p><input checked type="checkbox" name="option"></p>
-            {% else %}
-            <p><input type="checkbox" name="option"></p>
-            {% endif %}
-
-            {% if structure.piscine %}
-            <p><input checked type="checkbox" name="option"></p>
-            {% else %}
-            <p><input type="checkbox" name="option"></p>
-            {% endif %}  
-
+            {% if user.admin %}    
+                {% if structure.haman %}
+                <p><input checked type="checkbox" name="option"></p>
+                {% else %}
+                <p><input type="checkbox" name="option"></p>
+                {% endif %} 
+                {% if structure.sauna %}
+                <p><input checked type="checkbox" name="option"></p>
+                {% else %}
+                <p><input type="checkbox" name="option"></p>
+                {% endif %}
+                {% if structure.piscine %}
+                <p><input checked type="checkbox" name="option"></p>
+                {% else %}
+                <p><input type="checkbox" name="option"></p>
+                {% endif %}
+            {% else %}  
+                {% if structure.haman %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+                {% if structure.sauna %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+                {% if structure.piscine %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                {% endif %}
+            {% endif %}    
             <p>{{structure.numberPhone|phoneNumber}}</P>
-
-            {% if structure.actif %}
-            <p><input checked type="checkbox" name="option"></p>
-            {% else %}
-            <p><input type="checkbox" name="option"></p>
-            {% endif %}      
-
+            {% if user.admin %}    
+                {% if structure.actif %}
+                <p><input checked type="checkbox" name="option"></p>
+                {% else %}
+                <p><input type="checkbox" name="option"></p>
+                {% endif %} 
+            {% else %}     
+                {% if structure.actif %}
+                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;" class="vertical"></p>
+                {% else %}                                      
+                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;" class="vertical"></p>
+                {% endif %}
+            {% endif %} 
+            
         </div>
         <div class="col-4">
             {{ structure.option.slug.Bar }}
             <div class="tech">
-            {% if structure.photo.url %} 
-            <img src={{ structure.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.photo.url }}>
-            {% else %}
-            <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
-            {% endif %}
+                {% if structure.photo.url %} 
+                <img src={{ structure.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.photo.url }}>
+                {% else %}
+                <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+                {% endif %}
             </div>
         </div>
         <div class="col-4 align-center"> 
-            <h2 class> Options du partenaire</h2>             
-            {% for option in options %}               
-                {% if option.id in listoptionpartenaire %}                    
-                  <p><input checked type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</P>               
-                {% endif %}
-            {% endfor %}            
-            <h2> Options de la structure</h2>   
-            {% for option in options %}                
-                {% if option.id not in listoptionpartenaire %}
-                    {% if option.id in listoptionstructure %}
-                    <p><input checked type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</p>
-                    {% else %}                                      
-                    <p><input type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</p>
+            <h2 class> Options du partenaire</h2>
+            {% if user.admin %}              
+                {% for option in options %}               
+                    {% if option.id in listoptionpartenaire %}                    
+                    <p><input checked type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</P>               
                     {% endif %}
-                {% endif %}
-            {% endfor %}               
+                {% endfor %} 
+            {% else %}     
+                {% for option in options %}               
+                    {% if option.id in listoptionpartenaire %}                    
+                    <p><img src={% static 'vert.png' %}  style="width:4%;margin-left:1rem;">{{ option.slug }}</P>               
+                    {% endif %}
+                {% endfor %}
+            {% endif %}      
+
+            <h2> Options de la structure</h2>  
+            {% if user.admin %}   
+                {% for option in options %}                
+                    {% if option.id not in listoptionpartenaire %}
+                        {% if option.id in listoptionstructure %}
+                        <p><input checked type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</p>
+                        {% else %}                                      
+                        <p><input type="checkbox" name="option" value="{{option.id}}">{{ option.slug }}</p>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %} 
+            {% else %}  
+                {% for option in options %}                
+                    {% if option.id not in listoptionpartenaire %}
+                        {% if option.id in listoptionstructure %}
+                        <p><img src={% static 'vert.png' %}  style="width:4%;margin-left:1rem;">{{ option.slug }}</p>
+                        {% else %}                                      
+                        <p><img src={% static 'false.png' %}  style="width:4%;margin-left:1rem;">{{ option.slug }}</p>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}  
+            {% endif %}           
         </div> 
     </div>  
     <div class ="row">
-        <div class="col-12">            
-        <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Appliquez les changements</a>
+        <div class="col-12"> 
+            {% if user.admin %}            
+                <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Appliquez les changements</a>
+            {% endif %}
         <a hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>
     </div>    
  </div>
