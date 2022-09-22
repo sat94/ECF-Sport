@@ -4,10 +4,7 @@ from accounts.models import option, partenaire, structure
 
 def Partenaire(request):
     partenaires = partenaire.objects.all()  
-    context= {
-        "partenaires" : partenaires,
-              
-        }  
+    context= {"partenaires" : partenaires}  
     return render(request, "partner.html",context)
 
 def Structure(request, slug):
@@ -21,8 +18,7 @@ def PartenaireOption(request, pk):
     structures = structure.objects.filter(part=pk)
     partenaires = partenaire.objects.get(id=pk)
     listoptionid = [option_partenaire.id for option_partenaire  in partenaires.option.all()]
-    options = option.objects.all()    
-    
+    options = option.objects.all()        
     context= { "partenaires" : partenaires,
                "options" : options,
                "structures": structures,

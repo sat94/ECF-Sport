@@ -11,8 +11,7 @@ body{
     background: #030303fc;
 }
 .card{
-    margin-top: 15 rem;
-    box-shadow: #1d1b1e; 
+
     border: 1px #454545 solid;
     border-radius: 6px;
     overflow: hidden;

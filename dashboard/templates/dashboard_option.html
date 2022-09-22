@@ -1,0 +1,35 @@
+{% extends 'dashbord.html' %}  
+{% load static %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}"> 
+{% endblock head %}
+
+{% block title %}dashboard_option{% endblock title %}
+
+{% block content %}
+<div class="fixe">
+    <h3><span id="h3">Les</span> Options</h3>
+    <div class="container text ">
+        {% for options in option %}
+            <div class="row" >
+                <div class="col-2">         
+                     <p><span id="color"> {{options.slug}} :</span></p>
+                </div>
+                <div class="col-8">     
+                    <span id="text">{{options.description}}</span></P>
+                </div>
+                <div class="col-1">
+                <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'modif-option' options.pk %}" class="btn btnr btn-dark">Modifier</a>
+                </div>
+                <div class="col-1">
+                <a hx-target="#page" hx-delete="{% url 'delete-option' options.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?"class="btn btnr danger">Effacer</a>
+                </div>
+            </div>     
+        {% endfor %}
+    </div>
+    <div class="bas">
+       <p> <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'rajoutoption' %}" class="btn btnr btn-dark">Ajoutez une option</a></p>
+    </div>
+{% endblock content %}

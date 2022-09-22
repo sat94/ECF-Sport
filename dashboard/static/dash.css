@@ -1,5 +1,5 @@
 body{
-    color: beige;   
+    color: white;   
     background-color: #1d1b1e;
     background-image: url(homme.jpg);   
     background-repeat: no-repeat;
@@ -113,4 +113,7 @@ h1{
     display: flex;
     flex-flow: column wrap;
     align-items: center;    
+}
+a{
+    text-decoration: none;
 }

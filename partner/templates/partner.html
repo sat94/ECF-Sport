@@ -26,9 +26,8 @@
                 <div class="card-body text-center">
                     <h3 class="card-title"><spam class="anime" style="color: #00ff1A">API</spam>-{{ partenaire.ville }}</h3><br>
                     <p class="card-text">{{ partenaire.description }}</p>
-                    <p class="card-text d-flex justify-content-center"><img src="{% static "user.png" %}" style="width:10%;margin-left:1rem;">- {{ partenaire.resp.nom }}</p>
-                    <p class="card-text d-flex justify-content-center"><img src="{% static "tel.png" %}" style="width:10%;margin-left:1rem;">- {{ partenaire.numberPhone|phoneNumber }} </p>
-                    <p class="card-text">{{ partenaire.email }}</p>
+                    <p class="card-text"><i class="far fa-id-badge"></i>{{ partenaire.resp.nom }}</p>
+                    <p class="card-text"><i class="fas fa-mobile-alt"></i>{{ partenaire.numberPhone|phoneNumber }} </p>
                     <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'optionbase' pk=partenaire.id %}" class="btn btn-dark">Ses options</a>  
                     <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structure' slug=partenaire.slug %}" class="btn btn-dark">Ses structures</a>
                 </div>

@@ -29,7 +29,7 @@
             <p>{{ partenaires.adresse }}</P>
             <p>{{ partenaires.description }}</P>                     
             <p>{{ partenaires.numberPhone|phoneNumber }}</P>
-            {% if user.admin %}
+            {% if user.is_admin %}
                 {% if partenaires.actif %}
                 <p><input checked type="checkbox" name="option"></p>
                 {% else %}
@@ -62,7 +62,7 @@
             {% endfor %}
         </div> 
         <div class="col-2">
-        {% if user.admin %}
+        {% if user.is_admin %}
             {% for option in options %}                
                 {% if option.id in listoptionid %}
                     <p><input checked type="checkbox" name="option" value="{{option.id}} "></p>

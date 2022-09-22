@@ -1,0 +1,42 @@
+{% extends 'dashbord.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}"> 
+{% endblock head %}
+
+{% block title %}dashboard_partenaire{% endblock title %}
+
+{% block content %}
+<div class="fixe">
+    <h3><span id="h3">Les</span> Partenaires</h3>
+    <div class="container">
+        {% for partenaires in partenaires %}
+            <div class="row" >
+                <div class="col-1">         
+                     <p><span id="color"> {{ partenaires.ville }}</span></p>
+                </div>
+                <div class="col-5">     
+                    <span id="text">{{ partenaires.description}}</span></P>
+                </div>
+                <div class="col-2">     
+                    <span id="text">{{ partenaires.resp.nom }}</span></P>
+                </div>
+                <div class="col-2">     
+                    <span id="text">{{  partenaires.numberPhone|phoneNumber}}</span></P>
+                </div>
+                <div class="col-1">
+                <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="#" class="btn btnr btn-dark">Modifier</a>
+                </div>
+                <div class="col-1">
+                <a hx-target="#page"  hx-confirm="Etes vous sur que vous désirez supprimer?"class="btn btnr danger">Effacer</a>
+                </div>
+            </div>     
+        {% endfor %}
+    </div>
+    <div class="bas">
+       <p> <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'rajoutpartenaire' %}" class="btn btnr btn-dark">Ajoutez un Partenaire</a></p>
+    </div>
+
+{% endblock content %}

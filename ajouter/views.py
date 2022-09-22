@@ -46,7 +46,7 @@ def rajoutpartenaire(request):
         form =  AjoutPartenaireForm(request.POST, request.FILES)         
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('dashboard_partenaire')
         else:
             context["errors"] = form.errors
     form =  AjoutPartenaireForm() 
@@ -111,15 +111,17 @@ def rajoutprofils(request):
 
 def rajoutOption(request):
     form = AjoutoptionForm
+    return render(request, "rajoutoption.html",{"form": form})
+    
+def add_option(request):
     if request.method == "POST":
-        form = AjoutoptionForm(request.POST, request.FILES)         
+        form = AjoutoptionForm(request.POST or None)         
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.INFO, 'Hello world.')
-            return redirect('index')
+            return redirect('dashboard_option')
         else:
-            form = AjoutoptionForm()   
-    return render(request, "rajoutoption.html",{"form": form})
+            form = AjoutoptionForm() 
+    return render(request, "rajoutoption.html",{"form": form})  
 
 # HTMX
 
@@ -161,18 +163,6 @@ def check_password(request):
     if password1 != password2 or password2 != password1:
         return HttpResponse("<div style='color: red; font-size: 20px;'>les mots passes sont pas pareil")
     return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>les mots passes sont pareil")    
-
-# Liste Option
-
-def listeOption(request):
-    context={}
-    options = option.objects.all()
-    context={
-        "options" : options,
-    }
-    return render(request, 'listeOption.html', context)
-
-# HMTX
 
 def check_villePartenaire(request):
     ville = request.POST.get('ville')

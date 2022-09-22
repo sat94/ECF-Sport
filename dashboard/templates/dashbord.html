@@ -1,12 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
 
+   
 {% block head %}
-<link rel="stylesheet" href="{% static 'recherche.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">   
 {% endblock head %}
 
-{% block title %}Dashbord{% endblock title %}
+{% block title %}Dashboard{% endblock title %}
+
+{% block nav %}
+<input checked type="checkbox" id="check">
+<label for="check">
+  <div class="bar">
+    <i class="fas fa-bars" id="btn"></i>
+  </div>
+  <span class="badge"><i class="fas fa-times" id="cancel"></i></span>
+</label>
+    <div class="sidebar">
+        <h3 class="text-center"><span class="rouge" style="color: rgb(46, 244, 7)">API</span><span class="blanc" style="color: white">-SPORT</span></h3> 
+        <div>
+          {% if user.photo %}
+          <img src="{{ user.photo.url }}" class="photo">
+          {% else %} 
+          <img src="{% static 'inconnu.jpg' %}" class="photo">
+          {% endif %} 
+        </div>
+        <ul>
+            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard' %}"><i class="far fa-address-card"></i> Administration</a></li>
+            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'personnel' %}"><i class="fas fa-user"></i> Personnel</a></li>
+            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard_partenaire' %}"><i class="fas fa-address-card"></i> Partenaire</a></li>
+            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard_structure' %}"><i class="fas fa-project-diagram"></i> Structure</a></li>    
+            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard_option' %}"><i class="fas fa-sync"></i>Option</a></li>
+            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'index' %}"><i class="fas fa-undo"></i> Retour</a></li>
+        </ul> 
+    </div>  
+    <div id="page"></div>
+{% endblock %}
 
 {% block content %}
-
-{% endblock content %}
+<div class="fixe">
+<h1>le dashboard</h1>
+<p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius unde incidunt similique culpa officia, commodi nesciunt praesentium dolores ad saepe fugit provident iure fuga nulla nihil, pariatur, eum dolorem laboriosam?
+</div>
+  {% endblock content %}

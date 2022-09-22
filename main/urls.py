@@ -4,7 +4,7 @@ from django.views.generic import *
 from django.contrib import admin
 from django.urls import include, path
 from ajouter.views import *
-from dashboard.views import dashboard, maStructure, monPartenaire, user_partenaire, user_structure
+from dashboard.views import *
 from .views import index, recherche, false
 from profil.views import UserEditView, profils
 from partner.views import Partenaire, Structure, PartenaireOption
@@ -17,14 +17,12 @@ from main import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("rajouter/structure",rajoutstructure , name='rajoutstructure'),
-    path("rajouter/structure",rajoutstructureValider, name='rajoutstructureValider'),
     path("rajouter/partenaire",rajoutpartenaire, name='rajoutpartenaire'),
     path("rajouter/profils",rajoutprofils , name='rajoutprofils'),
     path("rajouter/option",rajoutOption, name ='rajoutoption'),
     path("", index, name='index'), 
-    path("dash/", dashboard, name='dashboard'),
-    path("dash/structure/", maStructure, name='maStructure'),
-    path("dash/partenaire/", monPartenaire, name='monPartenaire'),
+    path("dash/mastructure/", maStructure, name='maStructure'),
+    path("dash/monpartenaire/", monPartenaire, name='monPartenaire'),
     path("dash/modifstructure/<int:pk>", user_structure, name='modifstructure'),
     path("dash/modifpartenaire/<str:slug>", user_partenaire, name='modifpartenaire'),
     path("false/", false, name="false"),
@@ -38,7 +36,6 @@ urlpatterns = [
     path('detail/<int:pk>', detail, name="detail"),
     path('responsable/<int:pk>', Options, name="responsable"),
     path('activate/<uidb64>/<token>', activate, name="activate"),
-    path('listOption/', listeOption, name="listeOption"),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name = "reset_password.html"), name ='reset_password'),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "password_reset_sent.html"), name ='password_reset_done'),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = "password_reset_form.html"), name ='password_reset_confirm'),
@@ -46,6 +43,9 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 htmx_urlpatterns = [
+    path("rajouter/add_option",add_option, name='add-option'),
+    path("rajouter/modifier_option/<int:pk>",modifier_option, name='modif-option'),
+    path("rajouter/modifier_option/valide/<int:pk>",modifier_optionvalide, name='modif-optionvalide'),
     path('check_username/', check_username, name='check-username'),
     path('check_email/', check_email, name='check-email'),
     path('check_tel/',check_tel, name='check_tel'),
@@ -53,6 +53,16 @@ htmx_urlpatterns = [
     path('check_password/',check_password, name='check_password'),
     path('check_villePartenaire/', check_villePartenaire, name="check_villePartenaire"),
     path('check_slug/', check_slug, name="check_slug"),
+    path('delete-option/<int:pk>/', delete_option, name='delete-option'),
 ]
+dashboard_urlpatterns = [
+    path("dash/", dashboard, name='dashboard'),
+    path("dash/personnel", personnel, name='personnel'),
+    path("dash/partenaire", dashboard_partenaire, name='dashboard_partenaire'),
+    path("dash/structure", dashboard_structure, name='dashboard_structure'),    
+    path("dash/option", dashboard_option, name='dashboard_option'),  
+    path("dash/add_option/<int:pk>/", modifier_option, name='rajout-option'),  
+]
+urlpatterns += htmx_urlpatterns 
 
-urlpatterns += htmx_urlpatterns
+urlpatterns += dashboard_urlpatterns

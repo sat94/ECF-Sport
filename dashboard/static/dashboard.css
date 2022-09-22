@@ -1,0 +1,197 @@
+@import url(https://fonts.googleapis.com/css?family=Exo+2:200i);
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;  
+  text-decoration: none;
+}
+body{
+    color: white;
+    background-color: #1d1b1e;
+    background-image: url(dark.jpg) ; 
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;  
+    overflow-x: hidden;
+    font-size: 16px;  
+}
+
+:root {
+  --neon-text-color: #5aff08;
+  --neon-border-color: rgb(21, 255, 0);
+}
+
+h3 {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 3rem;
+  font-weight: 20;
+  font-style: italic;
+  color: rgb(46, 244, 7);
+  margin-bottom: 6rem;
+  animation: flicker 1.5s infinite alternate;  
+}
+#h3{
+  color: #5aff08;
+}
+.blanc{
+    color: white;
+    --neon-text-color: #ffffff;
+    animation: flicker 5s infinite alternate; 
+}
+.rouge{
+    --neon-border-color: rgb(21, 255, 0);
+    animation: flicker 1s infinite alternate; 
+}
+
+@keyframes flicker {
+        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {      
+        text-shadow:
+            -0.2rem -0.2rem 1rem #fff,
+            0.2rem 0.2rem 1rem #fff,
+            0 0 2rem var(--neon-text-color),
+            0 0 4rem var(--neon-text-color),
+            0 0 6rem var(--neon-text-color),
+            0 0 8rem var(--neon-text-color),
+            0 0 10rem var(--neon-text-color);  
+    }
+       
+    20%, 24%, 55% {        
+        text-shadow: none;
+        box-shadow: none;
+    }    
+}
+.photo{
+  max-width: 17rem;
+  padding-left: 25px;
+  margin-bottom: 3rem;
+  border-radius: 15%;
+}
+
+.sidebar{
+  display: inline-block;
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  left: -300px; 
+  background: black;  
+}
+
+@keyframes menuside {
+  to{
+    left: 0;
+  }
+}
+
+h3{
+  margin-top: 2rem;
+  color: #fff; 
+}
+
+.sidebar ul li{
+  display: block;
+  padding: 15px; 
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}    
+
+.sidebar ul li a{
+  Color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
+.sidebar ul li a .fas{
+  width: 25px;
+  text-align: none;
+}
+   
+.sidebar ul li:hover a{
+  color: rgb(21, 255, 0);
+  background-color: #3b3f3d;
+}
+
+.sidebar ul a i{
+  margin-right: 16px;
+}
+ 
+#check{
+  display: none;
+}
+.bar{  
+  position: fixed;
+  width: 100vw;
+  height: 3rem; 
+  background-color: black;
+}
+
+label{
+  position: absolute;  
+}
+
+label #btn, label #cancel{ 
+  position: absolute; 
+  cursor: pointer; 
+}
+
+label #btn{
+  left: 40px;
+  top: 10px;
+  font-size: 35px;
+  color: white;
+  padding: 6px 12p;  
+}
+
+label #cancel{
+  z-index: 1111;
+  left: -265px;
+  top: 10px;
+  font-size: 10px;
+  padding: 4px 9px;  
+}
+
+#check:checked ~ .sidebar{
+  animation: menuside 400ms ease forwards;
+}
+
+
+#check:checked ~ label #btn{
+  left: 300px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#check:checked ~ label #cancel{
+  left: 265px;
+  position: fixed;
+}
+.fixe{
+  padding-top: 50px;
+  padding-left: 350px;
+}
+#color{
+  color: rgb(21, 255, 0);
+}
+
+#text{
+  padding-left: 50px;
+  color: #fff;
+}
+
+.btnr{
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+  border: 1px solid white;
+ 
+}
+.btnr:hover{
+  border: 1px solid #00ff1A;
+  background-color: black !important;
+  color: #00ff1A;    
+}
+.danger{
+  background-color: rgb(112, 26, 26);
+}
+.bas{  
+  margin-top: 6rem;
+}
