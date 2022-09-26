@@ -25,8 +25,8 @@
                 <label id="lab"><span id="titredescription">Description :</span><span id="compteur1"></span></label>                 
                 {% render_field  form.description id="zoneTexte" %}<br>      
                
-                <p><button hx-swap="outerHTML"  hx-post="{% url 'add-option' %}" hx-target="#page" class="btn btnr bg-dark" type="submit" value="submit" >Valider</button>
-                    <a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard_option' %}"class="btn btnr btn-dark">Retour</a></p>            
+                <p><button hx-post="{% url 'add-option' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" >Valider</button>
+                    <a hx-target="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>            
         </div>
     </form>
 </div>

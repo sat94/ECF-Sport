@@ -1,13 +1,53 @@
-{% extends 'dashbord.html' %}
-{% load static %}
+{% load custom_tags %}
 
-
-{% block head %}
-<link rel="stylesheet" href="{% static 'dashboard.css' %}"> 
-{% endblock head %}
-
-{% block title %}dashboard_structure{% endblock title %}
+{% block title %}dashboard_partenaire{% endblock title %}
 
 {% block content %}
-
+<div class="fixe">
+    <h3><span id="h3">Les</span> Structures</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-3"><h5 class="d-flex align-items-center h-100" id="color">Adresse</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Membre</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Partenaire</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Responsable</p></div>
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Téléphone</p></div>           
+        </div>
+        {% for structures in structures %}
+            <div class="row">
+                <div class="col-1">  
+                  <img src="{{ structures.photo.url }}"  class="img d-flex align-items-center h-99"  alt="{{ structures.photo.url }}">                  
+                </div>
+                <div class="col-1">         
+                     <h5 class="d-flex align-items-center h-100"><span id="color"> {{ structures.nom }}</span></h5>
+                </div>
+                <div class="col-3">     
+                    <p class="d-flex align-items-center h-100 descrip">{{  structures.adresse }}</p>
+                </div>
+                <div class="col-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{  structures.membre }}</p>
+                </div>              
+                <div class="col-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{  structures.part }}</p>
+                </div>
+                <div class="col-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{  structures.user }}</p>
+                </div>
+                <div class="col-2">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{  structures.numberPhone|phoneNumber}}</p>
+                </div>
+                <div class="col-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-get="{% url 'modif-structure' structures.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                </div>
+                <div class="col-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#content" hx-delete="{% url 'delete-structure' structures.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                </div>
+            </div>     
+        {% endfor %}        
+    </div>
+    <div class="bas">
+       <p> <a hx-target="#dash" hx-get="{% url 'rajoutstructure' %}" class="btn btnr btn-dark">Ajoutez une Structure</a></p>
+    </div>
+</div>
 {% endblock content %}

@@ -1,11 +1,4 @@
-body{
-    color: beige;
-    background-color: #1b1a1b;
-    background-image: url();    
-    background-repeat: no-repeat;
-    background-size: cover;   
-    overflow-x: hidden;
-}
+
 .top{
     margin-top: 140px;  
     margin-left: 50px; 

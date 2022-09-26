@@ -15,7 +15,10 @@ class Profils(UserChangeForm):
             "adresse", 
             "CodePostal", 
             "ville",
-            "photo",         
+            "photo",
+            "permission",
+            "part",  
+            "entreprise",       
             ]
         labels = {
             "username": "Nom d'utilisateur",

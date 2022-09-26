@@ -6,11 +6,11 @@
 <link rel="stylesheet" href="{% static 'signup.css' %}"> 
 {% endblock head %}
 
-{% block title %}ajouter partenaire{% endblock title %}
+{% block title %}Modifier partenaire{% endblock title %}
 
 {% block content %}
 <div class="bloc">
-    <h1>Créer<spam style="color: white; font-style: italic;"> un partenaire</spam></h1>
+    <h1>Modifier<spam style="color: white; font-style: italic;"> un partenaire</spam></h1>
     <form method ="POST" enctype="multipart/form-data" hx-encoding="multipart/form-data">
         <div class="form-group align form mb-3">
                 {% csrf_token %}   
@@ -28,18 +28,19 @@
                 <label>Téléphone:</label>                 
                 {% render_field form.numberPhone placeholder="Tel" hx-post="/check_tel/" hx-trigger="keyup" hx-target="#tel-error"  %}
                 <div id="tel-error"></div><Br>
+
+                <label>Photo:</label><br>
+                {% render_field form.photo %}<Br>  
                     
                 <label>Responsable du Partenaire:</label><br>                  
                 {% render_field form.resp %}<Br> 
-                
-                <label>Photo:</label><br>
-                {% render_field form.photo %}<Br> 
+                               
                 
                 <label>Option:</label><br>
                 {% render_field form.option %}<Br>          
                
-                <p><button hx-swap="outerHTML"  hx-post="{% url 'add-partenaire' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" >Valider</button>
-                <a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'dashboard' %}" class="btn btnr btn-dark">Retour</a></p>              
+                <p><button  hx-swap="outerHTML" hx-push-url="true"  hx-target="#dash" hx-post="{% url 'modif-partenaire-valide' partenaires.pk %}" class="btn btnr bg-dark" type="submit" value="submit" >Valider</button> 
+                <a hx-target="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>           
         </div>
     </form>
 </div>

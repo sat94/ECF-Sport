@@ -116,9 +116,4 @@ class AjoutPartenaireForm(forms.ModelForm):
             ),
             "option": forms.CheckboxSelectMultiple(),
         }  
-    def clean_photo(self):
-        photo = self.cleaned_data.get("photo")
-        if ".txt" in photo:
-            raise forms.ValidationError
-        return photo
-
+  

@@ -1,0 +1,67 @@
+{% load static %}
+
+{% block title %}dashboard_personnel{% endblock title %}
+
+{% block content %}
+<div class="fixe">
+    <h3><span id="h3">Le</span> Personnel</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-1"><h5 class="d-flex align-items-center h-100" id="color"></p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Prénom</p></div>
+            <div class="col-3"><h5 class="d-flex align-items-center h-100" id="color">Adresse</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Responsable</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Grade</p></div>   
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Email</p></div>           
+        </div>
+        {% for personnel in personnel %}
+            <div class="row">
+                <div class="col-1">  
+                  <img src="{{ personnel.photo.url }}"  class="imga d-flex align-items-center h-99"  alt="{{ personnel.photo.url }}">                  
+                </div>
+                <div class="col-1">         
+                     <h5 class="d-flex align-items-center h-100"><span id="color">{{ personnel.nom }}</span></h5>
+                </div>
+                <div class="col-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100 descrip">{{ personnel.prenom }}</p>
+                </div>
+                <div class="col-3">     
+                    <p class="d-flex align-items-center h-100">{{ personnel.adresse }}, {{personnel.CodePostal}}, {{personnel.ville}}</p>
+                </div>              
+                <div class="col-1">     
+                    {% if personnel.part %}
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.part }}</p>
+                    {% elif personnel.entreprise %}
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.entreprise }}</p>
+                    {% else %}
+                    <p class="d-flex justify-content-center align-items-center h-100">Commercial</p>
+                    {% endif %}
+                </div>
+                <div class="col-1">  
+                   {% if personnel.permission == "Responsable" %}
+                   <p style="color:rgb(6, 225, 254)" class="d-flex fw-bold justify-content-center align-items-center h-100">{{ personnel.permission}}</p>
+                   {% elif personnel.permission == "Partenaire" %}
+                   <p style="color:rgb(246, 254, 6)" class="d-flex fw-bold justify-content-center align-items-center h-100">{{ personnel.permission}}</p>
+                   {% else %}
+                   <p style="color:rgb(237, 94, 101)" class="d-flex fw-bold justify-content-center align-items-center h-100">{{ personnel.permission}}</p>
+                    {% endif %}
+                </div>
+                <div class="col-2">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.email }}</p>
+                </div>
+                <div class="col-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-get="{% url 'modif-personnel' personnel.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                </div>
+                <div class="col-1">
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#content" hx-delete="{% url 'delete-personnel' personnel.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                </div>
+            </div>     
+        {% endfor %}        
+    </div>
+    <div class="bas">
+       <p> <a hx-target="#dash" hx-get="{% url 'rajoutprofils' %}" class="btn btnr btn-dark">Ajoutez un profils</a></p>
+    </div>
+</div>
+
+{% endblock content %}

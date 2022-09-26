@@ -45,22 +45,19 @@
                 {% endif %}
             {% endif %}
             </div>
-            <div class="col-5 col-md-12 col-lg-3 px-3 mt-3">
-                <div class="tech">
+            <div class="col-5 col-md-12 col-lg-3 px-3 mt-3">                
                     {% if structure.user.photo.url %} 
                         <img src={{ structure.user.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.user.photo.url }}>
                     {% else %}
                         <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
-                    {% endif %}
-                </div>
+                    {% endif %}                
             </div>
         </div> 
     </div>
 </div>
 <div class ="row-3">
-    <div class="col-3 button">
-        
-        <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>    
+    <div class="col-3 button">        
+        <a  hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>    
     </div> 
 </div>
 {% endblock content%}

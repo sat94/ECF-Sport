@@ -1,10 +1,10 @@
-{% extends 'dashbord.html' %}
-{% load static %}
-{% load custom_tags %}
+{% load static %} 
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'dashboard.css' %}"> 
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">    
 {% endblock head %}
+
+{% load custom_tags %}
 
 {% block title %}dashboard_partenaire{% endblock title %}
 
@@ -12,31 +12,41 @@
 <div class="fixe">
     <h3><span id="h3">Les</span> Partenaires</h3>
     <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-5"><h5 class="d-flex  align-items-center h-100" id="color">Description</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Responsable</p></div>
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Téléphone</p></div>           
+        </div>
         {% for partenaires in partenaires %}
-            <div class="row" >
+            <div class="row">
+                <div class="col-1">  
+                  <img src="{{ partenaires.photo.url }}"  class="img d-flex align-items-center h-99"  alt="{{ partenaires.photo.url }}">                  
+                </div>
                 <div class="col-1">         
-                     <p><span id="color"> {{ partenaires.ville }}</span></p>
+                     <h5 class="d-flex align-items-center h-100"><span id="color"> {{ partenaires.ville }}</span></h5>
                 </div>
                 <div class="col-5">     
-                    <span id="text">{{ partenaires.description}}</span></P>
+                    <p class="d-flex align-items-center h-100 descrip">{{ partenaires.description}}</p>
+                </div>
+                <div class="col-1">     
+                    <p class="d-flex justify-content-center align-items-center h-100">{{ partenaires.resp.nom }}</p>
                 </div>
                 <div class="col-2">     
-                    <span id="text">{{ partenaires.resp.nom }}</span></P>
-                </div>
-                <div class="col-2">     
-                    <span id="text">{{  partenaires.numberPhone|phoneNumber}}</span></P>
+                    <p class="d-flex justify-content-center align-items-center h-100">{{  partenaires.numberPhone|phoneNumber}}</p>
                 </div>
                 <div class="col-1">
-                <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="#" class="btn btnr btn-dark">Modifier</a>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-get="{% url 'modif-partenaire' partenaires.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
                 </div>
                 <div class="col-1">
-                <a hx-target="#page"  hx-confirm="Etes vous sur que vous désirez supprimer?"class="btn btnr danger">Effacer</a>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#content" hx-delete="{% url 'delete-partenaire' partenaires.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
                 </div>
             </div>     
-        {% endfor %}
+        {% endfor %}        
     </div>
     <div class="bas">
-       <p> <a hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'rajoutpartenaire' %}" class="btn btnr btn-dark">Ajoutez un Partenaire</a></p>
+       <p> <a hx-target="#dash" hx-get="{% url 'rajoutpartenaire' %}" class="btn btnr btn-dark">Ajoutez un Partenaire</a></p>
     </div>
+</div>
 
 {% endblock content %}

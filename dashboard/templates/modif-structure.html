@@ -6,11 +6,11 @@
 <link rel="stylesheet" href="{% static 'signup.css' %}"> 
 {% endblock head %}
 
-{% block title %}ajouter structure{% endblock title %}
+{% block title %}Modifier structure{% endblock title %}
 
 {% block content %}
 <div class="bloc">
-    <h1>Créer<spam style="color: white; font-style: italic;"> une structure</spam></h1>   
+    <h1>Modifier<spam style="color: white; font-style: italic;"> une structure</spam></h1>   
     <form method ="POST" enctype="multipart/form-data" hx-encoding="multipart/form-data">        
         <div class="form_structure align form" >
                 {% csrf_token %}   
@@ -49,8 +49,10 @@
                    <div>{% render_field form.sauna %}  <label class="complex">Sauna</label></div>
                 </div>
                 
-                <p><button hx-swap="outerHTML"  hx-post="{% url 'add-structure' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" name="validation">Valider</button>  
-                <a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'dashboard' %}" class="btn btnr btn-dark">Retour</a></p>          
+                       
+                <p><button hx-target="#dash" hx-post="{% url 'modif-structure-valide' structures.pk %}" class="btn btnr bg-dark" type="submit" value="submit" >Valider</button> 
+                    <a hx-target="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>           
+            </div>
         </div>
     </form>
 </div>

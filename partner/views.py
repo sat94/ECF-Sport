@@ -14,7 +14,7 @@ def Structure(request, slug):
     }
     return render(request, "structure.html",context)
 
-def PartenaireOption(request, pk):
+def Partenaire_option(request, pk):
     structures = structure.objects.filter(part=pk)
     partenaires = partenaire.objects.get(id=pk)
     listoptionid = [option_partenaire.id for option_partenaire  in partenaires.option.all()]

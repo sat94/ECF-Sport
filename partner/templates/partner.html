@@ -2,7 +2,7 @@
 {% url 'structure' as artenaire %}
 {% load static %}
 {% load custom_tags %}
-    
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'partner.css' %}">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -12,9 +12,7 @@
 
 {% block title %}partenaire{% endblock title %}
 
-
 {% block content %}
-
 <div class="swiper mt-5">  
     <div class="swiper-wrapper">  
         {% for partenaire in partenaires %}
@@ -28,8 +26,8 @@
                     <p class="card-text">{{ partenaire.description }}</p>
                     <p class="card-text"><i class="far fa-id-badge"></i>{{ partenaire.resp.nom }}</p>
                     <p class="card-text"><i class="fas fa-mobile-alt"></i>{{ partenaire.numberPhone|phoneNumber }} </p>
-                    <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'optionbase' pk=partenaire.id %}" class="btn btn-dark">Ses options</a>  
-                    <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'structure' slug=partenaire.slug %}" class="btn btn-dark">Ses structures</a>
+                    <a hx-target="#page" hx-get="{% url 'optionbase' pk=partenaire.id %}" class="btn btn-dark">Ses options</a>  
+                    <a hx-target="#page" hx-get="{% url 'structure' slug=partenaire.slug %}" class="btn btn-dark">Ses structures</a>
                 </div>
             </div>
         </div>

@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'login.css' %}"> 
+<link rel="stylesheet" href="{% static 'style.css' %}"> 
 {% endblock head %}
 
 {% block title %}login{% endblock title %}
 
 {% block content %}
 <div class="bloc">
-    <h1>Connexion</h1>    
+    <h5>Connexion</h5>    
     <form method ="POST">
        {% csrf_token %}
        <div class="text">
@@ -18,8 +18,8 @@
         <label>Mot de passe :</label>
         <p>{{ form.password}}</p>
         </div>
-    <button class="btn btnr" type="submit">Se connecter</button>
-    <p class="petit">Si vous avez oubliez votre mots de passe<a hx-swap="outerHTML" hx-push-url="true" hx-target="#page" hx-get="{% url 'reset_password' %}"><span> cliquez ici </span></a></p>
+    <button hx-target="#page" hx-post="{% url 'login' %}" class="btn btnr" type="submit">Se connecter</button>
+    <p class="petit">Si vous avez oubliez votre mots de passe<a hx-target="#page" hx-get="{% url 'reset_password' %}"><spans> cliquez ici </spans></a></p>
     </form>    
 </div>       
 {% endblock %}

@@ -14,41 +14,14 @@ from django.contrib import messages
 
 
 
-def rajoutstructure(request):
+def rajout_structure(request):
     context={}
-    if request.method == "POST":
-        form =  AjoutStrutureForm(request.POST, request.FILES)         
-        if form.is_valid():           
-            form.save()         
-            return redirect('index')
-        else:
-            context["errors"] = form.errors
     form = AjoutStrutureForm()
     context["form"]= form 
     return render(request, 'rajoutstructure.html', context = context)
 
-def rajoutstructureValider(request):
+def rajout_partenaire(request):
     context={}
-    if request.method == "POST":
-        form =  AjoutStrutureForm(request.POST, request.FILES)         
-        if form.is_valid():           
-            form.save()         
-            return redirect('index')
-        else:
-            context["errors"] = form.errors
-    form = AjoutStrutureForm()
-    context["form"]= form        
-    return render(request, 'rajoutstructure.html', context = context)
-    
-def rajoutpartenaire(request):
-    context={}
-    if request.method == "POST":
-        form =  AjoutPartenaireForm(request.POST, request.FILES)         
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard_partenaire')
-        else:
-            context["errors"] = form.errors
     form =  AjoutPartenaireForm() 
     context["form"]= form       
     return render(request, 'rajoutpartenaire.html', context = context)
@@ -62,14 +35,12 @@ def activate(request, uidb64, token):
         user = None    
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True      
-        user.save() 
-       #
-        # login(request, user)      
+        user.save()          
         messages.success(request, "Votre compte est activé. Maintenant vous pouvez vous connecté a votre compte.")
         return redirect('index')
     return redirect('false')
 
-def activeEmail(request, user, email, nom, password, permission):
+def active_Email(request, user, email, nom, password, permission):
     subject = "Bienvenu sur API-SPORT"
     message = render_to_string("template_activate_account.html",{
         'user': nom,
@@ -87,11 +58,16 @@ def activeEmail(request, user, email, nom, password, permission):
     else:
         messages.error(request, f'Nous avons pas pu vous envoyer un mail vers {email}, vérifier que vous tapez email correctement. ')
 
-def rajoutprofils(request):
+def rajout_profils(request):
     context = {}
+    form = SignupForm()
+    context["form"]= form
+    return render(request, "signup.html", context= context)
+
+def add_personnel(request):    
     if request.method == "POST":
-        form = SignupForm(request.POST, request.FILES)         
-        if form.is_valid():          
+        form = SignupForm(request.POST,request.FILES)         
+        if form.is_valid():                   
             email = request.POST.get('email')
             password = request.POST.get('password1')
             nom = request.POST.get('prenom')
@@ -101,29 +77,28 @@ def rajoutprofils(request):
                 user.is_admin = True
             user.is_active = False           
             user.save()
-            activeEmail(request, user, email, nom, password, permission)           
-            return redirect('index')
+            active_Email(request, user, email, nom, password, permission) 
+            return redirect('dashboard_personnel')
         else:
-            context["errors"] = form.errors
-    form = SignupForm()
-    context["form"]= form
-    return render(request, "signup.html", context= context)
+            form = SignupForm() 
+    return render(request, "signup.html",{"form": form})  
 
-def rajoutOption(request):
-    form = AjoutoptionForm
+
+def rajout_option(request):
+    form = AjoutoptionForm()
     return render(request, "rajoutoption.html",{"form": form})
+
+# HTMX
     
 def add_option(request):
     if request.method == "POST":
-        form = AjoutoptionForm(request.POST or None)         
+        form = AjoutoptionForm(request.POST)         
         if form.is_valid():
             form.save()
             return redirect('dashboard_option')
         else:
             form = AjoutoptionForm() 
     return render(request, "rajoutoption.html",{"form": form})  
-
-# HTMX
 
 def check_username(request):
     username = request.POST.get('username')
@@ -148,7 +123,7 @@ def check_tel(request):
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>Le téléphone est utilisable.")
 
-def check_nameStruture(request):
+def check_name_struture(request):
     nom = request.POST.get('nom')
     structures = structure.objects.all()
     if structures.filter(nom=nom).exists():
@@ -164,7 +139,7 @@ def check_password(request):
         return HttpResponse("<div style='color: red; font-size: 20px;'>les mots passes sont pas pareil")
     return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>les mots passes sont pareil")    
 
-def check_villePartenaire(request):
+def check_ville_partenaire(request):
     ville = request.POST.get('ville')
     structures = partenaire.objects.all()
     if structures.filter(ville=ville).exists():
@@ -180,4 +155,3 @@ def check_slug(request):
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>Le titre est utilisable.") 
 
-# modifier !!

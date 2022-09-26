@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from accounts.models import partenaire, structure, option
 
-def detail(request, pk):
+def details(request, pk):
     structures = structure.objects.get(id=pk)    
     options = option.objects.all().order_by()
     partenaires = partenaire.objects.get(id=structures.part.id)

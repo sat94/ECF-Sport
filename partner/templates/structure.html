@@ -26,8 +26,8 @@
                     <p class="card-text">Partenaire : {{ structure.part }}</p>
                     <p class="card-text"><i class="far fa-id-badge"></i> {{ structure.user.nom }}</p>
                     <p class="card-text"><i class="fas fa-mobile-alt"></i> {{ structure.numberPhone|phoneNumber }} </P>
-                    <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'detail' structure.pk %}" class="btn btn-dark">Ses options</a>
-                    <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'responsable' structure.pk %}" class="btn btn-dark">Le responsable</a>
+                    <a  hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'detail' structure.pk %}" class="btn btn-dark">Ses options</a>
+                    <a  hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'responsable' structure.pk %}" class="btn btn-dark">Le responsable</a>
                 </div>
             </div>            
         </div>    
@@ -41,7 +41,7 @@
 
 <div class ="row-3">
     <div class="col-3 buttom">
-        <a  hx-swap="interHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn" style="color:white;"  tabindex="-1" role="button" id="but" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>  
+        <a  hx-target="#page"  hx-get="{% url 'partenaire' %}" class="btn" style="color:white;"  tabindex="-1" role="button" id="but" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>  
     </div> 
 </div>
 {% endblock content %}

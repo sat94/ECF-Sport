@@ -3,10 +3,11 @@
 
    
 {% block head %}
-    <link rel="stylesheet" href="{% static 'dashboard.css' %}">   
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">    
 {% endblock head %}
 
 {% block title %}Dashboard{% endblock title %}
+
 
 {% block nav %}
 <input checked type="checkbox" id="check">
@@ -26,20 +27,32 @@
           {% endif %} 
         </div>
         <ul>
-            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard' %}"><i class="far fa-address-card"></i> Administration</a></li>
-            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'personnel' %}"><i class="fas fa-user"></i> Personnel</a></li>
-            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard_partenaire' %}"><i class="fas fa-address-card"></i> Partenaire</a></li>
-            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard_structure' %}"><i class="fas fa-project-diagram"></i> Structure</a></li>    
-            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'dashboard_option' %}"><i class="fas fa-sync"></i>Option</a></li>
-            <li><a hx-swap="outerHTML" hx-push-url="true"  hx-target="#page" hx-get="{% url 'index' %}"><i class="fas fa-undo"></i> Retour</a></li>
+            <li><a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'dashboard' %}"><i class="far fa-address-card"></i> Administration</a></li>
+            <li><a hx-target="#content" hx-get="{% url 'dashboard_personnel' %}"><i class="fas fa-user"></i> Personnel</a></li>
+            <li><a hx-target="#content" hx-get="{% url 'dashboard_partenaire' %}"><i class="fas fa-address-card"></i> Partenaire</a></li>
+            <li><a hx-target="#content" hx-get="{% url 'dashboard_structure' %}"><i class="fas fa-project-diagram"></i> Structure</a></li>    
+            <li><a hx-target="#content" hx-get="{% url 'dashboard_option' %}"><i class="fas fa-sync"></i>Option</a></li>
+            <li><a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'index' %}"><i class="fas fa-undo"></i> Retour</a></li>
         </ul> 
-    </div>  
-    <div id="page"></div>
+    </div>     
 {% endblock %}
 
 {% block content %}
+<div id="content"> 
 <div class="fixe">
-<h1>le dashboard</h1>
-<p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius unde incidunt similique culpa officia, commodi nesciunt praesentium dolores ad saepe fugit provident iure fuga nulla nihil, pariatur, eum dolorem laboriosam?
+  <h3><span id="h3">Le</span> Dashboard</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-4 carre">
+        <h2 class="d-flex justify-content-center align-items-center h-100">Partenaire</h2>
+    </div>
+    <div class="col-4 carre">
+      <h2 class="d-flex justify-content-center align-items-center h-100">Structure</h2>
+    </div>
+    <div class="col-4 carre">
+      <h2 class="d-flex justify-content-center align-items-center h-100">Personnel</h2>
+    </div>
+  </div>
+</div>
 </div>
   {% endblock content %}

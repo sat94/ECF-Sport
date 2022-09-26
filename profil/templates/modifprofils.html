@@ -11,7 +11,7 @@
 {% block content %}
 <div class="bloc">
     <h1>Modifier<spam style="color: white; font-style: italic;"> un compte</spam></h1>
-    <form method ="POST" enctype="multipart/form-data">
+    <form method ="POST" hx-encoding="multipart/form-data">
         <div class="form-group align form mb-3">
                 {% csrf_token %}   
                 {% for error, message in errors.items %}
@@ -41,7 +41,7 @@
                 <label>Photo :</label>    
                 {% render_field form.photo %}<Br> 
             
-                <button class="btn btnr bg-dark" type="submit" value="submit" id="buttomPlace" >Valider</button>            
+                <button hx-target="#page" hx-post="{% url 'modifprofils' %}" class="btn btnr bg-dark" type="submit" value="submit" id="buttomPlace" >Valider</button>            
         </div>
     </form>
 </div>

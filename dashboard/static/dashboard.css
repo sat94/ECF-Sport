@@ -8,7 +8,7 @@
 }
 body{
     color: white;
-    background-color: #1d1b1e;
+    background-color: black;
     background-image: url(dark.jpg) ; 
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -141,7 +141,6 @@ label #btn{
   color: white;
   padding: 6px 12p;  
 }
-
 label #cancel{
   z-index: 1111;
   left: -265px;
@@ -149,12 +148,9 @@ label #cancel{
   font-size: 10px;
   padding: 4px 9px;  
 }
-
 #check:checked ~ .sidebar{
   animation: menuside 400ms ease forwards;
 }
-
-
 #check:checked ~ label #btn{
   left: 300px;
   opacity: 0;
@@ -170,19 +166,16 @@ label #cancel{
   padding-left: 350px;
 }
 #color{
-  color: rgb(21, 255, 0);
+  color: #00ff1A;
 }
-
 #text{
   padding-left: 50px;
   color: #fff;
 }
-
 .btnr{
   font-family: 'Times New Roman', Times, serif;
   color: white;
-  border: 1px solid white;
- 
+  border: 1px solid rgb(1, 1, 1); 
 }
 .btnr:hover{
   border: 1px solid #00ff1A;
@@ -195,3 +188,47 @@ label #cancel{
 .bas{  
   margin-top: 6rem;
 }
+h5{
+  font-size: large;
+  font-style: italic;
+  text-shadow: 4px 4px black; 
+}
+a{
+  box-shadow: 10px 5px 2px black; 
+}
+.descrip{
+  font-style: italic;
+  font-size: medium;  
+}
+.img{
+  height: 3rem;
+  width: 6rem;
+  padding: 1px;
+  border: black solid 1px;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 2px black;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .2s linear;
+  object-fit: cover;
+}
+.img:hover{   
+    transform: scale(2.5);
+}
+.imga{
+  height: 3rem;
+  width: 3rem;
+  padding: 1px;
+  border: black solid 1px;
+  border-radius: 50%;
+  box-shadow: 5px 5px 2px black;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .2s linear;  
+}
+.imga:hover{   
+  transform: scale(3.5);
+}
+
+
+

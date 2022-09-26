@@ -104,9 +104,7 @@ class structure(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.part)
-        super().save(*args, **kwargs)
-
-  
+        super().save(*args, **kwargs)  
        
 
 class partenaire(models.Model):
@@ -128,6 +126,7 @@ class partenaire(models.Model):
         self.slug = slugify(self.ville)
         super().save(*args, **kwargs)
     
+
   
 
    
