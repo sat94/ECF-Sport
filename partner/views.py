@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from accounts.models import option, partenaire, structure
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def Partenaire(request):
     partenaires = partenaire.objects.all()  
     context= {"partenaires" : partenaires}  
     return render(request, "partner.html",context)
 
+@login_required
 def Structure(request, slug):
     structures = structure.objects.filter(slug__iexact= slug)      
     context= {
@@ -14,6 +16,7 @@ def Structure(request, slug):
     }
     return render(request, "structure.html",context)
 
+@login_required
 def Partenaire_option(request, pk):
     structures = structure.objects.filter(part=pk)
     partenaires = partenaire.objects.get(id=pk)

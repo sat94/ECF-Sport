@@ -38,7 +38,7 @@
                     <p class="d-flex justify-content-center align-items-center h-100">{{  structures.numberPhone|phoneNumber}}</p>
                 </div>
                 <div class="col-1">
-                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-get="{% url 'modif-structure' structures.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-push-url="true" hx-get="{% url 'modif-structure' structures.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
                 </div>
                 <div class="col-1">
                     <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#content" hx-delete="{% url 'delete-structure' structures.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
@@ -47,7 +47,7 @@
         {% endfor %}        
     </div>
     <div class="bas">
-       <p> <a hx-target="#dash" hx-get="{% url 'rajoutstructure' %}" class="btn btnr btn-dark">Ajoutez une Structure</a></p>
+       <p> <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'rajoutstructure' %}" class="btn btnr btn-dark">Ajoutez une Structure</a></p>
     </div>
 </div>
 {% endblock content %}

@@ -51,7 +51,7 @@
                     <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.email }}</p>
                 </div>
                 <div class="col-1">
-                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-get="{% url 'modif-personnel' personnel.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-push-url="true" hx-get="{% url 'modif-personnel' personnel.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
                 </div>
                 <div class="col-1">
                     <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#content" hx-delete="{% url 'delete-personnel' personnel.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
@@ -60,7 +60,7 @@
         {% endfor %}        
     </div>
     <div class="bas">
-       <p> <a hx-target="#dash" hx-get="{% url 'rajoutprofils' %}" class="btn btnr btn-dark">Ajoutez un profils</a></p>
+       <p> <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'rajoutprofils' %}" class="btn btnr btn-dark">Ajoutez un profils</a></p>
     </div>
 </div>
 

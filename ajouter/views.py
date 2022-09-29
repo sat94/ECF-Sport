@@ -10,16 +10,17 @@ from accounts.models import option, partenaire, structure
 from ajouter.forms import AjoutoptionForm, AjoutStrutureForm,SignupForm, AjoutPartenaireForm
 from django.core.mail import EmailMessage
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
-
-
+@login_required
 def rajout_structure(request):
     context={}
     form = AjoutStrutureForm()
     context["form"]= form 
     return render(request, 'rajoutstructure.html', context = context)
-
+    
+@login_required
 def rajout_partenaire(request):
     context={}
     form =  AjoutPartenaireForm() 
@@ -58,12 +59,14 @@ def active_Email(request, user, email, nom, password, permission):
     else:
         messages.error(request, f'Nous avons pas pu vous envoyer un mail vers {email}, vérifier que vous tapez email correctement. ')
 
+@login_required
 def rajout_profils(request):
     context = {}
     form = SignupForm()
     context["form"]= form
     return render(request, "signup.html", context= context)
 
+@login_required
 def add_personnel(request):    
     if request.method == "POST":
         form = SignupForm(request.POST,request.FILES)         
@@ -83,13 +86,14 @@ def add_personnel(request):
             form = SignupForm() 
     return render(request, "signup.html",{"form": form})  
 
-
+@login_required
 def rajout_option(request):
     form = AjoutoptionForm()
     return render(request, "rajoutoption.html",{"form": form})
 
 # HTMX
     
+@login_required    
 def add_option(request):
     if request.method == "POST":
         form = AjoutoptionForm(request.POST)         
@@ -98,8 +102,9 @@ def add_option(request):
             return redirect('dashboard_option')
         else:
             form = AjoutoptionForm() 
-    return render(request, "rajoutoption.html",{"form": form})  
+    return render(request, "rajoutoption.html",{"form": form}) 
 
+@login_required
 def check_username(request):
     username = request.POST.get('username')
     if get_user_model().objects.filter(username=username).exists():
@@ -107,6 +112,7 @@ def check_username(request):
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>Le pseudo est utilisable.")
 
+@login_required
 def check_email(request):
     email = request.POST.get('email')
     if get_user_model().objects.filter(email=email).exists():
@@ -114,6 +120,7 @@ def check_email(request):
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>L'email est utilisable.")
 
+@login_required
 def check_tel(request):
     numberPhone = request.POST.get('numberPhone')
     structures = structure.objects.all()
@@ -123,6 +130,7 @@ def check_tel(request):
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>Le téléphone est utilisable.")
 
+@login_required
 def check_name_struture(request):
     nom = request.POST.get('nom')
     structures = structure.objects.all()
@@ -131,7 +139,7 @@ def check_name_struture(request):
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>Le nom est utilisable.")
 
-
+@login_required
 def check_password(request):
     password1 = request.POST.get('password1')
     password2 = request.POST.get('password2')
@@ -139,6 +147,7 @@ def check_password(request):
         return HttpResponse("<div style='color: red; font-size: 20px;'>les mots passes sont pas pareil")
     return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>les mots passes sont pareil")    
 
+@login_required
 def check_ville_partenaire(request):
     ville = request.POST.get('ville')
     structures = partenaire.objects.all()
@@ -146,7 +155,8 @@ def check_ville_partenaire(request):
         return HttpResponse("<div style='color: red; font-size: 20px;'>La ville est déjà utiliser")
     else:
         return HttpResponse("<div style='color:#00ff1A; font-size: 20px;'>La ville est utilisable.")
-    
+
+@login_required   
 def check_slug(request):
     slug = request.POST.get('slug')
     options = option.objects.all()

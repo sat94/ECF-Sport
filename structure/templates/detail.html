@@ -161,7 +161,7 @@
             {% if user.is_admin %}            
                 <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Appliquez les changements</a>
             {% endif %}
-        <a hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>
+        <a hx-swap="outerHTML"  hx-push-url="true" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>
     </div>    
  </div>
 {% endblock content %}

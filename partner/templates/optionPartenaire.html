@@ -3,7 +3,7 @@
 {% load custom_tags %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'optionPartenaire.css' %}"> 
+<link rel="stylesheet" href="{% static 'OptionPartenaire.css' %}"> 
 {% endblock head %}
 
 {% block title %}option partenaire{% endblock title %}
@@ -86,7 +86,7 @@
         {% if user.admin %}
         <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Accepter les modifications</a>
         {% endif %}
-        <a  hx-swap="outerHTML" hx-target="#page" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</a>    
+        <a  hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</a>    
     </div> 
 </div>
 {% endblock %}

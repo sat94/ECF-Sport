@@ -229,6 +229,22 @@ a{
 .imga:hover{   
   transform: scale(3.5);
 }
-
-
-
+.cardthree{
+  background-color: rgb(112, 26, 26);    
+}
+.cardone{
+  background-color: rgb(6, 6, 118);
+}
+.cardtwo{
+  background-color: #0a9f55;
+}
+.card{
+  border: #090909;
+  box-shadow: 5px 5px 2px black;
+}
+.graph{
+  margin-top: 5rem;
+}
+.top{
+  margin-top: 2rem;
+}

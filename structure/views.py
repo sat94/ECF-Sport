@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from accounts.models import partenaire, structure, option
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def details(request, pk):
     structures = structure.objects.get(id=pk)    
     options = option.objects.all().order_by()
@@ -16,7 +18,7 @@ def details(request, pk):
     }
     return render(request, "detail.html", context)
     
-
+@login_required
 def Options(request, pk):
     structures = structure.objects.get(id=pk)
     context= {
