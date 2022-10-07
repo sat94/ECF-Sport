@@ -13,44 +13,45 @@
     <h1>Créer<spam style="color: white; font-style: italic;"> une structure</spam></h1>   
     <form method ="POST" enctype="multipart/form-data" hx-encoding="multipart/form-data">        
         <div class="form_structure align form" >
-                {% csrf_token %}   
-                {% for error, message in errors.items %}
+            {% csrf_token %}   
+            {% for error, message in errors.items %}
                 <h5 style="color: red;">{{ message }}</h5>
-                {% endfor %}           
-                <label>Nom de la structure :</label>             
-                {% render_field form.nom placeholder="Nom" hx-post="/check_nameStructure/" hx-trigger="keyup" hx-target="#nameStructure-error" %}
-                <div id="nameStructure-error"></div><Br>
+            {% endfor %} 
+                    
+            <label>Nom de la structure :</label>             
+            {% render_field form.nom placeholder="Nom" hx-post="/check_nameStructure/" hx-trigger="keyup" hx-target="#nameStructure-error" %}
+            <div id="nameStructure-error"></div><Br>
 
-                <label>Adresse de la structure :</label>             
-                {% render_field form.adresse placeholder="Adresse" %}<Br>
+            <label>Adresse de la structure :</label>             
+            {% render_field form.adresse placeholder="Adresse" %}<Br>
                 
-                <label>Nombre de membre :</label>             
-                {% render_field form.membre %}<Br>
+            <label>Nombre de membre :</label>             
+            {% render_field form.membre %}<Br>
                 
-                <label>Téléphone :</label>             
-                {% render_field form.numberPhone placeholder="Tel" hx-post="/check_tel/" hx-trigger="keyup" hx-target="#tel-error" %}
-                <div id="tel-error"></div><Br>
+            <label>Téléphone :</label>             
+            {% render_field form.numberPhone placeholder="Tel" hx-post="/check_tel/" hx-trigger="keyup" hx-target="#tel-error" %}
+            <div id="tel-error"></div><Br>
                 
-                <label>Option :</label><br>             
-                {% render_field form.option %}<Br>
+            <label>Option :</label><br>             
+            {% render_field form.option %}<Br>
                 
-                <label>Partenaire :</label><br>          
-                {% render_field form.part %}<Br>
+            <label>Partenaire :</label><br>          
+            {% render_field form.part %}<Br>
                 
-                <label>Respnsable de la structure :</label><br>            
-                {% render_field form.user %}<Br>
+            <label>Respnsable de la structure :</label><br>            
+            {% render_field form.user %}<Br>
 
-                <label>Photo :</label><br>             
-                {% render_field form.photo %}<Br>
+            <label>Photo :</label><br>             
+            {% render_field form.photo %}<Br>
                           
                
-                <div id="complex"><div>{% render_field form.piscine %}  <label class="complex">Piscine</label></div>        
-                   <div>{% render_field form.haman %}  <label class="complex">Haman</label></div>                         
-                   <div>{% render_field form.sauna %}  <label class="complex">Sauna</label></div>
-                </div>
+            <div id="complex"><div>{% render_field form.piscine %}<label class="complex">Piscine</label></div>        
+            <div>{% render_field form.haman %}  <label class="complex">Haman</label></div>                         
+            <div>{% render_field form.sauna %}  <label class="complex">Sauna</label></div>
+            </div>
                 
-                <p><button hx-swap="outerHTML"  hx-post="{% url 'add-structure' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" name="validation">Valider</button>  
-                <a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'dashboard' %}" class="btn btnr btn-dark">Retour</a></p>          
+            <p><button hx-swap="outerHTML"  hx-post="{% url 'add-structure' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" name="validation">Valider</button>  
+            <a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'dashboard' %}" class="btn btnr btn-dark">Retour</a></p>          
         </div>
     </form>
 </div>

@@ -13,8 +13,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="content"> 
-  <div class="fixe">
+<div id="content">  
     <div class="container top">
       <div class="row">
         <div class="col-4">
@@ -41,6 +40,10 @@
         </div>
       </div>
     </div>
+  </div>  
+  <div hx-trigger="load">
+    <img  alt="Chargement..." class="htmx-indicator" width="50" src="{% static '295648.svg' %}">
+    {% include "partiel\graph.html" %}
+  </div>   
   </div>
-  {% include "partiel\graph.html" %}
 {% endblock content %}

@@ -11,7 +11,7 @@
 {% block content %}
 <div class="bloc">
     <h1>Modifier<spam style="color: white; font-style: italic;"> une option</spam></h1>
-    <form hx-swap="outerHTML" hx-put="{% url 'modif-option-valide' option.pk %}" hx-target="#page">
+    <form hx-swap="outerHTML" hx-put="{% url 'modif-option-valide' option.pk %}" hx-target="#dash">
         <div class="form-group align form mb-3">
                 {% csrf_token %}   
                 {% for error, message in errors.items %}
@@ -25,8 +25,8 @@
                 <label id="lab"><span id="titredescription">Description :</span><span id="compteur1"></span></label>                 
                 {% render_field  form.description id="zoneTexte" %}<br>      
                
-                <p><button  class="btn btnr bg-dark" type="submit" value="submit" >Valider</button>
-                <a hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard_option' %}"class="btn btnr btn-dark">Retour</a></p>            
+                <p><button  class="btn btnr bg-dark" type="submit" value="submit"> Valider</button>
+                <a hx-swap="outerHTML"  hx-push-url="true" hx-target="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>            
         </div>
     </form>
 </div>

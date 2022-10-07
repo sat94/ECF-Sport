@@ -1,8 +1,10 @@
+from email.policy import default
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
+from django_resized import ResizedImageField
 
 
 class MyUserManager(BaseUserManager):
@@ -37,11 +39,10 @@ class MyUser(AbstractBaseUser):
     prenom = models.CharField(max_length=20)
     slug = models.SlugField(max_length=20)
     email = models.EmailField(max_length=30, blank=False)
-    photo = models.ImageField(upload_to='photo', null=True, blank=True)
+    photo = ResizedImageField(size=[250, 350], quality=85, upload_to='photo', null=True, blank=True)
     adresse = models.CharField(max_length=200)
-    CodePostal = models.IntegerField(null=True, blank=True)    
-    part = models.OneToOneField("accounts.partenaire", on_delete=models.CASCADE, null=True, blank=True)
-    entreprise = models.OneToOneField("accounts.structure", on_delete=models.CASCADE, null=True, blank=True)
+    CodePostal = models.IntegerField(null=True, blank=True)  
+    commercial = models.BooleanField(default=False)
     ville = models.CharField(max_length=20)
     permission = models.CharField(choices= permi, max_length=15)
     is_active = models.BooleanField(default=True)
@@ -49,7 +50,7 @@ class MyUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     def __str__(self):       
-        return self.nom
+        return self.username
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nom)            
@@ -75,8 +76,7 @@ class MyUser(AbstractBaseUser):
 class option(models.Model):
     slug = models.SlugField(max_length=20)
     description = models.CharField(max_length=200)
-    
-
+  
     class Meta:
         ordering = ['slug']
 
@@ -84,13 +84,13 @@ class option(models.Model):
         return self.slug
 
 class structure(models.Model):
-    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='structure' )
     actif = models.BooleanField(default=True)
     part = models.ForeignKey('accounts.partenaire', on_delete=models.SET_NULL, null=True, blank=True)
     slug = models.SlugField(max_length=20)
     nom = models.CharField(max_length=20)
     adresse = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='salle', null=True, blank=True)
+    photo = ResizedImageField(size=[800,900], upload_to='salle', null=True, blank=True)
     phone = RegexValidator(regex = r"^\+?1?\d{8,15}$")
     numberPhone = models.CharField(validators = [phone], max_length = 10, unique = True)
     piscine = models.BooleanField(default=False)
@@ -115,8 +115,8 @@ class partenaire(models.Model):
     description = models.CharField(max_length=70)
     phone = RegexValidator(regex = r"^\+?1?\d{8,15}$")
     numberPhone = models.CharField(validators = [phone], max_length = 10)
-    photo = models.ImageField(upload_to='ville', null=True, blank=True) 
-    resp = models.OneToOneField(MyUser, on_delete = models.SET_NULL, null=True, blank=True)
+    photo = ResizedImageField(size=[500, 800],upload_to='ville', null=True, blank=True) 
+    resp = models.OneToOneField(MyUser, on_delete = models.SET_NULL, null=True, blank=True , related_name='responsable')
     option = models.ManyToManyField(option, blank=True)
 
     def __str__(self):

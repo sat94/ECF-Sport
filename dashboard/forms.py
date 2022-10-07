@@ -1,4 +1,4 @@
-from accounts.models import MyUser, partenaire, structure
+from accounts.models import partenaire, structure
 from django.contrib.auth.forms import UserChangeForm
 from django import forms
 
@@ -44,14 +44,17 @@ class ModifStructureForm(forms.ModelForm):
             "numberPhone": "Téléphone",  
             "membre"  : "Nombre de membres",                
         }
-        widgets = {
-          
+        widgets = {          
             "adresse": forms.Textarea(attrs={"rows" : 2, "cols": 23}),
         }  
        
-    def clean_photo(self):
-        photo = self.cleaned_data.get("photo")
-        if ".txt" in photo:
-            raise forms.ValidationError
-        return photo 
 
+class valid_par_id(forms.ModelForm):
+      class Meta:
+        model = partenaire 
+        fields = {
+            "actif"
+        }
+        widgets = {            
+             "actif": forms.CheckboxInput(),
+        }

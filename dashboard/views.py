@@ -1,6 +1,7 @@
 import os
 from django.http import QueryDict
 from accounts.models import *
+from django.views.decorators.clickjacking import xframe_options_exempt
 from profil.forms import Profils
 from .forms import *
 from ajouter.forms import *
@@ -9,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 import  pandas as pd
 from plotly.offline import plot
 import plotly.express as px
+from django.http.response import JsonResponse
+
 
 @login_required
 def dashboard(request):
@@ -27,9 +30,14 @@ def dashboard(request):
             'Responsable' : x.nom
         } for x in qs
     ]
-    df = pd.DataFrame(project)
-    fig = px.bar(df, x ="Structure", y="Nombre" , color="Responsable")
-    fig.update_xaxes()
+    df = pd.DataFrame(project)    
+    fig = px.bar(df, x ="Structure", y="Nombre" , color="Responsable", width=450, height=400)
+    fig.layout.plot_bgcolor = 'black'
+    fig.layout.paper_bgcolor = 'black'
+    fig.layout.legend = {'font_color':'white'}
+    fig.update_xaxes({'color':'white'})
+    fig.update_yaxes({'color':'white'})
+  
     gantt_plot = plot(fig, output_type="div")
 
     cam=[{
@@ -40,8 +48,12 @@ def dashboard(request):
     ]
 
     df = pd.DataFrame(cam)  
-    figa = px.pie(df, values='membre',names="nom", title ="Api-Sport", color="Partenaire")
-    
+    figa = px.pie(df, values='membre',names="nom", title ="Api-Sport", color="Partenaire", width=450, height=400)
+    figa.layout.paper_bgcolor = 'black'
+    figa.layout.legend = {'font_color':'white'}
+    figa.update_layout(title_font_color='white')
+    figa.update_xaxes({'color':'white'})
+    figa.update_yaxes({'color':'white'})
     cam_plot= plot(figa, auto_open=False, output_type="div")
           
     context= {
@@ -67,7 +79,8 @@ def mon_partenaire(request):
 @login_required
 def user_partenaire(request, slug):
     part = partenaire.objects.get(slug=slug)
-    default_image_path = part.photo.path
+    if MyUser.photo:
+        default_image_path = part.photo.path
     form = ModifPartenaire(request.POST or None, request.FILES or None, instance=part)
     if form.is_valid():
         if len(request.FILES)!= 0:
@@ -79,7 +92,8 @@ def user_partenaire(request, slug):
 @login_required
 def user_structure(request, pk):
     part = structure.objects.get(id=pk)
-    default_image_path = part.photo.path
+    if structure.photo:
+        default_image_path = part.photo.path
     form = ModifStructureForm(request.POST or None, request.FILES or None, instance=part)
     if form.is_valid():
         if len(request.FILES)!= 0:
@@ -88,7 +102,6 @@ def user_structure(request, pk):
         return redirect('maStructure')
     return render(request,'modifstructure.html',{'structure':part, 'form': form})
 
-@login_required
 def delete_previous_picture(previous,new):
     if previous != new:
         os.remove(previous)
@@ -141,15 +154,20 @@ def modifier_option_valide(request, pk):
 @login_required
 def dashboard_partenaire(request):
     partenaires = partenaire.objects.all()
-    context= { "partenaires" : partenaires }
+    form = valid_par_id()
+    context= { "partenaires" : partenaires,
+                "form" : form
+    }
     return render(request,'dashboard_partenaire.html', context)
 
 @login_required
 def delete_partenaire(request, pk):
     part = partenaire.objects.get(id=pk)
-    default_image_path = part.photo.path
+    if part.photo:
+        default_image_path = part.photo.path
     partenaire.objects.filter(id=pk).delete()
-    delete_previous_pictures(default_image_path)   
+    if default_image_path:
+        delete_previous_pictures(default_image_path)   
     partenaires = partenaire.objects.all()
     context= { "partenaires" : partenaires }
     return render(request, 'dashboard_partenaire.html', context)
@@ -157,13 +175,14 @@ def delete_partenaire(request, pk):
 @login_required
 def modifier_partenaire(request, pk):
     partenaires = partenaire.objects.get(id=pk)
-    form = AjoutPartenaireForm(request.POST or None, instance=partenaires)
+    form = AjoutPartenaireForm(instance=partenaires)
     return render(request,'modif-partenaire.html',{'partenaires': partenaires, 'form': form})
 
 @login_required
 def modifier_partenaire_valide(request, pk): 
     part = partenaire.objects.get(id=pk)
-    default_image_path = part.photo.path
+    if part.photo:
+        default_image_path = part.photo.path
     form = AjoutPartenaireForm(request.POST or None, request.FILES or None, instance=part)
     if form.is_valid():
         if len(request.FILES)!= 0:
@@ -193,9 +212,11 @@ def dashboard_structure(request):
 @login_required
 def delete_structure(request, pk):
     part = structure.objects.get(id=pk)
-    default_image_path = part.photo.path
+    if part.photo:
+        default_image_path = part.photo.path
     structure.objects.filter(id=pk).delete()
-    delete_previous_pictures(default_image_path)   
+    if part.photo:
+        delete_previous_pictures(default_image_path)   
     structures = structure.objects.all()
     context= { "structures" : structures }
     return render(request, 'dashboard_structure.html', context)
@@ -209,7 +230,8 @@ def modifier_structure(request, pk):
 @login_required
 def modifier_structure_valide(request, pk): 
     part = structure.objects.get(id=pk)
-    default_image_path = part.photo.path
+    if part.photo:
+        default_image_path = part.photo.path
     form = AjoutStrutureForm(request.POST or None, request.FILES or None, instance=part)
     if form.is_valid():
         if len(request.FILES)!= 0:
@@ -228,20 +250,22 @@ def add_structure(request):
             form = AjoutPartenaireForm() 
     return render(request, "rajoutstructure.html",{"form": form})  
 
-
 #Personnel################################################################################
+
 @login_required
 def dashboard_personnel(request):
     personnel = MyUser.objects.all()
-    context= { "personnel" : personnel }
+    context = { "personnel" : personnel }
     return render(request, 'dashboard_personnel.html', context)
 
 @login_required
 def delete_personnel(request, pk):
     part = MyUser.objects.get(id=pk)
-    default_image_path = part.photo.path
+    if part.photo:
+        default_image_path = part.photo.path
     MyUser.objects.filter(id=pk).delete()
-    delete_previous_pictures(default_image_path)   
+    if default_image_path:
+        delete_previous_pictures(default_image_path)   
     personnel = MyUser.objects.all()
     context= { "personnel" : personnel }
     return render(request, 'dashboard_personnel.html', context)
@@ -255,11 +279,22 @@ def modifier_personnel(request, pk):
 @login_required
 def modifier_personnel_valide(request, pk): 
     part = MyUser.objects.get(id=pk)
-    default_image_path = part.photo.path
+    default_image_path =  None
+    if  part.photo:
+        default_image_path = part.photo.path
     form = Profils(request.POST or None, request.FILES or None, instance=part)
     if form.is_valid():
         if len(request.FILES)!= 0:
-           delete_previous_picture(default_image_path, part.photo.path)
+            if default_image_path:
+                delete_previous_picture(default_image_path, part.photo.path)
         form.save()
-        return redirect('dashboard')
+    return redirect('dashboard')
 
+@xframe_options_exempt
+def valid_partenaire_valide(request, pk): 
+    partenaires = partenaire.objects.get(id=pk) 
+    form = valid_par_id(request.POST, instance=partenaires)         
+    if form.is_valid():
+        form.save()
+        return JsonResponse(form)  # No need to use json.dumps()
+    return("index")

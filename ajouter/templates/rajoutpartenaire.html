@@ -27,11 +27,8 @@
                
                 <label>Téléphone:</label>                 
                 {% render_field form.numberPhone placeholder="Tel" hx-post="/check_tel/" hx-trigger="keyup" hx-target="#tel-error"  %}
-                <div id="tel-error"></div><Br>
-                    
-                <label>Responsable du Partenaire:</label><br>                  
-                {% render_field form.resp %}<Br> 
-                
+                <div id="tel-error"></div><Br>                    
+                           
                 <label>Photo:</label><br>
                 {% render_field form.photo %}<Br> 
                 

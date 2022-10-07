@@ -6,11 +6,10 @@ from django.urls import include, path
 from ajouter.views import *
 from dashboard.views import *
 from .views import index, recherche, false
-from profil.views import UserEditView, profils
-from partner.views import Partenaire, Structure, Partenaire_option
+from profil.views import UserEditView, change_password, profils
+from partner.views import *
 from structure.views import Options, details
 from main import settings
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +26,7 @@ urlpatterns = [
     path('accounts/', include ('django.contrib.auth.urls')), 
     path('profils/', profils, name="profils" ) , 
     path('profils/modifier', UserEditView.as_view(), name='modifprofils' ) ,
+    path('profils/password', change_password, name='password' ) ,
     path('partenaire/', Partenaire, name="partenaire"),
     path('partenaire/option/<int:pk>', Partenaire_option, name="optionbase"),
     path('partenaire/<str:slug>', Structure, name='structure'),
@@ -45,6 +45,7 @@ htmx_urlpatterns = [
     path('delete-option/<int:pk>/', delete_option, name='delete-option'),
     path("dash/modifier_option/<int:pk>",modifier_option, name='modif-option'),
     path("dash/modifier_option/valide/<int:pk>",modifier_option_valide, name='modif-option-valide'),
+    path("dash/add_option/<int:pk>/", modifier_option, name='rajout-option'),  
 
     path('delete-partenaire/<int:pk>/', delete_partenaire, name='delete-partenaire'),
     path("dash/add_partenaire",add_partenaire, name='add-partenaire'),
@@ -67,8 +68,10 @@ htmx_urlpatterns = [
     path('check_nameStructure/',check_name_struture, name='nameStructure'),
     path('check_password/',check_password, name='check_password'),
     path('check_villePartenaire/', check_ville_partenaire, name="check_villePartenaire"),
-    path('check_slug/', check_slug, name="check_slug"),   
-  
+    path('check_slug/', check_slug, name="check_slug"), 
+
+    path('valide/<int:pk>',option_partenaire_valide, name="valide"),
+    path('valide_partenaire/<int:pk>',valid_partenaire_valide, name="valide_partenaire")
 ]
 dashboard_urlpatterns = [
     path("dash/", dashboard, name='dashboard'),
@@ -76,7 +79,6 @@ dashboard_urlpatterns = [
     path("dash/partenaire", dashboard_partenaire, name='dashboard_partenaire'),
     path("dash/structure", dashboard_structure, name='dashboard_structure'),    
     path("dash/option", dashboard_option, name='dashboard_option'),  
-    path("dash/add_option/<int:pk>/", modifier_option, name='rajout-option'),  
 ]
 urlpatterns += htmx_urlpatterns 
 

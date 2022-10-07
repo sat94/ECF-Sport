@@ -1,22 +1,19 @@
-{% load static %} 
-
-{% block head %}
-<link rel="stylesheet" href="{% static 'dashboard.css' %}">    
-{% endblock head %}
-
+{% extends 'dashbord.html' %}
+{% load static %}
 {% load custom_tags %}
 
 {% block title %}dashboard_partenaire{% endblock title %}
 
 {% block content %}
 <div class="fixe">
-    <h3><span id="h3">Les</span> Partenaires</h3>
+    <h3 class="text-center"><span id="h3">Les</span> Partenaires</h3>
     <div class="container">
         <div class="row">
             <div class="col-2"></div>
-            <div class="col-5"><h5 class="d-flex  align-items-center h-100" id="color">Description</p></div>
+            <div class="col-4"><h5 class="d-flex align-items-center h-100" id="color">Description</p></div>
             <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Responsable</p></div>
-            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Téléphone</p></div>           
+            <div class="col-2"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Téléphone</p></div>
+            <div class="col-1"><h5 class="d-flex justify-content-center align-items-center h-100" id="color">Actif</p></div>           
         </div>
         {% for partenaires in partenaires %}
             <div class="row">
@@ -24,9 +21,9 @@
                   <img src="{{ partenaires.photo.url }}"  class="img d-flex align-items-center h-99"  alt="{{ partenaires.photo.url }}">                  
                 </div>
                 <div class="col-1">         
-                     <h5 class="d-flex align-items-center h-100"><span id="color"> {{ partenaires.ville }}</span></h5>
+                     <h5 class="d-flex justify-content-center align-items-center h-100"><span id="color"> {{ partenaires.ville }}</span></h5>
                 </div>
-                <div class="col-5">     
+                <div class="col-4">     
                     <p class="d-flex align-items-center h-100 descrip">{{ partenaires.description}}</p>
                 </div>
                 <div class="col-1">     
@@ -34,6 +31,13 @@
                 </div>
                 <div class="col-2">     
                     <p class="d-flex justify-content-center align-items-center h-100">{{  partenaires.numberPhone|phoneNumber}}</p>
+                </div>
+                <div class="col-1">     
+                    {% if partenaires.actif %}
+                        <p class="d-flex justify-content-center align-items-center h-100"><input checked type="checkbox" name="actif"></p>
+                    {% else %}
+                        <p class="d-flex justify-content-center align-items-center h-100"><input type="checkbox" name="actif"></p>
+                    {% endif %}  
                 </div>
                 <div class="col-1">
                     <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-get="{% url 'modif-partenaire' partenaires.pk %}"  hx-push-url="true" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
@@ -45,7 +49,7 @@
         {% endfor %}        
     </div>
     <div class="bas">
-       <p> <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'rajoutpartenaire' %}" class="btn btnr btn-dark">Ajoutez un Partenaire</a></p>
+       <p> <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'rajoutpartenaire' %}" class="ajouter btn btnr btn-dark">Ajoutez un Partenaire</a></p>
     </div>
 </div>
 

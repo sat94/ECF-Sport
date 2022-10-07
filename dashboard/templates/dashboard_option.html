@@ -1,9 +1,12 @@
+{% extends 'dashbord.html' %}
+{% load static %}
+
 {% block title %}dashboard_option{% endblock title %}
 
 
 {% block content %}
 <div class="fixe">
-    <h3><span id="h3">Les</span> Options</h3>
+    <h3 class="text-center"><span id="h3">Les</span> Options</h3>
     <div class="container text ">
         {% for options in option %}
             <div class="row" >
@@ -23,6 +26,6 @@
         {% endfor %}
     </div>
     <div class="bas">
-       <p> <a hx-target="#dash" push-hx-url="True" hx-get="{% url 'rajoutoption' %}" class="btn btnr btn-dark">Ajoutez une option</a></p>
+       <p> <a hx-target="#dash" push-hx-url="True" hx-get="{% url 'rajoutoption' %}" class="ajouter btn btnr btn-dark">Ajoutez une option</a></p>
     </div>
 {% endblock content %}

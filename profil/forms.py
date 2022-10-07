@@ -1,7 +1,5 @@
 from accounts.models import MyUser
 from django.contrib.auth.forms import UserChangeForm
-from django import forms
-import os
 
 
 class Profils(UserChangeForm):
@@ -16,9 +14,7 @@ class Profils(UserChangeForm):
             "CodePostal", 
             "ville",
             "photo",
-            "permission",
-            "part",  
-            "entreprise",       
+            "permission",                
             ]
         labels = {
             "username": "Nom d'utilisateur",
@@ -29,14 +25,6 @@ class Profils(UserChangeForm):
             "ville" : "Votre ville",          
             "photo" : "Votre photo (facultatif)",         
         }  
-        
-    def clean_photo(self):
-        photo = self.cleaned_data.get("photo")
-        if ".txt" in photo:
-            raise forms.ValidationError
-        return photo       
+      
+       
     
-    def save(self, commit=True):
-        if self.instance.photo.path != self.initial['photo'].path:
-            os.remove(self.initial['photo'].path)
-        return super().save(commit)

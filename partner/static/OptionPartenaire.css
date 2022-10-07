@@ -1,4 +1,8 @@
-
+body{
+    background-color: #1b1a1b;
+    color: white;
+    overflow-x: hidden;
+}
 .top{
     margin-top: 140px;  
     margin-left: 50px; 
@@ -63,7 +67,7 @@ input[type="checkbox"]:after{
 }
 input:checked[type="checkbox"]::after
 {
-    left: 20px
+    left: 20px 
 } 
 .nom{
     text-decoration: none;

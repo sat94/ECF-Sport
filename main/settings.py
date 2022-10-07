@@ -22,7 +22,6 @@ EMAIL_HOST_PASSWORD = 'kdtxtxzergiilcyc'
 EMAIL_PORT = 587
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_mail'))
@@ -38,6 +37,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
+DJANGORESIZED_DEFAULT_KEEP_META = True
+DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
+DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
+DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 # Application definition
 

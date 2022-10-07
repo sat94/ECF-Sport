@@ -47,13 +47,7 @@ class SignupForm(UserCreationForm):
         }  
         widgets = {
             "password" : forms.PasswordInput(),
-        } 
-   
-    def clean_photo(self):
-        photo = self.cleaned_data.get("photo")
-        if ".txt" in photo:
-            raise forms.ValidationError
-        return photo       
+        }    
 
 class AjoutStrutureForm(forms.ModelForm): 
     class Meta:
@@ -83,14 +77,12 @@ class AjoutStrutureForm(forms.ModelForm):
         widgets = {
             "option": forms.CheckboxSelectMultiple(),
             "adresse": forms.Textarea(attrs={"rows" : 2, "cols": 23}),
-        }  
-       
-    def clean_photo(self):
-        photo = self.cleaned_data.get("photo")
-        if ".txt" in photo:
-            raise forms.ValidationError
-        return photo 
- 
+        }         
+    def __init__(self, *args, **kwargs):
+        super(AjoutStrutureForm, self).__init__(*args, **kwargs)
+        CUSTOM_QUERYSET = MyUser.objects.filter(commercial=False)
+        self.fields['user'].queryset = CUSTOM_QUERYSET
+
 class AjoutPartenaireForm(forms.ModelForm):    
     class Meta:
         model = partenaire 
@@ -99,6 +91,7 @@ class AjoutPartenaireForm(forms.ModelForm):
             "description",
             "numberPhone",
             "resp",
+            "salle",
             "photo",
             "option"
         )
@@ -115,5 +108,12 @@ class AjoutPartenaireForm(forms.ModelForm):
                 }
             ),
             "option": forms.CheckboxSelectMultiple(),
+            "actif" : forms.CheckboxInput(),
         }  
   
+    def __init__(self, *args, **kwargs):
+        super(AjoutPartenaireForm, self).__init__(*args, **kwargs)
+        CUSTOM_QUERYSET_USER = MyUser.objects.filter(commercial=False)
+        CUSTOM_QUERYSET_SALLE = structure.objects.filter(part=None)
+        self.fields['resp'].queryset = CUSTOM_QUERYSET_USER
+        self.fields['salle'].queryset = CUSTOM_QUERYSET_SALLE

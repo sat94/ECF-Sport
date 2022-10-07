@@ -5,13 +5,12 @@ from django.utils.encoding import force_bytes, force_str
 from .token import account_activation_token
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from accounts.models import option, partenaire, structure
 from ajouter.forms import AjoutoptionForm, AjoutStrutureForm,SignupForm, AjoutPartenaireForm
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 
 @login_required
 def rajout_structure(request):
@@ -19,7 +18,7 @@ def rajout_structure(request):
     form = AjoutStrutureForm()
     context["form"]= form 
     return render(request, 'rajoutstructure.html', context = context)
-    
+
 @login_required
 def rajout_partenaire(request):
     context={}
@@ -27,6 +26,7 @@ def rajout_partenaire(request):
     context["form"]= form       
     return render(request, 'rajoutpartenaire.html', context = context)
 
+@login_required
 def activate(request, uidb64, token):
     User= get_user_model()
     try:
@@ -41,6 +41,7 @@ def activate(request, uidb64, token):
         return redirect('index')
     return redirect('false')
 
+@login_required
 def active_Email(request, user, email, nom, password, permission):
     subject = "Bienvenu sur API-SPORT"
     message = render_to_string("template_activate_account.html",{
@@ -81,7 +82,7 @@ def add_personnel(request):
             user.is_active = False           
             user.save()
             active_Email(request, user, email, nom, password, permission) 
-            return redirect('dashboard_personnel')
+            return redirect('dashboard')
         else:
             form = SignupForm() 
     return render(request, "signup.html",{"form": form})  
@@ -91,15 +92,15 @@ def rajout_option(request):
     form = AjoutoptionForm()
     return render(request, "rajoutoption.html",{"form": form})
 
-# HTMX
-    
-@login_required    
+# HTMX ###################################################################
+
+@login_required   
 def add_option(request):
     if request.method == "POST":
         form = AjoutoptionForm(request.POST)         
         if form.is_valid():
             form.save()
-            return redirect('dashboard_option')
+            return redirect('dashboard')
         else:
             form = AjoutoptionForm() 
     return render(request, "rajoutoption.html",{"form": form}) 

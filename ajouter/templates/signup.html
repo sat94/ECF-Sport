@@ -57,7 +57,7 @@
                         {% render_field  form.permission %}             
                     </div> 
                 <p><button hx-swap="outerHTML"  hx-post="{% url 'add-personnel' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" id="buttomPlace" >Valider</button>
-                <a hx-swap="outerHTML" hx-target="#dash" push-hx-url="true"  hx-get="{% url 'dashboard_personnel' %}" class="btn btnr btn-dark">Retour</a></p>            
+                <a hx-swap="outerHTML" hx-target="#dash" push-hx-url="true"  hx-get="{% url 'dashboard' %}" class="btn btnr btn-dark">Retour</a></p>            
         </div>
     </form>
 </div>

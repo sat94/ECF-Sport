@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from accounts.models import option, partenaire, structure
 from django.contrib.auth.decorators import login_required
+from partner.forms import Option_par_id
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 @login_required
 def Partenaire(request):
@@ -16,21 +18,29 @@ def Structure(request, slug):
     }
     return render(request, "structure.html",context)
 
-@login_required
+
 def Partenaire_option(request, pk):
-    structures = structure.objects.filter(part=pk)
     partenaires = partenaire.objects.get(id=pk)
     listoptionid = [option_partenaire.id for option_partenaire  in partenaires.option.all()]
-    options = option.objects.all()        
+    form = Option_par_id(instance=partenaires)
+    options = option.objects.all()  
+    structures = structure.objects.filter(part=pk)
     context= { "partenaires" : partenaires,
                "options" : options,
                "structures": structures,
-               "listoptionid" : listoptionid
+               "listoptionid" : listoptionid,
+               "form": form,
     }
     return render(request,"optionPartenaire.html",context)
 
 
-
+def option_partenaire_valide(request, pk): 
+    partenaires = partenaire.objects.get(id=pk) 
+    form = Option_par_id(request.POST, instance=partenaires)         
+    if form.is_valid():
+        form.save()
+        return("index")
+    return("index")
 
 
     

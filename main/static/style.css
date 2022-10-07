@@ -5,6 +5,9 @@
   padding: 0;
   box-sizing: border-box;  
 }
+body{
+  background-color: black;
+}
 :root {
   --neon-text-color: #00ff1A;
   --neon-border-color: #454545;
