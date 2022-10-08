@@ -84,8 +84,16 @@
 {% block head %} {% endblock head %}
 <title>Api Sport - {% block title%}{% endblock %} </title>
 <div id="structure"  hx-boost="true"></div>
+
 {% block content %}{% endblock content %}
-    </div>
+</div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 </div>
 {% block footer%}{% endblock footer %}
 
@@ -93,7 +101,7 @@
 document.body.addEventListener('htmx:configRequest', (event)=> {
     event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
 })
-</script>
+</script> 
 
 <script src={% static 'app.js' %}></script>
 {% block javascript %}{% endblock javascript %}

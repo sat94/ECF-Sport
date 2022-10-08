@@ -41,7 +41,7 @@
                 <label>Photo :</label>    
                 {% render_field form.photo %}<Br> 
             
-                <button hx-target="#page"  hx-push-url="true" hx-post="{% url 'modifprofils' %}" class="btn btnr bg-dark" type="submit" value="submit" id="buttomPlace" >Valider</button>            
+                <button value="submit" hx-target="#page"  hx-push-url="true" hx-post="{% url 'modifprofils' %}" class="btn btnr bg-dark" type="submit"  id="buttomPlace" >Valider</button>            
         </div>
     </form>
 </div>

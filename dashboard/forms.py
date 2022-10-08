@@ -24,7 +24,7 @@ class ModifPartenaire(UserChangeForm):
             ),          
         }  
 
-class ModifStructureForm(forms.ModelForm): 
+class ModifStructureForm(UserChangeForm): 
     class Meta:
         model = structure
         fields = [
@@ -49,7 +49,7 @@ class ModifStructureForm(forms.ModelForm):
         }  
        
 
-class valid_par_id(forms.ModelForm):
+class valid_par_id(UserChangeForm):
       class Meta:
         model = partenaire 
         fields = {

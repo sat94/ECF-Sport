@@ -13,6 +13,7 @@ from main import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('test/<int:pk>', partenaireUpdateView.as_view(),name='test'),
     path("rajouter/structure",rajout_structure , name='rajoutstructure'),
     path("rajouter/partenaire",rajout_partenaire, name='rajoutpartenaire'),
     path("rajouter/profils",rajout_profils , name='rajoutprofils'),

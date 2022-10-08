@@ -290,7 +290,6 @@ def modifier_personnel_valide(request, pk):
         form.save()
     return redirect('dashboard')
 
-@xframe_options_exempt
 def valid_partenaire_valide(request, pk): 
     partenaires = partenaire.objects.get(id=pk) 
     form = valid_par_id(request.POST, instance=partenaires)         

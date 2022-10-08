@@ -21,22 +21,22 @@
             <p> Ses structures :</p>
         </div>
         <div class="col-2">  
-            <p>{{ partenaires.ville }}</P>
-            {% if  partenaires.resp.nom %} 
-                <p>{{ partenaires.resp.nom }}</p>  
+            <p>{{ object.ville }}</P>
+            {% if  object.resp.nom %} 
+                <p>{{ object.resp.nom }}</p>  
             {% else %} 
                 <p>inconnu</p>
             {% endif %} 
-            <p>{{ partenaires.adresse }}</P>
-            <p>{{ partenaires.description }}</P>                     
-            <p>{{ partenaires.numberPhone|phoneNumber }}</P>
+            <p>{{ object.adresse }}</P>
+            <p>{{ object.description }}</P>                     
+            <p>{{ object.numberPhone|phoneNumber }}</P>
             {% if user.is_admin %}
             <form method ="POST">
                 {% csrf_token %}  
                 <p></p>
             </form>
             {% else %}
-                {% if partenaires.actif %}
+                {% if object.actif %}
                 <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
                 {% else %}                                      
                 <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
@@ -49,8 +49,8 @@
                      
         <div class="col-4">
             <div class="tech">
-            {% if partenaires.photo.url %} 
-              <img src={{ partenaires.photo.url }} class="rounded-3 img-fluid float" alt={{ partenaires.photo.url }}>
+            {% if object.photo.url %} 
+              <img src={{ object.photo.url }} class="rounded-3 img-fluid float" alt={{ object.photo.url }}>
             {% else %}
               <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float" alt="inconnu.jpg">
             {% endif %}
@@ -58,10 +58,10 @@
         </div>        
         {% if user.is_admin %}
         <div class="col-4">
-            <form method ="POST" action="">
-                {% csrf_token %}
-                <h2> Les Options Globals</h2>
-                <p>  {{ form }}</p>
+            <form method ="POST" action>             
+                {{ form }}
+                <button class="btn btn-dark btn-lg" type="submit">valider</button>
+            </form>
             </div>
             {% else %}
             <div class="col-2">
@@ -82,9 +82,10 @@
     </div>  
     <div class ="row-3">
         <div class="col-3 button">
-            {% if user.is_admin %}          
-            <a hx-swap="outerHTML" hx-target="#page" hx-post="{% url "test" partenaires.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Accepter les modifications</a>
-            {% endif %} 
+            {% if user.is_admin %}
+
+            {% endif %}       
+
             <a hx-swap="outerHTML" hx-target="#page"  hx-push-url="true" hx-get="{% url 'partenaire' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</a>    
         </div> 
 </div>
