@@ -1,4 +1,4 @@
-from accounts.models import partenaire, structure
+from accounts.models import MyUser, partenaire, structure
 from django.contrib.auth.forms import UserChangeForm
 from django import forms
 
@@ -48,13 +48,13 @@ class ModifStructureForm(UserChangeForm):
             "adresse": forms.Textarea(attrs={"rows" : 2, "cols": 23}),
         }  
        
-
-class valid_par_id(UserChangeForm):
+class Actif_user(forms.ModelForm):
       class Meta:
-        model = partenaire 
+        model = MyUser
         fields = {
-            "actif"
+            "is_active",            
         }
-        widgets = {            
-             "actif": forms.CheckboxInput(),
+        widgets = {
+             "is_active": forms.CheckboxInput(),             
         }
+

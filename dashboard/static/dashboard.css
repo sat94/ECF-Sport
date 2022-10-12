@@ -257,3 +257,7 @@ input:checked[type="checkbox"]::after
 img {
  transition: opacity 300ms ease-in;
 }
+#replace{
+  margin-top: 5px;
+  align-items: center;
+}

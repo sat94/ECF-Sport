@@ -12,7 +12,7 @@
 {% block content %}
 <div class="bloc">
     <h1>Modifier<spam style="color: white; font-style: italic;"> un partenaire</spam></h1>
-    <form method ="POST" enctype="multipart/form-data" hx-encoding="multipart/form-data>
+    <form method ="POST" enctype="multipart/form-data" hx-encoding="multipart/form-data">
         <div class="form-group align form mb-3">
                 {% csrf_token %}   
                 {% for error, message in errors.items %}

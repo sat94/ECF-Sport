@@ -1,4 +1,3 @@
-from email.policy import default
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.urls import reverse
@@ -44,10 +43,12 @@ class MyUser(AbstractBaseUser):
     CodePostal = models.IntegerField(null=True, blank=True)  
     commercial = models.BooleanField(default=False)
     ville = models.CharField(max_length=20)
-    permission = models.CharField(choices= permi, max_length=15)
+    permission = models.CharField(choices= permi, max_length=15, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    partenaires = models.CharField(max_length=20, null=True, blank=True) 
+    structures = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):       
         return self.username
@@ -64,13 +65,9 @@ class MyUser(AbstractBaseUser):
     objects = MyUserManager()
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
 class option(models.Model):
@@ -84,7 +81,7 @@ class option(models.Model):
         return self.slug
 
 class structure(models.Model):
-    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='structure' )
+    user = models.OneToOneField(MyUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='structure')
     actif = models.BooleanField(default=True)
     part = models.ForeignKey('accounts.partenaire', on_delete=models.SET_NULL, null=True, blank=True)
     slug = models.SlugField(max_length=20)

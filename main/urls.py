@@ -6,28 +6,30 @@ from django.urls import include, path
 from ajouter.views import *
 from dashboard.views import *
 from .views import index, recherche, false
-from profil.views import UserEditView, change_password, profils
+from profil.views import UserEditView, profils
 from partner.views import *
-from structure.views import Options, details
+from structure.views import Options, details, valide_option_structure, option_structure_valide
 from main import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/<int:pk>', partenaireUpdateView.as_view(),name='test'),
     path("rajouter/structure",rajout_structure , name='rajoutstructure'),
     path("rajouter/partenaire",rajout_partenaire, name='rajoutpartenaire'),
     path("rajouter/profils",rajout_profils , name='rajoutprofils'),
     path("rajouter/option",rajout_option, name ='rajoutoption'),
     path("", index, name='index'), 
-    path("dash/mastructure/", ma_structure, name='maStructure'),
-    path("dash/monpartenaire/", mon_partenaire, name='monPartenaire'),
-    path("dash/modifstructure/<int:pk>", user_structure, name='modifstructure'),
-    path("dash/modifpartenaire/<str:slug>", user_partenaire, name='modifpartenaire'),
+    
+    path("profils/user/mastructure/", ma_structure, name='maStructure'),
+    path("profils/user/monpartenaire/", mon_partenaire, name='monPartenaire'),
+    path("profils/user/modifstructure/<int:pk>", user_structure, name='modifstructure'),
+    path("profils/user/modifpartenaire/<int:pk>", user_partenaire, name='modifpartenaire'),
+    path('profils/user/option/<int:pk>',option_user_change, name='user_option_partenaire'),
+
     path("false/", false, name="false"),
     path('accounts/', include ('django.contrib.auth.urls')), 
     path('profils/', profils, name="profils" ) , 
-    path('profils/modifier', UserEditView.as_view(), name='modifprofils' ) ,
-    path('profils/password', change_password, name='password' ) ,
+    path('profils/modifier', UserEditView.as_view(), name='modifprofils') ,    
+    path('profils/password', auth_views.PasswordChangeView.as_view(template_name='registration/password.html'), name='password') ,
     path('partenaire/', Partenaire, name="partenaire"),
     path('partenaire/option/<int:pk>', Partenaire_option, name="optionbase"),
     path('partenaire/<str:slug>', Structure, name='structure'),
@@ -39,6 +41,7 @@ urlpatterns = [
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "password_reset_sent.html"), name ='password_reset_done'),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = "password_reset_form.html"), name ='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name = "password_reset_done.html"), name ='password_reset_complete') 
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 htmx_urlpatterns = [
@@ -72,7 +75,12 @@ htmx_urlpatterns = [
     path('check_slug/', check_slug, name="check_slug"), 
 
     path('valide/<int:pk>',option_partenaire_valide, name="valide"),
-    path('valide_partenaire/<int:pk>',valid_partenaire_valide, name="valide_partenaire")
+    path('structures/valide/<int:pk>',option_structure_valide, name="valide_structure"),
+    path('structures/option/<int:pk>', valide_option_structure, name="valide_structure_option"),
+
+    path('checkbox/valide/partenaire/<int:pk>',dash_valide_partenaire,name='valide_actif_partenaire'),
+    path('checkbox/valide/structure/<int:pk>',dash_valide_structure,name='valide_actif_structure'),
+    path('checkbox/valide/personnel/<int:pk>',dash_actif_personnel,name='valide_actif_personnel')
 ]
 dashboard_urlpatterns = [
     path("dash/", dashboard, name='dashboard'),

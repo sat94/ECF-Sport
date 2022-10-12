@@ -15,8 +15,8 @@
                   <p class="card-text">Partenaire : {{ structure.part }}</p>
                   <p class="card-text"><i class="far fa-id-badge"></i> {{ structure.user.nom }}</p>
                   <p class="card-text"><i class="fas fa-mobile-alt"></i> {{ structure.numberPhone|phoneNumber }} </P>
-                  <a  hx-swap="outerHTML" hx-target="#page" push-hx-url="True" hx-get="{% url 'detail' structure.pk %}" class="btn btn-dark">Ses options</a>
-                  <a  hx-swap="outerHTML" hx-target="#page" push-hx-url="True" hx-get="{% url 'responsable' structure.pk %}" class="btn btn-dark">Le responsable</a>
+                  <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'detail' structure.pk %}" class="btn btn-dark">Ses options</a>
+                  <a  hx-swap="outerHTML" hx-target="#page" hx-push-url="true" hx-get="{% url 'responsable' structure.pk %}" class="btn btn-dark">Le responsable</a>
               </div>
           </div>            
       </div>    

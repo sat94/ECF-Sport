@@ -7,9 +7,8 @@
 
 {% block title %}Dashboard{% endblock title %}
 
-
 {% block nav %}
-     {% include "partiel\navbar.html" %}
+  {% include "partiel\navbar.html" %}
 {% endblock %}
 
 {% block content %}
@@ -41,7 +40,7 @@
       </div>
     </div>
   </div>  
-  <div hx-get="\partiel\graph.html" hx-trigger="load">
+  <div hx-trigger="load">
     {% include "partiel\graph.html" %}
     <img  alt="Chargement..." class="htmx-indicator" width="50" src="{% static '295648.svg' %}">
   </div>   

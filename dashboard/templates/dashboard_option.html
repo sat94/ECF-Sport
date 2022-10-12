@@ -1,5 +1,5 @@
 {% extends 'dashbord.html' %}
-{% load static %}
+
 
 {% block title %}dashboard_option{% endblock title %}
 
@@ -20,7 +20,7 @@
                 <a hx-target="#dash" hx-push-url="true" hx-get="{% url 'modif-option' options.pk %}" class="btn btnr btn-dark">Modifier</a>
                 </div>
                 <div class="col-1">
-                <a hx-target="#content" hx-delete="{% url 'delete-option' options.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?"class="btn btnr danger">Effacer</a>
+                <a  hx-target="#dash" hx-delete="{% url 'delete-option' options.pk %}" class="btn btnr danger">Effacer</a>
                 </div>
             </div>     
         {% endfor %}

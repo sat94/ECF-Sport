@@ -22,22 +22,23 @@
             <p> Téléphone : </P>  
             </div>
             <div class="col-2 col-md-3 col-lg-3 px-3 mt-2">   
-            <p>{{user.partenaire.ville}}</P>
-            <p>{{user.partenaire.description}}</P>                 
+            <p>{{user.responsable.ville}}</P>
+            <p>{{user.responsable.description}}</P>                 
             <p><a hx-target="#page" hx-get="{% url 'profils' %}" class="nom">{{user.nom}}</a></P>
             <P>{{user.email}}</p>
-            <p>{{user.partenaire.numberPhone|phoneNumber}}</P>                            
+            <p>{{user.responsable.numberPhone|phoneNumber}}</P>                                    
             </div>
             <div class="col-12 col-md-12 col-lg-3 px-3 mt-3">
             <div class="tech">         
-            <img src={{ user.partenaire.photo.url }} class="rounded-3 img-fluid float" alt={{user.partenaire.photo}}>      
+            <img src={{ user.responsable.photo.url }} class="rounded-3 img-fluid float" alt={{user.partenaire.photo}}>      
             </div>
             </div>
         </div> 
     </div>
     <div class ="row-3">
         <div class="col-3">
-        <a hx-target="#page"  hx-push-url="true" hx-get="{% url 'modifpartenaire' slug=user.partenaire.slug %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</a>
+        <a hx-target="#page" hx-push-url="true" hx-get="{% url 'modifpartenaire' user.responsable.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier</a>
+        <a hx-target="#page" hx-push-url="true" hx-get="{% url 'user_option_partenaire' user.responsable.pk %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Option</a>  
     </div> 
 </div>
 

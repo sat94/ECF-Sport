@@ -25,8 +25,7 @@
             <P>{{user.email}}
             <p>{{user.adresse}}</P>
             <p>{{user.ville}}</P>
-            <p>{{user.CodePostal}}</P>                       
-           
+            <p>{{user.CodePostal}}</P>  
             </div>
             <div class="col-12 col-md-12 col-lg-3 px-3 mt-3">
             <div class="tech">
@@ -36,13 +35,14 @@
             {% else %}
             <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
             {% endif %}
+          
             </div>
             </div>
         </div> 
     </div>
     <div class ="row-3">
-        <a hx-target="#page" hx-push-url="true"  hx-get="{% url 'modifprofils' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le profils</a>
-        <a hx-target="#page" hx-get="{% url 'password' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le password</a>
+        <a hx-target="#page" hx-push-url="true" hx-get="{% url 'modifprofils' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le profils</a>
+        <a hx-target="#page" hx-push-url="true" hx-get="{% url 'password' %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Modifier le password</a>
     </div> 
 </div>
 {% endblock %}

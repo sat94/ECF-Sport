@@ -1,6 +1,5 @@
 {% extends 'dashbord.html' %}
 {% load static %}
-
 {% block title %}dashboard_personnel{% endblock title %}
 
 {% block content %}
@@ -56,18 +55,31 @@
                 <div class="col-1">     
                     <p class="d-flex justify-content-center align-items-center h-100">{{ personnel.email }}</p>
                 </div>
-                <div class="col-1">     
-                    {% if personnel.is_active %}
-                        <p class="d-flex justify-content-center align-items-center h-100"><input checked type="checkbox" name="actif"></p>
-                    {% else %}
-                        <p class="d-flex justify-content-center align-items-center h-100"><input type="checkbox" name="actif"></p>
+                <div class="col-1">   
+                    {% if personnel.is_admin %}
+                    <P class="d-flex justify-content-center align-items-center h-100">--------</P>
                     {% endif %}  
+                    <form method="POST" class="d-flex justify-content-center align-items-center h-100 pt-6">    
+                    {% csrf_token %} 
+                    {% if not personnel.is_admin %}
+                    {% if personnel.is_active %}
+                    <p hx-swap="outerHTML" hx-target="#dash" hx-confirm="Etes vous sur de désactivé ce personnel?" hx-post="{% url 'valide_actif_personnel' personnel.id %}"><input checked type="checkbox" name="actif"></p>
+                    {% else %}
+                    <p hx-swap="outerHTML" hx-target="#dash" hx-confirm="Etes vous sur de activé ce personnel?" hx-post="{% url 'valide_actif_personnel' personnel.id %}"><input type="checkbox" name="actif"></p>
+                    {% endif %}
+                    {% endif %} 
+                </form> 
                 </div>
                 <div class="col-1">
                     <p class="d-flex justify-content-center align-items-center h-100"><a hx-swap="outerHTML" hx-push-url="true" hx-get="{% url 'modif-personnel' personnel.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
                 </div>
                 <div class="col-1">
-                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#content" hx-delete="{% url 'delete-personnel' personnel.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                    {% if personnel.is_admin %}
+                    <P class="d-flex justify-content-center align-items-center h-100">--------</P>
+                    {% endif %} 
+                    {% if not personnel.is_admin %}
+                        <p class="d-flex justify-content-center align-items-center h-100"><a  hx-target="#dash" hx-delete="{% url 'delete-personnel' personnel.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                    {% endif %}
                 </div>
             </div>     
         {% endfor %}        

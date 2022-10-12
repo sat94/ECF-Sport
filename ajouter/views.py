@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from accounts.models import option, partenaire, structure
 from ajouter.forms import AjoutoptionForm, AjoutStrutureForm,SignupForm, AjoutPartenaireForm
 from django.core.mail import EmailMessage
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -79,10 +80,11 @@ def add_personnel(request):
             user = form.save(commit=False)  
             if permission == f"Commercial": 
                 user.is_admin = True
+                user.commercial = True
             user.is_active = False           
             user.save()
             active_Email(request, user, email, nom, password, permission) 
-            return redirect('dashboard')
+            return redirect('dashboard_personnel')
         else:
             form = SignupForm() 
     return render(request, "signup.html",{"form": form})  
@@ -100,7 +102,8 @@ def add_option(request):
         form = AjoutoptionForm(request.POST)         
         if form.is_valid():
             form.save()
-            return redirect('dashboard')
+            messages.success(request," L'option a bien été rajouter ! ")
+            return redirect('dashboard_option')
         else:
             form = AjoutoptionForm() 
     return render(request, "rajoutoption.html",{"form": form}) 

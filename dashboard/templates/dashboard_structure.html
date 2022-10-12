@@ -1,5 +1,4 @@
 {% extends 'dashbord.html' %}
-{% load static %}
 {% load custom_tags %}
 
 {% block title %}dashboard_partenaire{% endblock title %}
@@ -40,18 +39,21 @@
                 <div class="col-2">     
                     <p class="d-flex justify-content-center align-items-center h-100">{{ structures.numberPhone|phoneNumber }}</p>
                 </div>
-                <div class="col-1">     
+                <div class="col-1"> 
+                <form method="POST" class="d-flex justify-content-center align-items-center h-100">    
+                    {% csrf_token %}  
                     {% if structures.actif %}
-                        <p class="d-flex justify-content-center align-items-center h-100"><input checked type="checkbox" name="actif"></p>
+                        <p hx-swap="outerHTML" hx-target="#dash" hx-confirm="Etes vous sur de désactivé ce structure?" hx-post="{% url 'valide_actif_structure' pk=structures.id %}" class="d-flex justify-content-center align-items-center h-100"><input checked type="checkbox" name="actif"></p>
                     {% else %}
-                        <p class="d-flex justify-content-center align-items-center h-100"><input type="checkbox" name="actif"></p>
-                    {% endif %}  
+                        <p hx-swap="outerHTML" hx-target="#dash" hx-confirm="Etes vous sur d'activer ce structure?" hx-post="{% url 'valide_actif_structure' pk=structures.id %}" class="d-flex justify-content-center align-items-center h-100"><input type="checkbox" name="actif"></p>
+                    {% endif %} 
+                </form>
                 </div>
                 <div class="col-1">
                     <p class="d-flex justify-content-center align-items-center h-100"><a hx-push-url="true" hx-get="{% url 'modif-structure' structures.pk %}" hx-target="#dash" class="btn btnr btn-dark">Modifier</a></p>
                 </div>
                 <div class="col-1">
-                    <p class="d-flex justify-content-center align-items-center h-100"><a hx-target="#content" hx-delete="{% url 'delete-structure' structures.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
+                    <p class="d-flex justify-content-center align-items-center h-100"><a  hx-target="#dash" hx-delete="{% url 'delete-structure' structures.pk %}" hx-confirm="Etes vous sur que vous désirez supprimer?" class="btn btnr danger">Effacer</a></p>
                 </div>
             </div>     
         {% endfor %}        
