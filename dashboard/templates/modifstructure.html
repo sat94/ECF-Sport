@@ -35,15 +35,16 @@
                          
     
             <label>Photo :</label><br>             
-            {% render_field form.photo %}<Br>
-                              
+            {% render_field form.photo %}<Br>                              
                    
             <div id="complex"><div>{% render_field form.piscine %}  <label class="complex">Piscine</label></div>        
                 <div>{% render_field form.haman %}  <label class="complex">Haman</label></div>                         
                 <div>{% render_field form.sauna %}  <label class="complex">Sauna</label></div>
             </div>
-                <button class="btn btnr bg-dark" type="submit" value="submit" >Valider</button>            
+                <button class="btn btnr bg-dark" hx-target="#page" hx-push-url="true" hx-post="{% url 'modifstructure' pk=user.structure.pk %}" type="submit" value="submit" >Valider</button>            
         </div>
     </form>
 </div>                    
 {% endblock %}
+
+{% block javascript %}{% endblock javascript %}

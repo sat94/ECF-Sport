@@ -51,9 +51,10 @@
             </div>
                 
             <p><button hx-swap="outerHTML"  hx-post="{% url 'add-structure' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" name="validation">Valider</button>  
-            <a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'dashboard' %}" class="btn btnr btn-dark">Retour</a></p>          
+            <a hx-swap="outerHTML" hx-target="#dash" hx-get="{% url 'dashboard_structure' %}" class="btn btnr btn-dark">Retour</a></p>          
         </div>
     </form>
 </div>
 
 {% endblock %}
+{% block javascript %}{% endblock javascript %}

@@ -1,14 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Exo+2:200i);
 
-:root {
-   
+:root {   
   --neon-text-color: #5aff08;
   --neon-border-color: rgb(21, 255, 0);
-}
-
-body {
-  font-family: 'Exo 2', sans-serif;
-  display: flex;
 }
 
 h1 {
@@ -68,9 +62,61 @@ body{
     background-image: url(couverture.jpg) ; 
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: cover;   
+    background-size: cover;
+    font-family: 'Exo 2', sans-serif;
+    display: flex;   
 }
 .top{
     margin-top: 260px; 
     margin-left: 120px;
   }
+
+@media only screen and (max-width: 800px) {
+  body{
+    color: white;
+    background-color: #1d1b1e;
+    background-image: url(port.jpg) ;     
+    background-repeat: no-repeat;  
+    background-position: left 15% top 100%;
+    font-family: 'Exo 2', sans-serif;          
+}
+
+.top{
+  margin-top: 160px; 
+  margin-left: 20px;
+}
+
+h1 {
+  font-size: 5rem;
+  filter: opacity(100%);  
+  font-weight: 200;
+  font-style: italic;
+  color: rgb(46, 244, 7);
+  text-transform: uppercase;
+  animation: flicker 1.5s infinite alternate;     
+  }
+}
+@media only screen and (max-width: 980px) {
+  body{
+    color: white;
+    background-color: #1d1b1e;
+    background-image: url(port.jpg) ;     
+    background-repeat: no-repeat;  
+    background-position: left 15% top 100%;
+    font-family: 'Exo 2', sans-serif;
+          
+}
+.top{
+  margin-top: 160px; 
+  margin-left: 50px;
+}
+h1 {
+  font-size: 5rem;
+  filter: opacity(100%);  
+  font-weight: 200;
+  font-style: italic;
+  color: rgb(46, 244, 7);
+  text-transform: uppercase;
+  animation: flicker 1.5s infinite alternate;     
+}
+}

@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from accounts.models import option, partenaire, structure
 from django.contrib.auth.decorators import login_required
 from partner.forms import Actif_par_id, Option_par_id
+from django.contrib import messages
 
 @login_required
 def Partenaire(request):
@@ -28,6 +29,7 @@ def Partenaire_option(request, pk):
         form = Option_par_id(request.POST, instance=partenaires)           
         if form.is_valid():             
             form.save()
+            messages.success(request,"les options du partenaire ont été modifier!")
             return redirect('optionbase', pk=partenaires.id)
             
     context= { "partenaires" : partenaires,
@@ -47,7 +49,15 @@ def option_partenaire_valide(request, pk):
         form = Actif_par_id(request.POST, instance=partenaires)          
         if form.is_valid():          
             form.save()
+            messages.success(request,"le partenaire est modifier!")
             return redirect('optionbase', pk=partenaires.id )
-    
+
+@login_required
+def Options_partenaires(request, pk):
+    partenaires = partenaire.objects.get(id=pk)
+    context= {
+        "partenaires" : partenaires
+    }
+    return render(request,"user_resp.html", context)
   
     

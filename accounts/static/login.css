@@ -8,6 +8,7 @@ body{
 }
 h4{
     padding-top: 50px;
+    font-size: 50px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-style: italic;
     color: #00ff1A;
@@ -58,4 +59,50 @@ label{
 }
 span{
     color:rgb(98, 98, 236);
+}
+@media screen and (max-width: 800px){ 
+    body{
+        color: beige;
+        background-color: #1d1b1e;
+        background-image: url(port.jpg) ; 
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;   
+    }
+    .bloc{
+        text-align: center;
+        width: 380px;
+        height: auto;
+        background: black;
+        border: 1px solid rgb(87, 245, 3); 
+        margin-top: 80px; 
+        margin-left: 50px;               
+    }
+}
+@media screen and (max-width: 450px){ 
+    .bloc{
+        text-align: center;
+        width: 100%;
+        height:auto;
+        background: black;
+        border: 1px solid rgb(87, 245, 3); 
+        margin-top: 65px; 
+        margin-left: 0%;
+                             
+    }
+    .text{     
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: lighter;
+        font-size: 12px;
+        position: relative;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;    
+    }
+    .petit{
+        font-size: 12px;
+        width: 100%;
+        font-weight: none;
+    }
+
 }

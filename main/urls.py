@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import include, path
 from ajouter.views import *
 from dashboard.views import *
-from .views import index, recherche, false
+from .views import index, false
 from profil.views import UserEditView, profils
 from partner.views import *
 from structure.views import Options, details, valide_option_structure, option_structure_valide
@@ -23,19 +23,20 @@ urlpatterns = [
     path("profils/user/monpartenaire/", mon_partenaire, name='monPartenaire'),
     path("profils/user/modifstructure/<int:pk>", user_structure, name='modifstructure'),
     path("profils/user/modifpartenaire/<int:pk>", user_partenaire, name='modifpartenaire'),
-    path('profils/user/option/<int:pk>',option_user_change, name='user_option_partenaire'),
+    path('profils/user/partenaire/option/<int:pk>',option_user_partenaire, name='user_option_partenaire'),
+    path('profils/user/structure/option/<int:pk>',option_user_structure, name='user_option_structure'),
 
     path("false/", false, name="false"),
     path('accounts/', include ('django.contrib.auth.urls')), 
     path('profils/', profils, name="profils" ) , 
     path('profils/modifier', UserEditView.as_view(), name='modifprofils') ,    
     path('profils/password', auth_views.PasswordChangeView.as_view(template_name='registration/password.html'), name='password') ,
-    path('partenaire/', Partenaire, name="partenaire"),
+    path('partenaire/', Partenaire, name="partenaire"),    
     path('partenaire/option/<int:pk>', Partenaire_option, name="optionbase"),
-    path('partenaire/<str:slug>', Structure, name='structure'),
-    path('recherche/', recherche, name="recherche"),
+    path('partenaire/<str:slug>', Structure, name='structure'), 
     path('detail/<int:pk>', details, name="detail"),
-    path('responsable/<int:pk>', Options, name="responsable"),
+    path('responsable/structure/<int:pk>', Options, name="responsable"),
+    path('responsable/partenaire/<int:pk>', Options_partenaires, name="responsables"),
     path('activate/<uidb64>/<token>', activate, name="activate"),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name = "reset_password.html"), name ='reset_password'),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "password_reset_sent.html"), name ='password_reset_done'),
@@ -77,10 +78,15 @@ htmx_urlpatterns = [
     path('valide/<int:pk>',option_partenaire_valide, name="valide"),
     path('structures/valide/<int:pk>',option_structure_valide, name="valide_structure"),
     path('structures/option/<int:pk>', valide_option_structure, name="valide_structure_option"),
+    
+    path('cherche_structure/',cherche_structure, name="cherche-structure"),
+    path('cherche_personnel/',cherche_personnel, name="cherche-personnel"),
+    path('cherche_partenaire/',cherche_partenaire, name="cherche-partenaire"),
+    path('cherche_option/',cherche_option, name="cherche-option"),
 
     path('checkbox/valide/partenaire/<int:pk>',dash_valide_partenaire,name='valide_actif_partenaire'),
     path('checkbox/valide/structure/<int:pk>',dash_valide_structure,name='valide_actif_structure'),
-    path('checkbox/valide/personnel/<int:pk>',dash_actif_personnel,name='valide_actif_personnel')
+   
 ]
 dashboard_urlpatterns = [
     path("dash/", dashboard, name='dashboard'),

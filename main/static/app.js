@@ -1,5 +1,5 @@
 var textWrapper = document.querySelector('.ml3');
-textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+textWrapper.innerHTML = textWrapper.textContent.replace(/\w/g, "<span class='letter'>$&</span>");
 
 anime.timeline({loop: true})
   .add({
@@ -16,4 +16,7 @@ anime.timeline({loop: true})
     easing: "easeOutExpo",
     delay: 1000
   });
+
+
+
 

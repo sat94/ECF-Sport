@@ -109,5 +109,22 @@ a.navbar-brand{
   width: auto; 
   border-radius: 50%;
   object-position: 50% 5%;
+  
 }
+@media only screen and (max-width: 800px) {
+  a.navbar-brand{
+    color: white!important;
+    padding: 0%;
+    margin-left: 0px;
+    font-size: 18px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+  }
 
+
+
+
+
+
+
+}

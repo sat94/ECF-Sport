@@ -8,41 +8,40 @@
 {% block title %}Dashboard{% endblock title %}
 
 {% block nav %}
+<div id="content">  
   {% include "partiel\navbar.html" %}
 {% endblock %}
 
 {% block content %}
-<div id="content">  
-    <div class="container top">
-      <div class="row">
-        <div class="col-4">
-          <div class="card" style="width: 18rem;">        
+<div class="top">
+  <div class="container">
+  <div class="row">
+    <div class="col-md-12 col-xl-4">
+        <div class="cards">        
           <div class="card-body cardone">
           <p class="card-text text-center" style="font-size:2.7rem;"><i class="fas fa-address-card"></i> Partenaire</p>          
           <h2 class="card-title text-center">{{ part }}</h2>        
+          </div>
         </div>
-      </div>
     </div>
-    <div class="col-4">
-      <div class="card" style="width: 18rem;">        
+    <div class="col-md-12 col-xl-4">
+      <div class="cards">        
         <div class="card-body cardtwo">
           <p class="card-text text-center" style="font-size:2.8rem;"><i class="fas fa-project-diagram"></i> Structure </p>          
           <h2 class="card-title text-center">{{ struct }}</h2>
         </div>
       </div>
     </div>
-    <div class="col-4">
-      <div class="card" style="width: 18rem;">        
+    <div class="col-md-12 col-xl-4">
+      <div class="cards">        
         <div class="card-body cardthree">
           <p class="card-text text-center" style="font-size:2.8rem;"><i class="fas fa-user"></i> Personnel</p>          
           <h2 class="card-title text-center">{{ per }}</h2>        
         </div>
       </div>
     </div>
-  </div>  
-  <div hx-trigger="load">
-    {% include "partiel\graph.html" %}
-    <img  alt="Chargement..." class="htmx-indicator" width="50" src="{% static '295648.svg' %}">
-  </div>   
-  </div>
+  </div> 
+    {% include "partiel\graph.html" %}   
+<div>
 {% endblock content %}
+{% block javascript %}{% endblock javascript %}

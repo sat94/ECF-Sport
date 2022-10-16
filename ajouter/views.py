@@ -57,7 +57,7 @@ def active_Email(request, user, email, nom, password, permission):
     })     
     emails = EmailMessage(subject, message, to=[email])
     if emails.send():
-        messages.success(request, f"Bienvenue <b>{nom}</b>, veillez regardez dans vos mails <b>{email}</b> dans le mail vous trouverez un lien de validation, veillez cliquez sur le lien pour complèter le dossier.<b>Note:</b> Oubliez pas de regarder dans vos courriers indésirable.")
+        messages.success(request, f"Bienvenue {nom}, veillez regardez dans vos mails {email} dans le mail vous trouverez un lien de validation, veillez cliquez sur le lien pour complèter le dossier.Note: Oubliez pas de regarder dans vos courriers indésirable.")
     else:
         messages.error(request, f'Nous avons pas pu vous envoyer un mail vers {email}, vérifier que vous tapez email correctement. ')
 

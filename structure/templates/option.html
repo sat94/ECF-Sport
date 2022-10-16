@@ -9,55 +9,35 @@
 
 
 {% block content %}
-<div class="container md-6">
+<div class="container">
     <div class="top"> 
         <div class ="row">
-            <div class="suffit col-2">
+            <div class="col-8 col-lg-6">
             <br>
-            <p> Nom :</P>
-            <p> Prénom:</P>
-            <p> Email :</P>
-            <p> Adresse:</P>
-            <p> Ville: </P>
-            <p> Code Postal: </P>         
-            <p> Actif </p>
-            <br><br>
-            </div>
-            <div class="col-3 ">
-            <br>
-            <p>{{structure.user.nom}}</P>
-            <p>{{structure.user.prenom}} </P>
-            <p>{{structure.user.email}} </P>
-            <p>{{structure.user.adresse}}</P>
-            <p>{{structure.user.ville}}</P>
-            <p>{{structure.user.CodePostal}}</P>
-            {% if user.admin %}                         
-                {% if structure.actif %}
-                <p><input checked type="checkbox" name="option"></p>
-                {% else %}
-                <p><input type="checkbox" name="option"></p>
-                {% endif %}
-            {% else %}
-                {% if structure.actif %}
-                <p><img src={% static 'vert.png' %}  style="width:10%;margin-left:1rem;"></p>
+            <p><span class="suffit"> Nom : </span>{{structure.user.nom}}</P>
+            <p><span class="suffit"> Prénom: </span>{{structure.user.prenom}} </P>
+            <p><span class="suffit"> Email : </span>{{structure.user.email}} </P>
+            <p><span class="suffit"> Adresse: </span>{{structure.user.adresse}}</P>
+            <p><span class="suffit"> Ville: </span>{{structure.user.ville}}</P>
+            <p><span class="suffit"> Code Postal: </span>{{structure.user.CodePostal}}</P>       
+            <p>{% if structure.user.is_active %}<p><span class="suffit"> Actif : </span><img src={% static 'vert.png' %}  style="width:25px;margin-left:1rem;"></p>
                 {% else %}                                      
-                <p><img src={% static 'false.png' %}  style="width:8%;margin-left:1rem;"></p>
+                    <p><span class="suffit"> Actif : </span><img src={% static 'false.png' %}  style="width:20px;margin-left:1rem;"></p>
                 {% endif %}
-            {% endif %}
-            </div>
-            <div class="col-5 col-md-12 col-lg-3 px-3 mt-3">                
+            <br>
+            <button hx-swap="outerHTML"  hx-push-url="true" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true">Retour</buttom>
+            </div>         
+            
+            <div class="col-2 col-lg-6">                
                     {% if structure.user.photo.url %} 
-                        <img src={{ structure.user.photo.url }} class="rounded-3 img-fluid float"  alt={{ structure.user.photo.url }}>
+                      <p class="d-flex justify-content-center align-items-center"><img src={{ structure.user.photo.url }} class="rounded-3 float"  alt={{ structure.user.photo.url }}></p>
                     {% else %}
-                        <img src={% static 'inconnu.jpg' %} class="rounded-3 img-fluid float"  alt="inconnu.jpg">
+                       <p class="d-flex justify-content-center align-items-center"><img src={% static 'inconnu.jpg' %} class="rounded-3 float"  alt="inconnu.jpg"></P>
                     {% endif %}                
             </div>
         </div> 
     </div>
 </div>
-<div class ="row-3">
-    <div class="col-3 button">        
-        <a  hx-swap="outerHTML"  hx-push-url="true" hx-target="#page" hx-get="{% url 'structure' slug=structure.part %}" class="btn btn-dark btn-lg" tabindex="-1" role="button" id="button" aria-disabled="true"><img src="{% static "retour.png" %}" style="height:1rem"></a>    
-    </div> 
-</div>
 {% endblock content%}
+
+{% block javascript %}{% endblock javascript %}

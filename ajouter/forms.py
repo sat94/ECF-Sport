@@ -17,7 +17,7 @@ class AjoutoptionForm(forms.ModelForm):
                     'cols' : 40,
                 }
             )
-        }     
+        }    
 
 class SignupForm(UserCreationForm):
     class Meta:
@@ -50,6 +50,11 @@ class SignupForm(UserCreationForm):
         }    
 
 class AjoutStrutureForm(forms.ModelForm): 
+    def __init__(self, *args, **kwargs):
+        super(AjoutStrutureForm, self).__init__(*args, **kwargs)
+        CUSTOM_QUERYSET = MyUser.objects.filter(commercial = False, responsable = None, structure = None)        
+        self.fields['user'].queryset = CUSTOM_QUERYSET
+     
     class Meta:
         model = structure
         fields = [
@@ -78,10 +83,6 @@ class AjoutStrutureForm(forms.ModelForm):
             "option": forms.CheckboxSelectMultiple(),
             "adresse": forms.Textarea(attrs={"rows" : 2, "cols": 23}),
         }         
-    def __init__(self, *args, **kwargs):
-        super(AjoutStrutureForm, self).__init__(*args, **kwargs)
-        CUSTOM_QUERYSET = MyUser.objects.filter(commercial=False)
-        self.fields['user'].queryset = CUSTOM_QUERYSET
 
 class AjoutPartenaireForm(forms.ModelForm):    
     class Meta:
@@ -113,7 +114,6 @@ class AjoutPartenaireForm(forms.ModelForm):
   
     def __init__(self, *args, **kwargs):
         super(AjoutPartenaireForm, self).__init__(*args, **kwargs)
-        CUSTOM_QUERYSET_USER = MyUser.objects.filter(commercial=False)
-        CUSTOM_QUERYSET_SALLE = structure.objects.filter(part=None)
-        self.fields['resp'].queryset = CUSTOM_QUERYSET_USER
-        self.fields['salle'].queryset = CUSTOM_QUERYSET_SALLE
+        CUSTOM_QUERYSET = MyUser.objects.filter(commercial = False, responsable = None, structure = None)        
+        self.fields['resp'].queryset = CUSTOM_QUERYSET
+       

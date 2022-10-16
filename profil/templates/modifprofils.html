@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="bloc">
-    <h1>Modifier<spam style="color: white; font-style: italic;"> un compte</spam></h1>
+    <h1><span class="suffit">Modifier</span><span style="color: white; font-style: italic;"> un compte</span></h1>
     <form method ="POST" hx-encoding="multipart/form-data">
         <div class="form-group align form mb-3">
                 {% csrf_token %}   
@@ -39,12 +39,14 @@
                 {% render_field form.ville placeholder="Votre ville" %}<Br>
 
                 <label>Photo :</label>    
-                {% render_field form.photo %}<Br> 
-            
-               <p> <button value="submit" hx-target="#page" hx-push-url="true" hx-post="{% url 'modifprofils' %}" class="btn btnr bg-dark" type="submit">Valider</button>
-                <button hx-target="#page"  hx-push-url="true" hx-get="{% url 'profils' %}" class="btn btnr bg-dark" type="submit">Retour</button> </p>              
+                {% render_field form.photo %}<Br>                
+                            
+                <p><button value="submit" hx-target="#page" hx-push-url="true" hx-post="{% url 'modifprofils' %}" class="btn btnr bg-dark me-2" id="button" type="submit">Valider</button>
+                <button hx-target="#page"  hx-push-url="true" hx-get="{% url 'profils' %}" class="btn btnr bg-dark" id="button" type="submit">Retour</button> </p>              
         </div>
     </form>
 </div>
 
 {% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

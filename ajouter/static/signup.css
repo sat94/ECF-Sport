@@ -103,8 +103,7 @@ ul li{
     text-align: center;
     width: 65%;           
 }
-#titredescription{
-    display: flex;
+#titredescription{    
     flex: 2;
     align-content: center;  
  }
@@ -125,6 +124,47 @@ ul li{
     justify-content: space-around;
     margin-bottom: 50px;
 }
+@media screen and (max-width: 800px){
+    .bloc{
+        text-align: center;
+        width: 600px;
+        height: auto;
+        background: url();
+        background: black!important;
+        margin-top: 50px;  
+        margin-left: 0px;
+        overflow-x: hidden;
+    } 
+    body{
+        background-color: black;
+    }
+}
+@media screen and (max-width: 500px){
+    .bloc{
+        text-align: center;
+        width: 100vw;
+        height: 100hw;
+        background: black;
+        margin-top: 50px;  
+        margin-left: 0px;        
+    }
+    .align{
+        font-size: 12px;
+    }
+    #id_option :nth-child(1n+0) {
+        font-size: 12px;
+    }
+    .btnr{
+        font-family: 'Times New Roman', Times, serif;
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 10px;
+        color: white;
+        border: 1px solid white;
+        margin-bottom: 60px;
+    } 
+}
+
 
 
 

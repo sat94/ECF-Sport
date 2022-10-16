@@ -22,17 +22,19 @@
                 {% render_field  form.slug hx-post="/check_slug/" hx-trigger="keyup" hx-target="#titre-error" %} 
                 <div id="titre-error"></div><Br>    
 
-                <label id="lab"><span id="titredescription">Description :</span><span id="compteur1"></span></label>                 
+                <label id="lab"><span id="titredescription" class="me-6">Description :</span><span id="compteur1"></span></label>                 
                 {% render_field  form.description id="zoneTexte" %}<br>      
                
                 <p><button hx-post="{% url 'add-option' %}" hx-target="#dash" class="btn btnr bg-dark" type="submit" value="submit" >Valider</button>
-                    <a hx-target="#dash" hx-get="{% url 'dashboard' %}"class="btn btnr btn-dark">Retour</a></p>            
+                    <a hx-target="#dash" hx-get="{% url 'dashboard_option' %}"class="btn btnr btn-dark">Retour</a></p>            
         </div>
     </form>
 </div>
+{% endblock %}
+{% block javascript %}
 <script>
     document.getElementById('zoneTexte').addEventListener('keyup', function() {
         document.getElementById('compteur1').innerHTML = 90 - zoneTexte.value.length;
     });
 </script>
-{% endblock %}
+{% endblock javascript %}

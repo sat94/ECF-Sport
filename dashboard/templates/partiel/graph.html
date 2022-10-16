@@ -1,20 +1,20 @@
-<div class="container graph" id="graph">
+{% load static %}
+<div id="graph">
     <div class="row">
-      <div class="col-6">
-        <div class="card" style="width: 30rem;"> 
+      <div class="col-xl-6 col-lg-12">
+        <div class="card"> 
           <div class="card-body bg-dark">
           <p class="card-text text-center" style="font-size:2.8rem;"><i class="fas fa-university"></i> Api-Sport</p>
-          <div>{% autoescape off %} {{ cam }} {% endautoescape %}</div> 
-        </div>
-      </div>
-    </div> 
-      <div class="col-6">
-        <div class="card" style="width: 30rem;"> 
-          <div class="card-body bg-dark">
-            <p class="card-text text-center" style="font-size:2.8rem;"><i class="fas fa-users"></i> Membres</p>
-            <div>{% autoescape off %} {{ graph }} {% endautoescape %}</div>            
+          <div hx-trigger="load">{% autoescape off %} {{ cam }} {% endautoescape %}</div> 
           </div>
         </div>
+      </div> 
+      <div class="col-xl-6 col-lg-12">
+          <div class="card"> 
+            <div class="card-body bg-dark">
+            <p class="card-text text-center" style="font-size:2.8rem;"><i class="fas fa-users"></i> Membres</p>
+            <div hx-trigger="load">{% autoescape off %} {{ graph }} {% endautoescape %}</div>            
+          </div>
       </div>
-    </div>
+    </div>    
 </div>

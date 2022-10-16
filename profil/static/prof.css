@@ -2,8 +2,10 @@ body{
     color: beige;   
     background-color: #0b0c11;
     background-image: url(homme.jpg);   
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: cover;   
+    background-size: cover; 
+    overflow-x: hidden;  
 }
 .top{
     margin-top: 260px;     
@@ -13,10 +15,7 @@ body{
     width: 220px;
     object-fit: cover;    
   }
-.tech {
-    align-items: center;
-    overflow: hidden;    
-}
+
 .container{
     font-family: 'Times New Roman', Times, serif;
     width: 1000px;
@@ -24,10 +23,18 @@ body{
     font-size: 22px;
 }
 #button{
-    margin-top: 160px;
+  font-size: 16px;
+  border: 1px solid rgb(97, 95, 95);
+  transition: .3s ease-in-out;
+}
+#button:hover{
+   background-color: black;
+   border: 1px solid black;
+   color: #00ff1A;
 }
 .suffit{
     color: #00ff1A!important;
+    font-style: italic;
 }
 .form{
     margin-top: 30px;
@@ -57,4 +64,57 @@ body{
     border: 1px solid #00ff1A;
     background-color: black!important;
     color: #00ff1A;    
+}
+p{
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 800px){ 
+  body{
+      color: beige;
+      background-image: url(homme.jpg);    
+      background-repeat: no-repeat;
+      background-attachment: fixed; 
+      background-size: cover;  
+      overflow-x: hidden; 
+    }
+    .float{
+      width: 25vw;
+      height: 25vh;
+      margin-left: 1rem;
+      margin-bottom: 6rem;
+    }
+    #button{
+      font-size: 14px;     
+    }
+    .top{
+      margin-top: 80px;      
+    }
+    .container{
+      font-family: 'Times New Roman', Times, serif;  
+      width: 100%;     
+      margin-left: 5px;
+      font-size: 16px;
+    }
+    .bloc{
+        text-align: center;
+        width: 600px;
+        height: auto;
+        background: black;
+        margin-top: 62px;  
+        margin-left: 0px;
+    }
+  }
+@media screen and (max-width: 600px){ 
+  body{
+    overflow-x: hidden;
+    font-size: 12px;
+  }
+  .bloc{
+    width: 100%;
+    height: 100%;
+  }
+  #button{
+    font-size: 12px;     
+  }
 }

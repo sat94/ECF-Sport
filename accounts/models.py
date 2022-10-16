@@ -43,12 +43,10 @@ class MyUser(AbstractBaseUser):
     CodePostal = models.IntegerField(null=True, blank=True)  
     commercial = models.BooleanField(default=False)
     ville = models.CharField(max_length=20)
-    permission = models.CharField(choices= permi, max_length=15, null=True, blank=True)
+    permission = models.CharField(choices= permi, max_length=15, default="Responsable", null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    partenaires = models.CharField(max_length=20, null=True, blank=True) 
-    structures = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):       
         return self.username
@@ -59,7 +57,6 @@ class MyUser(AbstractBaseUser):
         
     def get_absolute_url(self):
         return reverse("profils")  
-
     
     USERNAME_FIELD = "username"
     objects = MyUserManager()
@@ -101,8 +98,7 @@ class structure(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.part)
-        super().save(*args, **kwargs)  
-       
+        super().save(*args, **kwargs)         
 
 class partenaire(models.Model):
     salle = models.ForeignKey(structure, on_delete = models.SET_NULL, null=True, blank=True)

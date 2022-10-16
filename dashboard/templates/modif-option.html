@@ -30,9 +30,11 @@
         </div>
     </form>
 </div>
+{% endblock %}
+{% block javascript %}
 <script>
     document.getElementById('zoneTexte').addEventListener('keyup', function() {
         document.getElementById('compteur1').innerHTML = 90 - zoneTexte.value.length;
     });
 </script>
-{% endblock %}
+{% endblock javascript %}

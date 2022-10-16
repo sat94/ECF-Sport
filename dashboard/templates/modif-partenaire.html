@@ -44,10 +44,13 @@
         </div>
     </form>
 </div>
+
+{% endblock %}
+
+{% block javascript %}
 <script>
        document.getElementById('zoneTexte').addEventListener('keyup', function() {
         document.getElementById('compteur').innerHTML = 70 - zoneTexte.value.length;
     });
 </script>
-
-{% endblock %}
+{% endblock javascript %}

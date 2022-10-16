@@ -23,12 +23,14 @@
         <script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>   
         <link rel="shortcut icon" href="{% static 'favicon.jpg' %}" type="image/x-icon" />    
-        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-        <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>       
         <link rel="stylesheet" href="{% static 'style.css' %}">        
+        <title>Api Sport - {% block title%}{% endblock %} </title>
+        <div id="dash">
+        <div id="page">
+        {% block head %} {% endblock head %}
     </head>
-<body>
-<div id="dash">
+    <body>
 {% block nav %}
 <div class="row">
     <nav class="navbar navbar-light navbar-expand-lg fixed-top">
@@ -66,25 +68,15 @@
                     <li class="nav-item"><a class="nav-link me-0 me-lg-5"><img src="{% static 'inconnu.jpg' %}" class="navbar-brand ms-1 ms-md-4 rounded-3" height="175" font-size="56" alt="logo_api"></a></li> 
                     {% endif %} 
             {% endif %}
-        </ul>
-        {% comment %} {% if user.is_authenticated %}
-        <form method="get" class="d-flex ml-3" action="{% url 'recherche' %}">
-            <input placeholder="Rechercher" class="form-control me-2" type="searh" name="searh"></input>
-            <button class="btn btnl bg-dark" type="submit">Rechercher</button>
-        </form>         
-        {% endif %}  {% endcomment %}
-    </div>
-</div>
-</nav>      
-</div>
- 
+                </ul>
+            </div>
+        </div>
+    </nav>      
+</div> 
 {% endblock nav %}
-<div id="page">
-{% block head %} {% endblock head %}
-<title>Api Sport - {% block title%}{% endblock %} </title>
-<div id="structure"></div>
 
 {% block content %}{% endblock content %}
+
 {% for message in messages %}
   {% if message.tags == 'success' %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.1/dist/sweetalert2.all.min.js"></script>
@@ -99,20 +91,17 @@
     </script>
   {% endif %}
 {% endfor %}
-
 </div>
 </div>
-{% block footer%}{% endblock footer %}
-
 <script>    
-document.body.addEventListener('htmx:configRequest', (event)=> {
-    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
-})
+    document.body.addEventListener('htmx:configRequest', (event)=> {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
 </script> 
-
 <script src={% static 'app.js' %}></script>
 {% block javascript %}{% endblock javascript %}
 </body>
+
 
 
 

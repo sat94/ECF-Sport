@@ -19,6 +19,7 @@ class Profils(UserChangeForm):
         if commit:
             instance.save()
         return instance
+    
     class Meta:
         model = MyUser
         fields = [

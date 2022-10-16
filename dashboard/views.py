@@ -3,7 +3,7 @@ from django.http import QueryDict
 from accounts.models import *
 from partner.forms import Actif_par_id, Option_par_id
 from profil.forms import Profils
-from structure.forms import Actif_structure
+from structure.forms import Actif_structure, Option_structure
 from .forms import *
 from ajouter.forms import *
 from django.shortcuts import render, redirect
@@ -12,6 +12,9 @@ import  pandas as pd
 from plotly.offline import plot
 import plotly.express as px
 from django.contrib import messages
+from django.db.models import Q
+from django.core.paginator import Paginator
+
 
 @login_required
 def dashboard(request):
@@ -31,7 +34,7 @@ def dashboard(request):
         } for x in qs
     ]
     df = pd.DataFrame(project)    
-    fig = px.bar(df, x ="Structure", y="Nombre" , color="Responsable", width=450, height=400)
+    fig = px.bar(df, x ="Structure", y="Nombre" , color="Responsable")
     fig.layout.plot_bgcolor = 'black'
     fig.layout.paper_bgcolor = 'black'
     fig.layout.legend = {'font_color':'white'}
@@ -48,7 +51,7 @@ def dashboard(request):
     ]
 
     df = pd.DataFrame(cam)  
-    figa = px.pie(df, values='membre',names="nom", title ="Api-Sport", color="Partenaire", width=450, height=400)
+    figa = px.pie(df, values='membre',names="nom", title ="Api-Sport", color="Partenaire")
     figa.layout.paper_bgcolor = 'black'
     figa.layout.legend = {'font_color':'white'}
     figa.update_layout(title_font_color='white')
@@ -76,39 +79,59 @@ def ma_structure(request):
 def mon_partenaire(request):
     return render(request, 'monpartenaire.html')
 
-def option_user_change(request, pk):
+def option_user_partenaire(request, pk):
     part = partenaire.objects.get(pk=pk)
     form = Option_par_id(instance=part)
     if request.method == "POST":
         form = Option_par_id(request.POST, instance=part)           
         if form.is_valid():             
             form.save()
+            messages.success(request,"les options ont été modifier!")
             return redirect('monPartenaire')
     return render(request, 'option_partenaire.html',{'partenaire':part, 'form': form})
+
+
+def option_user_structure(request, pk):
+    structures = structure.objects.get(id=pk) 
+    form = Option_structure(instance=structures)
+    options = option.objects.all().order_by()
+    partenaires = partenaire.objects.get(id=structures.part.id)
+    listoptionpartenaire = [option_partenaire.id for option_partenaire  in partenaires.option.all()]
+    listoptionstructure = [option_structure.id for option_structure  in structures.option.all()]
+    if request.method == "POST": 
+        form = Option_structure(request.POST, instance=structures)
+        if form.is_valid():
+           form.save()
+           messages.success(request,"les options ont été modifier!")
+        return render(request,'mastructure.html')
+
+    context = {
+        "structure" : structures,
+        "options" : options, 
+        "listoptionpartenaire" : listoptionpartenaire,
+        "listoptionstructure" : listoptionstructure,       
+        "form" : form,
+    }
+    return render(request, 'option_structure.html', context)
+
 
 @login_required
 def user_partenaire(request, pk):
     part = partenaire.objects.get(id=pk)
-    if MyUser.photo:
-        default_image_path = part.photo.path
     form = ModifPartenaire(request.POST or None, request.FILES or None, instance=part)
-    if form.is_valid():
-        if len(request.FILES)!= 0:
-           delete_previous_picture(default_image_path, part.photo.path)
+    if form.is_valid():      
         form.save()
+        messages.success(request,"le partenaire a été modifier!")
         return redirect('monPartenaire')
     return render(request,'modifpartenaire.html',{'partenaire':part, 'form': form})
 
 @login_required
 def user_structure(request, pk):
-    part = structure.objects.get(id=pk)
-    if structure.photo:
-        default_image_path = part.photo.path
-    form = ModifStructureForm(request.POST, request.FILES, instance=part)
+    part = structure.objects.get(id=pk) 
+    form = ModifStructureForm(request.POST or None, request.FILES or None, instance=part)
     if form.is_valid():
-        if len(request.FILES)!= 0:
-           delete_previous_picture(default_image_path, part.photo.path)
         form.save()
+        messages.success(request,"la structure a bien été modifier !")
         return redirect('maStructure')
     return render(request,'modifstructure.html',{'structure':part, 'form': form})
 
@@ -118,23 +141,34 @@ def delete_previous_picture(previous,new):
         return True
     return False    
 
-@login_required
 def delete_previous_pictures(previous):
     os.remove(previous)
     return True  
 
 #option"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+def cherche_option(request):
+    cherche = request.POST.get('cherche')
+    options = option.objects.filter(Q(slug__icontains=cherche) |                                   
+                                    Q(description__icontains=cherche))                                                                     
+    context = {
+        'option' : options
+    }
+    return render(request,'dashboard_option.html', context)
+
 @login_required
 def dashboard_option(request):
     options = option.objects.all()
-    context= { "option" : options }
+    paginator = Paginator(options, 5)
+    page_number = request.GET.get('page')
+    page_object = paginator.get_page(page_number)
+    context= { "option" : page_object }
     return render(request, 'dashboard_option.html', context)
 
 @login_required
 def delete_option(request, pk):
     option.objects.filter(id=pk).delete()
-    messages.success(request,"l'option a bien été supprimer !")
+    messages.success(request,"l'option a été supprimer!")
     options = option.objects.all()
     context= { "option" : options }
     return render(request, 'dashboard_option.html', context)
@@ -157,16 +191,32 @@ def modifier_option_valide(request, pk):
         form = AjoutoptionForm(data, instance=options)
         if form.is_valid():
             form.save()
-            messages.success(request,"l'otpion a bien été modifier !")
+            messages.success(request,"l'otpion a été modifier !")
             return redirect('dashboard_option')
     return redirect('dashboard_option')
         
 #partenaire#############################################################################
 
+def cherche_partenaire(request):
+    cherche = request.POST.get('cherche')
+    partenaires = partenaire.objects.filter(Q(ville__icontains=cherche) |
+                                       Q(slug__icontains=cherche) |
+                                       Q(numberPhone__icontains=cherche) |
+                                       Q(description__icontains=cherche))                                                                      
+                                                                                                                
+    context = {
+        'partenaires' : partenaires
+    }
+    return render(request,'dashboard_partenaire.html', context)
+
+
 @login_required
 def dashboard_partenaire(request):
     partenaires = partenaire.objects.all() 
-    context= { "partenaires" : partenaires}
+    paginator = Paginator(partenaires, 5)
+    page_number = request.GET.get('page')
+    page_object = paginator.get_page(page_number)
+    context= { "partenaires" : page_object}
     return render(request,'dashboard_partenaire.html', context)
 
 def dash_valide_partenaire(request, pk):
@@ -175,17 +225,16 @@ def dash_valide_partenaire(request, pk):
         form = Actif_par_id(request.POST, instance=partenaires)         
         if form.is_valid():          
             form.save()
+            messages.success(request,"le partenaire a été modifier!")
             return redirect('dashboard_partenaire')   
 
 @login_required
 def delete_partenaire(request, pk):
     part = partenaire.objects.get(id=pk)
-    if part.photo:
-        default_image_path = part.photo.path
+    default_image_path = part.photo.path
     partenaire.objects.filter(id=pk).delete()
-    if default_image_path:
-        delete_previous_pictures(default_image_path) 
-    messages.success(request,"le partenaire a bien été supprimer !")  
+    delete_previous_pictures(default_image_path) 
+    messages.success(request,"le partenaire a été supprimer!")  
     partenaires = partenaire.objects.all()
     context= { "partenaires" : partenaires }
     return render(request, 'dashboard_partenaire.html', context)
@@ -206,7 +255,7 @@ def modifier_partenaire_valide(request, pk):
         if len(request.FILES)!= 0:
            delete_previous_picture(default_image_path, part.photo.path)
         form.save()
-        messages.success(request,"le partenaire a bien été modifier !")
+        messages.success(request,"le partenaire a été modifier!")
         return redirect('dashboard_partenaire')
 
 @login_required
@@ -215,7 +264,7 @@ def add_partenaire(request):
         form = AjoutPartenaireForm(request.POST,request.FILES)         
         if form.is_valid():                      
             form.save()
-            messages.success(request,"le partenaire a bien été ajouter !")
+            messages.success(request,"le partenaire a été ajouter!")
             return redirect('dashboard_partenaire')
         else:
             form = AjoutPartenaireForm() 
@@ -223,10 +272,26 @@ def add_partenaire(request):
 
 #structure#################################################################  
 
+def cherche_structure(request):
+    cherche = request.POST.get('cherche')
+    structures = structure.objects.filter(Q(nom__icontains=cherche) |
+                                       Q(slug__icontains=cherche) |
+                                       Q(numberPhone__icontains=cherche) |                                                                       
+                                       Q(adresse__icontains=cherche))                                                                           
+    context = {
+        'structures' : structures
+    }
+    return render(request,'dashboard_structure.html', context) 
+
 @login_required
 def dashboard_structure(request):
     structures = structure.objects.all()
-    context= { "structures" : structures }
+    paginator = Paginator(structures, 5)
+    page_number = request.GET.get('page')
+    page_object = paginator.get_page(page_number)
+    context= { 
+        "structures" : page_object
+    }
     return render(request, 'dashboard_structure.html', context) 
 
 @login_required
@@ -279,14 +344,34 @@ def dash_valide_structure(request, pk):
         form = Actif_structure(request.POST, instance=structures)         
         if form.is_valid():          
             form.save()
+            messages.success(request,"la structure a bien été modifier !")
             return redirect('dashboard_structure') 
 
 #Personnel################################################################################
 
+def cherche_personnel(request):
+    cherche = request.POST.get('cherche')
+    personnel = MyUser.objects.filter (Q(nom__icontains=cherche) |
+                                       Q(slug__icontains=cherche) |
+                                       Q(adresse__icontains=cherche) |
+                                       Q(prenom__icontains=cherche) |
+                                       Q(email__icontains=cherche) |
+                                       Q(ville__icontains=cherche) |
+                                       Q(username__icontains=cherche) |
+                                       Q(CodePostal__icontains=cherche) |                                     
+                                       Q(permission__icontains=cherche))                                                                           
+    context = {
+        'personnel' : personnel
+    }
+    return render(request,'dashboard_personnel.html', context) 
+
 @login_required
 def dashboard_personnel(request):
     personnel = MyUser.objects.all()
-    context = { "personnel" : personnel }
+    paginator = Paginator(personnel, 4)
+    page_number = request.GET.get('page')
+    page_object = paginator.get_page(page_number)
+    context = { "personnel" : page_object }
     return render(request, 'dashboard_personnel.html', context)
 
 @login_required
@@ -314,15 +399,6 @@ def modifier_personnel_valide(request, pk):
     form = Profils(request.POST or None, request.FILES or None, instance=part)
     if form.is_valid():
         form.save()
-        messages.success(request,"la personne a bien été modifier !")
+        messages.success(request,"la personne a été modifier!")
     return redirect('dashboard_personnel')
-
-def dash_actif_personnel(request, pk):
-    user = MyUser.objects.get(id=pk)
-    if request.method == "POST":
-        form = Actif_user(request.POST, instance=user)         
-        if form.is_valid():          
-            form.save()
-            return redirect('dashboard_peronnel') 
-
 
